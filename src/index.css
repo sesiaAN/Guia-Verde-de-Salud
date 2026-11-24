@@ -1,76 +1,52 @@
-:root {
-  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  
-  /* Paleta Amazonia */
-  --color-jungle-900: #081c15;
-  --color-jungle-800: #1b4332;
-  --color-jungle-700: #2d6a4f;
-  --color-jungle-600: #40916c;
-  --color-jungle-400: #74c69d;
-  --color-jungle-200: #b7e4c7;
-  --color-jungle-100: #d8f3dc;
-  --color-jungle-50: #eefbf1;
+/* ==========================================================================
+   INDEX.CSS — GUÍA VERDE DE SALUD
+   Tipografía Serif Elegante & Paleta Orgánica Inspirada en la Naturaleza
+   ========================================================================== */
 
-  /* Azul Río */
-  --color-river-900: #03045e;
-  --color-river-800: #023e8a;
-  --color-river-700: #0077b6;
-  --color-river-600: #0096c7;
-  --color-river-200: #caf0f8;
-  --color-river-50: #f0f9fd;
+:root {
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Verdes Profundos (Secciones oscuras estilo GreenCanopy) */
+  --bg-dark-forest: #153123;
+  --bg-dark-forest-deep: #0f241a;
+  --bg-dark-card: rgba(255, 255, 255, 0.07);
+  --bg-dark-card-hover: rgba(255, 255, 255, 0.12);
+  --border-dark-glass: rgba(255, 255, 255, 0.15);
+
+  /* Tonos Arena / Crema Cálido (Secciones claras onduladas) */
+  --bg-cream-base: #f7f4ed;
+  --bg-cream-surface: #f1ede2;
+  --bg-cream-card: #ffffff;
+  --border-cream: #e5dfd2;
+
+  /* Verdes Acento */
+  --color-leaf-primary: #2d6647;
+  --color-leaf-light: #52966f;
+  --color-leaf-glow: #88c2a1;
+  --color-leaf-pill: #d6eadf;
+
+  /* Textos */
+  --text-dark-title: #ffffff;
+  --text-dark-body: #d2e4d9;
+  --text-dark-muted: #9eb8a7;
+
+  --text-light-title: #14281c;
+  --text-light-body: #3c4f42;
+  --text-light-muted: #66796d;
 
   /* Alertas Médicas */
   --color-alert-red: #d62828;
-  --color-alert-dark: #9b1d20;
-  --color-alert-bg: #fff0f0;
-  --color-alert-border: #f8b4b4;
-  --color-warn-orange: #e76f51;
-  --color-warn-amber: #e67e22;
-  --color-warn-bg: #fff6ed;
-  
-  /* Neutros Cálidos */
-  --color-bg-base: #f7faf7;
-  --color-bg-card: #ffffff;
-  --color-bg-surface: #f0f4f1;
-  --color-text-main: #142119;
-  --color-text-muted: #4a5c51;
-  --color-border: #d4e0d7;
-  
-  /* Tamaños Accesibles */
-  --base-font-size: 16px;
-  --line-height-body: 1.55;
-  --touch-target-min: 48px;
+  --color-alert-bg: #fef2f2;
+  --color-alert-border: #fca5a5;
+
+  /* Medidas */
   --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --shadow-sm: 0 2px 6px rgba(12, 36, 24, 0.07);
-  --shadow-md: 0 6px 16px rgba(12, 36, 24, 0.1);
-  --shadow-lg: 0 12px 28px rgba(12, 36, 24, 0.14);
-}
-
-/* Modo Alto Contraste para sol brillante amazónico */
-body.high-contrast {
-  --color-jungle-800: #002e1b;
-  --color-jungle-700: #004529;
-  --color-river-700: #004d80;
-  --color-alert-red: #b30000;
-  --color-bg-base: #ffffff;
-  --color-bg-card: #ffffff;
-  --color-bg-surface: #e6eee7;
-  --color-text-main: #000000;
-  --color-text-muted: #1a261f;
-  --color-border: #000000;
-  --shadow-sm: none;
-  --shadow-md: 0 0 0 2px #000000;
-  --shadow-lg: 0 0 0 3px #000000;
-}
-
-/* Modificadores de tamaño de texto */
-body.text-lg {
-  --base-font-size: 18px;
-}
-body.text-xl {
-  --base-font-size: 20px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+  --radius-pill: 9999px;
+  --shadow-soft: 0 10px 30px rgba(18, 42, 29, 0.08);
+  --shadow-elevated: 0 20px 40px rgba(18, 42, 29, 0.14);
 }
 
 * {
@@ -81,37 +57,30 @@ body.text-xl {
 }
 
 html {
-  font-size: var(--base-font-size);
+  font-family: var(--font-sans);
+  background-color: var(--bg-dark-forest-deep);
+  color: var(--text-light-body);
   scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 body {
-  font-family: var(--font-family);
-  background-color: var(--color-bg-base);
-  color: var(--color-text-main);
-  line-height: var(--line-height-body);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
-}
-
-/* Foco accesible para teclado o accesibilidad */
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-a:focus-visible {
-  outline: 3px solid var(--color-river-700);
-  outline-offset: 2px;
-}
-
-/* Botones mínimos de 48px para situaciones táctiles en movimiento / canoa */
-button, input, select {
-  font-family: inherit;
-  font-size: 1rem;
 }
 
 button {
+  font-family: inherit;
   cursor: pointer;
   border: none;
+  outline: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 img, svg {
@@ -119,7 +88,11 @@ img, svg {
   max-width: 100%;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Clases de utilidad tipográfica */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
 }
