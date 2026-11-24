@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#1B4332">
+  <meta name="description" content="Guía Verde de Salud - Salud Río Loreto. Plataforma de primeros auxilios, botiquín amazónico y calculadora fluvial para comunidades rurales de Loreto. 100% Offline.">
+  <title>Guía Verde de Salud — Salud Río Loreto</title>
+  <style>
+    /* ==========================================================================
+       VARIABLES Y PALETA DE COLORES AMAZÓNICA (ACCESIBILIDAD RURAL)
+       ========================================================================== */
+    :root {
+      --color-jungle-900: #081c15;
+      --color-jungle-800: #1b4332;
+      --color-jungle-700: #2d6a4f;
+      --color-jungle-600: #40916c;
+      --color-jungle-200: #b7e4c7;
+      --color-jungle-100: #d8f3dc;
+      --color-jungle-50: #eefbf1;
+
+      --color-river-900: #03045e;
+      --color-river-800: #023e8a;
+      --color-river-700: #0077b6;
+      --color-river-200: #caf0f8;
+      --color-river-50: #f0f9fd;
+
+      --color-alert-red: #d62828;
+      --color-alert-dark: #9b1d20;
+      --color-alert-bg: #fff0f0;
+      --color-warn-amber: #e67e22;
+      --color-warn-bg: #fff6ed;
+
+      --color-bg-base: #f7faf7;
+      --color-bg-card: #ffffff;
+      --color-bg-surface: #f0f4f1;
+      --color-text-main: #142119;
+      --color-text-muted: #4a5c51;
+      --color-border: #d4e0d7;
+
+      --base-font-size: 16px;
+      --touch-target-min: 48px;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 2px 6px rgba(12, 36, 24, 0.08);
+      --shadow-md: 0 6px 16px rgba(12, 36, 24, 0.12);
+    }
+
+    body.high-contrast {
+      --color-jungle-800: #002e1b;
+      --color-jungle-700: #004529;
+      --color-river-700: #004d80;
+      --color-alert-red: #b30000;
+      --color-bg-base: #ffffff;
+      --color-bg-card: #ffffff;
+      --color-bg-surface: #e6eee7;
+      --color-text-main: #000000;
+      --color-text-muted: #1a261f;
+      --color-border: #000000;
+      --shadow-sm: none;
+      --shadow-md: 0 0 0 2px #000000;
+    }
+
+    body.text-lg { --base-font-size: 18px; }
+    body.text-xl { --base-font-size: 20px; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      font-size: var(--base-font-size);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--color-bg-base);
+      color: var(--color-text-main);
+      line-height: 1.55;
+      padding-bottom: 60px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* BARRA SUPERIOR */
+    .top-bar {
+      background-color: var(--color-jungle-900);
+      color: #ffffff;
+      padding: 10px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      margin-bottom: 12px;
+    }
+
+    .offline-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: rgba(255, 255, 255, 0.15);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-weight: 700;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #2ecc71;
+      box-shadow: 0 0 6px #2ecc71;
+    }
+
+    .ctrl-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-ctrl {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      min-height: 38px;
+    }
+    .btn-ctrl:hover { background: #fff; color: var(--color-jungle-900); }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, var(--color-jungle-800) 0%, var(--color-jungle-700) 60%, var(--color-river-800) 100%);
+      color: #fff;
+      padding: 30px 24px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .header-eyebrow {
+      display: inline-block;
+      background: rgba(216, 243, 220, 0.25);
+      color: var(--color-jungle-100);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 1.15rem;
+      color: #e0f2e9;
+      max-width: 800px;
+      margin-bottom: 16px;
+    }
+
+    .sos-bar {
+      background-color: rgba(214, 40, 40, 0.95);
+      border: 2px solid #ff9999;
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .sos-tag {
+      background: #fff;
+      color: var(--color-alert-dark);
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+    }
+
+    /* BUSCADOR */
+    .search-card {
+      background-color: var(--color-bg-card);
+      padding: 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 1.1rem;
+      border: 2px solid var(--color-border);
+      border-radius: 50px;
+      background-color: var(--color-bg-surface);
+      color: var(--color-text-main);
+      margin-bottom: 12px;
+      min-height: 52px;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--color-jungle-700);
+      background-color: #fff;
+    }
+
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .chip {
+      background-color: var(--color-bg-surface);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-main);
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      min-height: 38px;
+    }
+    .chip:hover { background-color: var(--color-jungle-100); }
+    .chip.active { background-color: var(--color-jungle-800); color: #fff; }
+
+    /* NAVEGACIÓN TABS */
+    .nav-tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .nav-btn {
+      background-color: var(--color-bg-card);
+      border: 2px solid var(--color-border);
+      color: var(--color-text-main);
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: var(--touch-target-min);
+    }
+    .nav-btn.active-1 { background-color: var(--color-alert-red); color: #fff; border-color: var(--color-alert-dark); }
+    .nav-btn.active-2 { background-color: var(--color-jungle-800); color: #fff; border-color: var(--color-jungle-900); }
+    .nav-btn.active-3 { background-color: var(--color-river-700); color: #fff; border-color: var(--color-river-900); }
+
+    /* MÓDULOS Y TARJETAS */
+    .module-banner {
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+    }
+    .banner-red { background-color: var(--color-alert-bg); border-left: 8px solid var(--color-alert-red); color: var(--color-alert-dark); }
+    .banner-green { background-color: var(--color-jungle-50); border-left: 8px solid var(--color-jungle-800); color: var(--color-jungle-900); }
+    .banner-blue { background-color: var(--color-river-50); border-left: 8px solid var(--color-river-700); color: var(--color-river-900); }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background-color: var(--color-bg-card);
+      border-radius: var(--radius-md);
+      border: 2px solid var(--color-border);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+    }
+    .card-emergency { border-top: 6px solid var(--color-alert-red); }
+    .card-plant { border-top: 6px solid var(--color-jungle-700); }
+
+    .card-top {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .card-icon {
+      font-size: 2.2rem;
+      background: var(--color-bg-surface);
+      padding: 8px;
+      border-radius: 12px;
+      line-height: 1;
+    }
+    .card-titles h3 { font-size: 1.25rem; font-weight: 800; line-height: 1.25; }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      background-color: #fee2e2;
+      color: var(--color-alert-red);
+      margin-bottom: 4px;
+    }
+
+    .time-badge {
+      background-color: var(--color-warn-bg);
+      border: 1px solid var(--color-warn-amber);
+      color: #8c4300;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .action-box {
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .action-do { background-color: #f1fbf4; border-left: 4px solid var(--color-jungle-600); }
+    .action-dont { background-color: var(--color-alert-bg); border-left: 4px solid var(--color-alert-red); }
+
+    .action-box h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .action-do h4 { color: var(--color-jungle-800); }
+    .action-dont h4 { color: var(--color-alert-red); }
+
+    .action-box ul, .action-box ol {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.95rem;
+    }
+
+    .alarm-box {
+      background-color: #fff4e5;
+      border: 1px dashed #d97706;
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      font-size: 0.9rem;
+      color: #78350f;
+      margin-bottom: 14px;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-audio {
+      flex: 1;
+      background-color: var(--color-jungle-50);
+      color: var(--color-jungle-800);
+      border: 1px solid var(--color-jungle-200);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      min-height: var(--touch-target-min);
+    }
+    .btn-audio:hover { background-color: var(--color-jungle-100); }
+
+    /* MÓDULO PLANTAS */
+    .scientific {
+      font-style: italic;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+    .plant-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 12px 0;
+      flex-grow: 1;
+    }
+    .prep-box {
+      background: #f9fbf8;
+      border: 1px solid var(--color-jungle-200);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+    }
+    .warn-med {
+      background: #fff1f2;
+      border-left: 4px solid var(--color-alert-red);
+      padding: 10px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.9rem;
+      color: #9f1239;
+    }
+    .warn-med strong { color: var(--color-alert-red); display: block; margin-bottom: 2px; }
+
+    /* CALCULADORA */
+    .calc-card {
+      background-color: var(--color-bg-card);
+      border: 2px solid var(--color-river-200);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 30px;
+    }
+    .calc-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background-color: var(--color-bg-surface);
+      min-height: 50px;
+      font-weight: 600;
+    }
+
+    .calc-results {
+      background: linear-gradient(145deg, #f0f7fb 0%, #e6f2f9 100%);
+      border: 2px solid var(--color-river-600);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+    .times-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .time-box {
+      background: #fff;
+      padding: 18px;
+      border-radius: var(--radius-md);
+      border-left: 6px solid var(--color-river-700);
+      box-shadow: var(--shadow-sm);
+    }
+    .time-box.hosp { border-left-color: var(--color-alert-red); }
+    .time-val {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--color-river-900);
+      margin: 4px 0;
+    }
+    .time-box.hosp .time-val { color: var(--color-alert-dark); }
+
+    .supplies-box {
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .supplies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .supply-card {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+    }
+    .supply-card strong { display: block; font-size: 0.85rem; color: var(--color-text-muted); }
+    .supply-card span { font-weight: 800; font-size: 0.95rem; }
+
+    .freq-badge {
+      display: inline-block;
+      background: #d0ebff;
+      color: var(--color-river-900);
+      font-family: monospace;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 800;
+      margin-top: 4px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 16px;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--color-border);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 640px) {
+      .header h1 { font-size: 1.7rem; }
+      .grid-cards { grid-template-columns: 1fr; }
+      .nav-tabs { grid-template-columns: 1fr; }
+      .top-bar { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- BARRA SUPERIOR ACCESIBILIDAD Y OFFLINE -->
+    <div class="top-bar">
+      <div class="offline-badge">
+        <span class="dot" id="netDot"></span>
+        <span id="netText">🟢 Modo Offline Listo (Funciona sin internet)</span>
+      </div>
+      <div class="ctrl-btns">
+        <button class="btn-ctrl" onclick="toggleContrast()">☀️ Contraste</button>
+        <button class="btn-ctrl" onclick="cycleFontSize()">🔤 Tamaño Letra</button>
+      </div>
+    </div>
+
+    <!-- ENCABEZADO -->
+    <header class="header">
+      <div class="header-eyebrow">Amazonía Peruana • Región Loreto</div>
+      <h1>Guía Verde de Salud</h1>
+      <p><strong>Salud Río Loreto:</strong> Orientación médica, medicina natural amazónica y rutas fluviales para comunidades ribereñas y rurales.</p>
+      
+      <div class="sos-bar">
+        <div><strong>🚨 CANALES DE RADIO Y EMERGENCIA FLUVIAL:</strong></div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <span class="sos-tag">📞 SAMU Loreto: 106</span>
+          <span class="sos-tag">📻 Radio HF Postas: 5215 kHz</span>
+          <span class="sos-tag">🏥 Hosp. Iquitos: (065) 26-4444</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- BUSCADOR INTERACTIVO -->
+    <section class="search-card">
+      <input 
+        type="search" 
+        id="searchInput" 
+        class="search-input" 
+        placeholder="🔍 Escribe tu síntoma o emergencia (ej. mordedura, fiebre, machete, vómito, matico)..."
+        oninput="handleSearch()"
+      >
+      <div class="filter-chips">
+        <span style="font-weight: 700; color: var(--color-text-muted); font-size: 0.9rem;">Filtros:</span>
+        <button class="chip active" onclick="setFilter('todos', this)">📋 Todos</button>
+        <button class="chip" onclick="setFilter('mordedura', this)">🐍 Mordedura Serpiente</button>
+        <button class="chip" onclick="setFilter('fiebre', this)">🌡️ Fiebre / Dengue</button>
+        <button class="chip" onclick="setFilter('corte', this)">🩹 Machetazos</button>
+        <button class="chip" onclick="setFilter('diarrea', this)">💧 Diarrea y Suero</button>
+        <button class="chip" onclick="setFilter('raya', this)">🐟 Chuzo de Raya</button>
+        <button class="chip" onclick="setFilter('plantas', this)">🌿 Plantas Medicinales</button>
+      </div>
+    </section>
+
+    <!-- NAVEGACIÓN PRINCIPAL -->
+    <nav class="nav-tabs">
+      <button class="nav-btn active-1" id="tabBtn1" onclick="switchTab(1)">🚨 Módulo 1: Primeros Auxilios</button>
+      <button class="nav-btn" id="tabBtn2" onclick="switchTab(2)">🌿 Módulo 2: Botiquín Amazónico</button>
+      <button class="nav-btn" id="tabBtn3" onclick="switchTab(3)">🚤 Módulo 3: Calculadora Fluvial</button>
+    </nav>
+
+    <!-- MÓDULO 1: PRIMEROS AUXILIOS -->
+    <section id="mod1">
+      <div class="module-banner banner-red">
+        <h2>🚨 Módulo 1: Primeros Auxilios Inmediatos</h2>
+        <p>Instrucciones de vida o muerte: qué hacer con calma y qué está TERMINANTEMENTE PROHIBIDO.</p>
+      </div>
+      <div class="grid-cards" id="emergencyContainer"></div>
+    </section>
+
+    <!-- MÓDULO 2: BOTIQUÍN NATURAL AMAZÓNICO -->
+    <section id="mod2" style="display: none;">
+      <div class="module-banner banner-green">
+        <h2>🌿 Módulo 2: Botiquín Natural Amazónico</h2>
+        <p>Plantas medicinales de Loreto: preparación segura y advertencia de cuándo acudir al médico.</p>
+      </div>
+      <div class="grid-cards" id="plantsContainer"></div>
+    </section>
+
+    <!-- MÓDULO 3: CALCULADORA FLUVIAL -->
+    <section id="mod3" style="display: none;">
+      <div class="module-banner banner-blue">
+        <h2>🚤 Módulo 3: Calculadora de Tiempo Fluvial y Postas</h2>
+        <p>Estima horas de viaje según embarcación y corriente del río, y consulta insumos en posta médica.</p>
+      </div>
+
+      <div class="calc-card">
+        <div class="calc-form">
+          <div class="form-group">
+            <label for="cuencaSelect">🌊 Cuenca o Río de Origen:</label>
+            <select id="cuencaSelect" onchange="calcularFluvial()">
+              <option value="napo">Río Napo (Santa Clotilde, Mazán)</option>
+              <option value="nanay">Río Nanay (Santa María, Nina Rumi)</option>
+              <option value="maranon">Río Marañón (Nauta, Parinari)</option>
+              <option value="itaya">Río Itaya (Belén rural, Varillal)</option>
+              <option value="ucayali">Río Ucayali (Requena, Jenaro Herrera)</option>
+              <option value="amazonas">Río Amazonas (Indiana, Pebas)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="boteSelect">🛥️ Tipo de Embarcación:</label>
+            <select id="boteSelect" onchange="calcularFluvial()">
+              <option value="10">Peque-peque (Motor 9-16 HP) — ~10 km/h</option>
+              <option value="24" selected>Bote a motor / Lancha (60-115 HP) — ~24 km/h</option>
+              <option value="48">Deslizador rápido (150-200 HP) — ~48 km/h</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="corrienteSelect">🔄 Sentido de Navegación:</label>
+            <select id="corrienteSelect" onchange="calcularFluvial()">
+              <option value="1.15">Bajando río (A favor de corriente: +15% rápido)</option>
+              <option value="0.75">Subiendo río (Contra corriente: -25% velocidad)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-results">
+          <div class="times-grid">
+            <div class="time-box">
+              <div style="font-size: 0.9rem; color: var(--color-text-muted); font-weight: 700;">TIEMPO A POSTA MÁS CERCANA:</div>
+              <div class="time-val" id="resPostaTiempo">-- h -- min</div>
+              <div id="resPostaNombre" style="font-weight: 600;">🏥 Posta: Cargando...</div>
+            </div>
+
+            <div class="time-box hosp">
+              <div style="font-size: 0.9rem; color: var(--color-text-muted); font-weight: 700;">TIEMPO A HOSPITAL EN IQUITOS:</div>
+              <div class="time-val" id="resHospTiempo">-- h -- min</div>
+              <div style="font-weight: 600;">🏨 Hosp. Regional Loreto / Hosp. Apoyo Iquitos</div>
+            </div>
+          </div>
+
+          <div class="supplies-box">
+            <h3 style="margin-bottom: 8px;">📦 Insumos Críticos en la Posta de Referencia:</h3>
+            <div class="supplies-grid">
+              <div class="supply-card">
+                <strong>💉 Suero Antiofídico:</strong>
+                <span id="resSuero" style="color: #15803d;">🟢 Disponible</span>
+              </div>
+              <div class="supply-card">
+                <strong>🫧 Oxígeno Medicinal:</strong>
+                <span id="resOxigeno" style="color: #15803d;">🟢 Disponible</span>
+              </div>
+              <div class="supply-card">
+                <strong>🔬 Pruebas Dengue/Malaria:</strong>
+                <span id="resPruebas" style="color: #15803d;">🟢 Disponible</span>
+              </div>
+              <div class="supply-card">
+                <strong>👨‍⚕️ Personal de Turno:</strong>
+                <span id="resPersonal">Médico y Enfermero</span>
+              </div>
+              <div class="supply-card" style="grid-column: 1 / -1;">
+                <strong>📻 Contacto Radial HF de la Posta:</strong>
+                <div class="freq-badge" id="resRadio">5215 kHz HF</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 14px; font-size: 0.9rem;">
+            <strong>⚠️ Recomendaciones de Seguridad para Navegación en el Río:</strong>
+            <ul style="padding-left: 20px; margin-top: 6px; display: flex; flex-direction: column; gap: 4px;">
+              <li>Llevar combustible de reserva mezclado con aceite 2T (mínimo 30% extra por palizadas o lluvia).</li>
+              <li>Chalecos salvavidas abrochados para todo tripulante y paciente.</li>
+              <li>Llevar linternas con batería para señalizar a chatas petroleras o deslizadores de noche.</li>
+              <li>Cubrir al paciente con plástico o toldo para evitar hipotermia por viento y lluvia.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p><strong>Guía Verde de Salud — Salud Río Loreto</strong></p>
+      <p>Diseñada con principios de accesibilidad rural extrema y funcionamiento 100% offline para la Amazonía peruana.</p>
+    </footer>
+  </div>
+
+  <!-- ==========================================================================
+       DATOS Y LÓGICA JAVASCRIPT INTEGRADA (100% OFFLINE)
+       ========================================================================== -->
+  <script>
+    // DATOS DE PRIMEROS AUXILIOS
+    const EMERGENCIAS = [
+      {
+        id: 'mordedura',
+        titulo: 'Mordedura de Serpiente (Jergón, Shushupe)',
+        badge: 'Peligro Mortal',
+        tiempo: 'Menos de 4 a 6 horas para suero antiofídico',
+        icono: '🐍',
+        tags: 'mordedura serpiente vibora jergon shushupe veneno',
+        queHacer: [
+          'Mantener a la persona en reposo absoluto acostada; el movimiento apresura el veneno.',
+          'Inmovilizar el brazo o pierna mordida con una tablilla de caña brava o madera suave.',
+          'Lavar la herida suavemente con agua limpia y jabón, sin frotar ni raspar.',
+          'Quitar inmediatamente anillos, pulseras y botas antes de que la extremidad se hinche.',
+          'Dar de beber agua limpia con frecuencia para cuidar los riñones.',
+          'Trasladar acostado de inmediato a la posta médica con suero antiofídico.'
+        ],
+        queNoHacer: [
+          '¡NUNCA hacer torniquetes ni ligas apretadas! Cortan la sangre y causan amputación obligatoria.',
+          '¡NUNCA cortar la piel con machete ni gillette!',
+          '¡NUNCA intentar chupar o succionar el veneno con la boca!',
+          '¡NUNCA aplicar barro, kerosén, gasolina, cal ni orina!',
+          '¡NUNCA dar aguardiente, alcohol ni café al paciente!',
+          '¡NUNCA perder tiempo cazando la serpiente viva!'
+        ],
+        alarma: 'Hinchazón rápida que sube por la pierna, sangrado de encías u orina, visión doble.'
+      },
+      {
+        id: 'fiebre',
+        titulo: 'Fiebre Alta y Sospecha de Dengue o Malaria',
+        badge: 'Riesgo Hemorrágico',
+        tiempo: 'Atención dentro de 24 horas',
+        icono: '🌡️',
+        tags: 'fiebre dengue malaria zancudo calor dolor cabeza',
+        queHacer: [
+          'Bajar la fiebre con paños mojados con agua a temperatura de río en frente, axilas e ingles.',
+          'Dar abundantes líquidos: suero oral casero, agua de coco verde fresca o caldos suaves.',
+          'Para el dolor y fiebre, administrar ÚNICAMENTE PARACETAMOL.',
+          'Mantener al enfermo acostado bajo mosquitero para que no contagie a los demás.'
+        ],
+        queNoHacer: [
+          '¡NUNCA tomar ni inyectar IBUPROFENO, ASPIRINA, NAPROXENO, METAMIZOL ni DICLOFENACO! Causan hemorragias mortales por Dengue.',
+          '¡NUNCA bañar con agua helada bruscamente (puede provocar convulsiones).',
+          '¡NUNCA inyectar antibióticos en la nalga sin prueba previa de sangre de la posta.'
+        ],
+        alarma: 'Dolor de barriga insoportable, vómitos continuos, sangrado de encías o frialdad en manos.'
+      },
+      {
+        id: 'corte',
+        titulo: 'Cortes Profundos y Hemorragias por Machete',
+        badge: 'Urgencia Inmediata',
+        tiempo: 'Contener en los primeros 10 minutos',
+        icono: '🩹',
+        tags: 'machete corte sangre herida hemorragia accidente',
+        queHacer: [
+          'Hacer PRESIÓN DIRECTA Y FIRME con una tela o polo limpio sobre la herida por 10 a 15 minutos sin levantar la mano.',
+          'Elevar el brazo o pierna herida por encima del corazón.',
+          'Si la tela se empapa de sangre, NO la retires; coloca otra tela limpia encima y sigue presionando.',
+          'Vendar con firmeza y trasladar a la posta médica.'
+        ],
+        queNoHacer: [
+          '¡NUNCA echar café molido, tabaco, cenizas ni tierra en la herida! Causan tétanos e infecciones mortales.',
+          '¡NUNCA retirar objetos clavados profundamente; inmovilízalos y traslada al paciente.',
+          '¡NUNCA levantar el paño antes de los 15 minutos para ver si paró.'
+        ],
+        alarma: 'Sangrado que sale a borbotones, palidez extrema o pérdida de fuerza en dedos.'
+      },
+      {
+        id: 'diarrea',
+        titulo: 'Diarrea Aguda y Deshidratación Severa',
+        badge: 'Riesgo Deshidratación',
+        tiempo: 'Rehidratación inmediata continua',
+        icono: '💧',
+        tags: 'diarrea vomito deshidratacion suero colera estomago nino',
+        queHacer: [
+          'Preparar Suero Casero: 1 litro de agua hervida fría + 2 cucharadas soperas de azúcar + 1/2 cucharadita de sal + limón.',
+          'Dar de a cucharadas o sorbos pequeños después de cada diarrea o vómito.',
+          'Si es bebé, continuar con la lactancia materna con mayor frecuencia; nunca suspender la leche.',
+          'Ofrecer mazamorra de plátano verde (inguiri) o caldo de gallina sin grasa.'
+        ],
+        queNoHacer: [
+          '¡NUNCA dar pastillas para cortar la diarrea (Loperamida) a niños sin indicación médica.',
+          '¡NUNCA dar gaseosas ni jugos azucarados enlatados.',
+          '¡NUNCA dejar de dar líquidos por miedo a que vomite.'
+        ],
+        alarma: 'Ojos hundidos, llanto sin lágrimas, boca muy seca o el niño no orina en varias horas.'
+      },
+      {
+        id: 'raya',
+        titulo: 'Picadura de Raya de Río (Rayón)',
+        badge: 'Dolor Extremo',
+        tiempo: 'Alivio en menos de 30 minutos',
+        icono: '🐟',
+        tags: 'raya pez espina rio fango chuzo veneno dolor',
+        queHacer: [
+          '¡SUMERGIR INMEDIATAMENTE EN AGUA CALIENTE! El agua debe estar lo más caliente tolerable sin quemar la piel.',
+          'El calor destruye el veneno proteico de la raya y quita el dolor insoportable en minutos.',
+          'Lavar con agua hervida limpia y jabón blanco para retirar el fango.',
+          'Retirar la espina suelta con pinza limpia y acudir a la posta para vacuna antitetánica.'
+        ],
+        queNoHacer: [
+          '¡NUNCA aplicar hielo o agua fría! El frío multiplica el dolor a niveles insoportables.',
+          '¡NUNCA orinar sobre la herida ni echar kerosén o gasolina.',
+          '¡NUNCA coser o cerrar herméticamente la herida; debe drenar el veneno.'
+        ],
+        alarma: 'Desmayo por dolor, hinchazón masiva de la pierna o fiebre con pus al día siguiente.'
+      }
+    ];
+
+    // DATOS DE PLANTAS MEDICINALES
+    const PLANTAS = [
+      {
+        nombre: 'Sangre de Grado',
+        cientifico: 'Croton lechleri',
+        icono: '🩸',
+        origen: 'Árbol nativo de bosques primarios de Loreto',
+        usos: 'Cicatrizante natural potente, úlceras gástricas, gastritis y desinfección de raspones y heridas limpias.',
+        preparacion: 'Uso tópico: 2 a 4 gotas de savia roja pura frotadas con el dedo limpio hasta formar una espuma blanca que seca como látex protector. Para gastritis: 3 a 5 gotas en medio vaso de agua tibia en ayunas por 10 días.',
+        advertencia: 'NO aplicar en cortes profundos con sangrado arterial. Prohibido en el embarazo. Si hay pus o fiebre, acudir al centro de salud.',
+        tags: 'cicatrizante gastritis herida sangre de grado latex'
+      },
+      {
+        nombre: 'Matico (Moho-moho)',
+        cientifico: 'Piper aduncum',
+        icono: '🍃',
+        origen: 'Arbusto ribereño común en orillas de ríos amazónicos',
+        usos: 'Alivio de la tos, bronquitis, afecciones respiratorias, dolor de garganta y lavado antiséptico de heridas.',
+        preparacion: 'Infusión: Hervir 1 litro de agua, apagar y echar 4 a 6 hojas limpias. Reposar tapado 10 minutos. Tomar 3 tazas al día con miel. Para heridas: hervir 8 hojas por 5 minutos y lavar la piel con el agua tibia.',
+        advertencia: 'Si el paciente tiene pecho hundido, aleteo en la nariz o labios morados, requiere oxígeno urgente en la posta médica.',
+        tags: 'tos respiratorio pulmon matico garganta'
+      },
+      {
+        nombre: 'Uña de Gato',
+        cientifico: 'Uncaria tomentosa',
+        icono: '🐾',
+        origen: 'Liana trepadora de la selva virgen con espinas curvas',
+        usos: 'Potente antiinflamatorio para dolor de articulaciones (artritis, reumatismo) y refuerzo de defensas del cuerpo.',
+        preparacion: 'Cocimiento: Hervir 15 a 20 gramos de corteza seca en 1 litro de agua a fuego lento por 20 minutos tapado. Colar y tomar 1 vaso en la mañana y otro en la tarde por 15 días.',
+        advertencia: '¡PROHIBIDO en mujeres embarazadas (puede inducir aborto)! No reemplaza antibióticos para infecciones graves.',
+        tags: 'artritis articulaciones reumatismo defensas dolor una de gato'
+      },
+      {
+        nombre: 'Malva Amazónica',
+        cientifico: 'Malachra alceifolia',
+        icono: '🌸',
+        origen: 'Hierba silvestre de huertos y orillas húmedas',
+        usos: 'Fiebres leves, ardor al orinar, inflamación de riñones y encías.',
+        preparacion: 'Emplasto: Machacar hojas frescas hasta formar una pasta jugosa y colocar sobre la piel hinchada. Infusión: 1 cucharada de hojas picadas por taza de agua hervida; tomar 2 veces al día.',
+        advertencia: 'Si el ardor al orinar va con dolor en la cintura baja y fiebre alta, es una infección a los riñones que requiere antibióticos.',
+        tags: 'rinon orina inflamacion fiebre malva'
+      },
+      {
+        nombre: 'Ojé (Doctor Ojé)',
+        cientifico: 'Ficus antihelmintica',
+        icono: '🌳',
+        origen: 'Árbol gigante de la selva baja, productor de látex blanco',
+        usos: 'Antiparasitario tradicional fuerte para botar lombrices y tenias intestinales.',
+        preparacion: 'Látex controlado: Máximo 1 cucharada de leche de ojé fresca mezclada en medio vaso de leche o jugo de naranja en ayunas. Exige reposo y dieta estricta sin grasas por 3 días.',
+        advertencia: '¡PELIGRO DE INTOXICACIÓN POR SOBREDOSIS! Causa vómitos violentos y deshidratación. NUNCA dar a niños menores de 2 años ni embarazadas. Solicitar antiparasitarios seguros en la posta.',
+        tags: 'parasitos lombrices oje purga estomago'
+      },
+      {
+        nombre: 'Achiote',
+        cientifico: 'Bixa orellana',
+        icono: '🌺',
+        origen: 'Arbusto cultivado en chacras amazónicas',
+        usos: 'Desinflamante prostático en hombres mayores, alivio renal y dolor de garganta.',
+        preparacion: 'Infusión: Hervir 1 litro de agua y agregar 6 a 8 hojas secas picadas. Reposar 10 minutos. Tomar 3 tazas al día por 10 días.',
+        advertencia: 'Si el paciente no puede orinar nada en más de 6 a 8 horas, debe trasladarse de urgencia en bote para sonda vesical.',
+        tags: 'prostata rinon garganta achiote'
+      }
+    ];
+
+    // DATOS DE CUENCAS DE LORETO
+    const CUENCAS = {
+      napo: {
+        kmPosta: 45,
+        kmHosp: 145,
+        posta: 'C.S. Santa Clotilde (I-4) / C.S. Mazán',
+        suero: '🟢 Disponible (8 ampollas)',
+        oxigeno: '🟢 Disponible (4 balones)',
+        pruebas: '🟢 Disponible (Prueba rápida + Gota gruesa)',
+        personal: 'Médico General, Enfermeros y Obstetra',
+        radio: '5215 kHz HF / Red Napo-Mazán'
+      },
+      nanay: {
+        kmPosta: 22,
+        kmHosp: 65,
+        posta: 'P.S. Santa María del Ojeal (I-2) / C.S. Bellavista Nanay',
+        suero: '🟡 Limitado (2 ampollas)',
+        oxigeno: '🟢 Disponible (2 balones)',
+        pruebas: '🟢 Disponible',
+        personal: '1 Médico serumista y Técnico',
+        radio: '4890 kHz HF / Red Nanay'
+      },
+      maranon: {
+        kmPosta: 35,
+        kmHosp: 115,
+        posta: 'Centro de Salud Nauta (I-4) / P.S. San Regis',
+        suero: '🟢 Disponible (6 ampollas)',
+        oxigeno: '🟢 Disponible (6 balones)',
+        pruebas: '🟢 Disponible (Laboratorio)',
+        personal: '2 Médicos, Enfermeros y Laboratorista',
+        radio: '5820 kHz HF / Red Loreto-Nauta'
+      },
+      itaya: {
+        kmPosta: 12,
+        kmHosp: 28,
+        posta: 'C.S. 6 de Octubre / Hosp. Apoyo Iquitos',
+        suero: '🟢 Disponible (12 ampollas)',
+        oxigeno: '🟢 Disponible (Planta operativa)',
+        pruebas: '🟢 Disponible (Resultado en 30 min)',
+        personal: 'Guardia médica 24 horas y especialistas',
+        radio: '106 SAMU / Tel: 965-884-123'
+      },
+      ucayali: {
+        kmPosta: 50,
+        kmHosp: 185,
+        posta: 'Hospital I Requena (II-1) / C.S. Jenaro Herrera',
+        suero: '🟢 Disponible (5 ampollas)',
+        oxigeno: '🟢 Disponible (5 balones)',
+        pruebas: '🟢 Disponible',
+        personal: 'Médico Cirujano y Obstetra',
+        radio: '5300 kHz HF / Red Requena'
+      },
+      amazonas: {
+        kmPosta: 30,
+        kmHosp: 95,
+        posta: 'Centro de Salud Indiana (I-3) / C.S. Pebas',
+        suero: '🟢 Disponible (4 ampollas)',
+        oxigeno: '🟢 Disponible (3 balones)',
+        pruebas: '🟢 Disponible',
+        personal: 'Médico, Enfermeros y Técnico',
+        radio: '5120 kHz HF / Red Bajo Amazonas'
+      }
+    };
+
+    let currentFilter = 'todos';
+
+    // RENDERIZAR EMERGENCIAS
+    function renderEmergencias(query = '') {
+      const container = document.getElementById('emergencyContainer');
+      const filtered = EMERGENCIAS.filter(item => {
+        const matchesQ = !query || item.titulo.toLowerCase().includes(query) || item.tags.toLowerCase().includes(query);
+        const matchesF = currentFilter === 'todos' || currentFilter === item.id;
+        return matchesQ && matchesF;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--color-text-muted);">No se encontraron emergencias con ese criterio.</p>';
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => `
+        <article class="card card-emergency">
+          <div class="card-top">
+            <div class="card-icon">${item.icono}</div>
+            <div class="card-titles">
+              <span class="badge">${item.badge}</span>
+              <h3>${item.titulo}</h3>
+            </div>
+          </div>
+
+          <div class="time-badge">⏱️ ${item.tiempo}</div>
+
+          <div class="action-box action-do">
+            <h4>✅ QUÉ SÍ HACER:</h4>
+            <ol>
+              ${item.queHacer.map(p => `<li>${p}</li>`).join('')}
+            </ol>
+          </div>
+
+          <div class="action-box action-dont">
+            <h4>❌ QUÉ NUNCA HACER:</h4>
+            <ul>
+              ${item.queNoHacer.map(p => `<li>${p}</li>`).join('')}
+            </ul>
+          </div>
+
+          <div class="alarm-box">
+            <strong>⚠️ Señales de alarma:</strong> ${item.alarma}
+          </div>
+
+          <div class="card-footer">
+            <button class="btn-audio" onclick="leerVoz('${item.titulo}. Qué hacer: ${item.queHacer.join('. ')}. Qué no hacer: ${item.queNoHacer.join('. ')}')">
+              🔊 Escuchar en voz alta
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // RENDERIZAR PLANTAS
+    function renderPlantas(query = '') {
+      const container = document.getElementById('plantsContainer');
+      const filtered = PLANTAS.filter(p => {
+        const matchesQ = !query || p.nombre.toLowerCase().includes(query) || p.usos.toLowerCase().includes(query) || p.tags.toLowerCase().includes(query);
+        const matchesF = currentFilter === 'todos' || currentFilter === 'plantas';
+        return matchesQ && matchesF;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--color-text-muted);">No se encontraron plantas medicinales con ese criterio.</p>';
+        return;
+      }
+
+      container.innerHTML = filtered.map(p => `
+        <article class="card card-plant">
+          <div class="card-top">
+            <div class="card-icon">${p.icono}</div>
+            <div class="card-titles">
+              <h3>${p.nombre}</h3>
+              <div class="scientific">${p.cientifico}</div>
+              <small style="color: var(--color-jungle-800); font-weight: 600;">📍 ${p.origen}</small>
+            </div>
+          </div>
+
+          <div class="plant-info">
+            <div>
+              <strong>🎯 Para qué sirve:</strong>
+              <p>${p.usos}</p>
+            </div>
+
+            <div class="prep-box">
+              <strong>🍵 Preparación y uso:</strong>
+              <p>${p.preparacion}</p>
+            </div>
+
+            <div class="warn-med">
+              <strong>⚠️ ADVERTENCIA MÉDICA OBLIGATORIA:</strong>
+              <p>${p.advertencia}</p>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button class="btn-audio" onclick="leerVoz('${p.nombre}, ${p.cientifico}. Para qué sirve: ${p.usos}. Preparación: ${p.preparacion}. Advertencia médica: ${p.advertencia}')">
+              🔊 Escuchar ficha de planta
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // CALCULADORA FLUVIAL
+    function calcularFluvial() {
+      const cuencaKey = document.getElementById('cuencaSelect').value;
+      const velBase = parseFloat(document.getElementById('boteSelect').value);
+      const factorCorriente = parseFloat(document.getElementById('corrienteSelect').value);
+
+      const data = CUENCAS[cuencaKey];
+      const velReal = velBase * factorCorriente;
+
+      // Tiempo Posta
+      const hPostaDec = data.kmPosta / velReal;
+      const hP = Math.floor(hPostaDec);
+      const mP = Math.round((hPostaDec - hP) * 60);
+
+      // Tiempo Hospital
+      const hHospDec = data.kmHosp / velReal;
+      const hH = Math.floor(hHospDec);
+      const mH = Math.round((hHospDec - hH) * 60);
+
+      document.getElementById('resPostaTiempo').innerText = `${hP > 0 ? `${hP} h ` : ''}${mP} min`;
+      document.getElementById('resHospTiempo').innerText = `${hH > 0 ? `${hH} h ` : ''}${mH} min`;
+
+      document.getElementById('resPostaNombre').innerText = `🏥 ${data.posta} (${data.kmPosta} km de río)`;
+      document.getElementById('resSuero').innerText = data.suero;
+      document.getElementById('resOxigeno').innerText = data.oxigeno;
+      document.getElementById('resPruebas').innerText = data.pruebas;
+      document.getElementById('resPersonal').innerText = data.personal;
+      document.getElementById('resRadio').innerText = `📻 ${data.radio}`;
+    }
+
+    // BÚSQUEDA Y FILTROS
+    function handleSearch() {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      renderEmergencias(q);
+      renderPlantas(q);
+      if (q.length > 0) {
+        document.getElementById('mod1').style.display = 'block';
+        document.getElementById('mod2').style.display = 'block';
+      }
+    }
+
+    function setFilter(filter, btn) {
+      currentFilter = filter;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (filter === 'plantas') {
+        switchTab(2);
+      } else {
+        switchTab(1);
+      }
+      handleSearch();
+    }
+
+    // TABS
+    function switchTab(tabIndex) {
+      document.getElementById('mod1').style.display = tabIndex === 1 ? 'block' : 'none';
+      document.getElementById('mod2').style.display = tabIndex === 2 ? 'block' : 'none';
+      document.getElementById('mod3').style.display = tabIndex === 3 ? 'block' : 'none';
+
+      document.getElementById('tabBtn1').className = `nav-btn ${tabIndex === 1 ? 'active-1' : ''}`;
+      document.getElementById('tabBtn2').className = `nav-btn ${tabIndex === 2 ? 'active-2' : ''}`;
+      document.getElementById('tabBtn3').className = `nav-btn ${tabIndex === 3 ? 'active-3' : ''}`;
+    }
+
+    // SÍNTESIS DE VOZ NARRADOR
+    function leerVoz(texto) {
+      if (!('speechSynthesis' in window)) {
+        alert('Tu navegador no soporta lectura por voz, pero el texto completo está en pantalla.');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(texto);
+      u.lang = 'es-PE';
+      u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    }
+
+    // ACCESIBILIDAD
+    function toggleContrast() {
+      document.body.classList.toggle('high-contrast');
+    }
+
+    let fontState = 0;
+    function cycleFontSize() {
+      fontState = (fontState + 1) % 3;
+      document.body.classList.remove('text-lg', 'text-xl');
+      if (fontState === 1) document.body.classList.add('text-lg');
+      if (fontState === 2) document.body.classList.add('text-xl');
+    }
+
+    // INICIALIZACIÓN
+    window.addEventListener('DOMContentLoaded', () => {
+      renderEmergencias();
+      renderPlantas();
+      calcularFluvial();
+
+      window.addEventListener('online', () => {
+        document.getElementById('netText').innerText = '🟢 En Línea / Datos Locales Listos';
+        document.getElementById('netDot').style.backgroundColor = '#2ecc71';
+      });
+
+      window.addEventListener('offline', () => {
+        document.getElementById('netText').innerText = '🟢 Modo Offline Listo (Sin Internet)';
+        document.getElementById('netDot').style.backgroundColor = '#f39c12';
+      });
+    });
+  </script>
+</body>
+</html>
