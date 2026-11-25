@@ -3,21 +3,23 @@ import './App.css';
 
 // ============================================================================
 // DATOS VERIFICADOS — GUÍA VERDE DE SALUD (SALUD RÍO LORETO)
+// Con imágenes fotográficas reales integradas en cada sección
 // ============================================================================
 
 const EMERGENCIAS_INTENCION = [
   {
     id: 'mordedura',
     icono: '🐍',
-    titulo: 'Mordeduras',
+    imagen: 'images/mordedura-serpiente.jpg',
+    titulo: 'Mordedura de Serpiente',
     subtitulo: 'Jergón & Shushupe',
     badge: 'Urgencia Crítica',
     tiempoMax: 'Menos de 4 a 6 horas para el suero',
     queHacer: [
-      'Mantener a la persona acostada, inmóvil y en calma (el movimiento apresura el veneno).',
+      'Mantener a la persona acostada, inmóvil y en calma (el movimiento apresura la dispersión del veneno).',
       'Inmovilizar el brazo o pierna mordida con una tablilla rígida a nivel del corazón.',
       'Lavar la herida suavemente con abundante agua limpia y jabón neutro, sin frotar.',
-      'Retirar INMEDIATAMENTE anillos, pulseras y botas antes de que la extremidad se hinche.',
+      'Retirar INMEDIATAMENTE anillos, pulseras y botas antes de que la extremidad se hinche por completo.',
       'Dar de beber agua limpia con frecuencia para proteger los riñones de las toxinas.',
       'Trasladar de inmediato a la posta médica con suero antiofídico polivalente.'
     ],
@@ -33,7 +35,8 @@ const EMERGENCIAS_INTENCION = [
   {
     id: 'fiebre',
     icono: '🌡️',
-    titulo: 'Fiebre / Dengue',
+    imagen: 'images/fiebre-dengue.jpg',
+    titulo: 'Fiebre Alta y Dengue',
     subtitulo: 'Zancudo & Creciente',
     badge: 'Alerta Hemorrágica',
     tiempoMax: 'Atención dentro de 24 horas',
@@ -54,7 +57,8 @@ const EMERGENCIAS_INTENCION = [
   {
     id: 'corte',
     icono: '🩹',
-    titulo: 'Cortes Machete',
+    imagen: 'images/cortes-machete.jpg',
+    titulo: 'Cortes por Machete',
     subtitulo: 'Trauma & Hemorragia',
     badge: 'Primeros 10 Min',
     tiempoMax: 'Contener en los primeros 10 minutos',
@@ -74,8 +78,9 @@ const EMERGENCIAS_INTENCION = [
   {
     id: 'diarrea',
     icono: '💧',
-    titulo: 'Diarrea & Suero',
-    subtitulo: 'Deshidratación Infantil',
+    imagen: 'images/diarrea-deshidratacion.jpg',
+    titulo: 'Diarrea y Deshidratación',
+    subtitulo: 'Suero Casero & Niños',
     badge: 'Rehidratación Urgente',
     tiempoMax: 'Rehidratación inmediata',
     queHacer: [
@@ -94,7 +99,8 @@ const EMERGENCIAS_INTENCION = [
   {
     id: 'raya',
     icono: '🐟',
-    titulo: 'Chuzo de Raya',
+    imagen: 'images/chuzo-raya.jpg',
+    titulo: 'Chuzo de Raya de Río',
     subtitulo: 'Toxina de Fango Fluvial',
     badge: 'Alivio Inmediato',
     tiempoMax: 'Alivio en menos de 30 minutos',
@@ -110,36 +116,6 @@ const EMERGENCIAS_INTENCION = [
       '¡NUNCA coser o cerrar herméticamente la herida; debe drenar el veneno.'
     ],
     alarma: 'Desmayo por dolor agudo, hinchazón masiva o fiebre alta con pus al día siguiente.'
-  }
-];
-
-const PLANTAS_AMAZONICAS = [
-  {
-    id: 'sangre-grado',
-    nombre: 'Sangre de Grado',
-    cientifico: 'Croton lechleri',
-    origen: 'Bosques primarios y secundarios de Loreto',
-    usos: 'Cicatrizante natural de máxima potencia, úlceras gástricas, gastritis y antiséptico para raspones y cortes superficiales.',
-    preparacion: 'Uso tópico: 2 a 4 gotas de savia roja pura frotadas con el dedo limpio hasta formar una espuma blanca protectora que seca como látex. Uso interno: 3 a 5 gotas en medio vaso de agua tibia en ayunas por 10 días.',
-    advertencia: 'NO aplicar en cortes profundos con sangrado arterial. Contraindicado en el embarazo. Si hay pus o fiebre, acudir al centro de salud.'
-  },
-  {
-    id: 'matico',
-    nombre: 'Matico (Moho-moho)',
-    cientifico: 'Piper aduncum',
-    origen: 'Orillas ribereñas y purmas amazónicas',
-    usos: 'Alivio de la tos, bronquitis, afecciones respiratorias, dolor de garganta y lavado antiséptico de heridas dérmicas.',
-    preparacion: 'Infusión: Hervir 1 litro de agua, apagar y agregar 4 a 6 hojas limpias. Reposar 10 minutos. Tomar 3 tazas al día con miel silvestre. Para heridas: hervir 8 hojas por 5 minutos y lavar la piel tibia.',
-    advertencia: 'Si el paciente tiene pecho hundido, aleteo nasal o labios morados, requiere oxígeno urgente en la posta médica.'
-  },
-  {
-    id: 'una-gato',
-    nombre: 'Uña de Gato',
-    cientifico: 'Uncaria tomentosa',
-    origen: 'Liana trepadora de la selva virgen con espinas curvas',
-    usos: 'Potente antiinflamatorio para dolores articulares (artritis, reumatismo), dolor de huesos y refuerzo de las defensas.',
-    preparacion: 'Decocción: Hervir 15 a 20 gramos de corteza seca en 1 litro de agua a fuego lento por 20 minutos tapado. Colar y tomar 1 vaso en la mañana y otro en la tarde por 15 días.',
-    advertencia: '¡PROHIBIDO en mujeres embarazadas (puede inducir aborto)! No reemplaza antibióticos para infecciones agudas.'
   }
 ];
 
@@ -299,6 +275,7 @@ export default function App() {
 
       {/* ====================================================================
           HERO SECTION (CON CÚPULA DE CRISTAL / TERRARIO HERBORIA)
+          IMAGEN 1: Donde estaba la plantita donde dice Red Fluvial
           ==================================================================== */}
       <header id="sec-hero" className="herboria-hero">
         <div>
@@ -323,22 +300,23 @@ export default function App() {
           </div>
         </div>
 
-        {/* Cúpula / Terrario de Cristal Luminoso */}
+        {/* Cúpula / Terrario de Cristal con IMAGEN 1: Red Fluvial y Medicina Ancestral */}
         <div className="hero-glass-dome-frame">
           <div className="glass-terrarium-orb">
             <div className="holographic-ribbon"></div>
             <div className="dome-badge-top">Posta Conectada 24/7</div>
 
-            <div className="dome-herbs-center">
-              <div className="dome-icon-sparkle">🌿</div>
+            {/* Primera imagen: Integrada exactamente donde estaba la plantita de Red Fluvial */}
+            <div className="dome-image-showcase">
+              <img src="images/red-fluvial.jpg" alt="Red Fluvial y Medicina Ancestral de Loreto" />
             </div>
 
             <div className="dome-info-card">
               <h4>🏥 Red Fluvial Santa Clotilde & Mazán</h4>
               <p>Monitoreo continuo de sueros antiofídicos y oxígeno medicinal en comunidades del Río Napo y Nanay.</p>
-              <div style="display: flex; gap: 8px; margin-top: 8px;">
-                <span style="font-size: 0.75rem; color: var(--color-lime-glow); font-weight: 700;">💉 8 Dosis Suero</span>
-                <span style="font-size: 0.75rem; color: #a2d2ff; font-weight: 700;">🫧 4 Balones O2</span>
+              <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--color-lime-glow)', fontWeight: 700 }}>💉 8 Dosis Suero</span>
+                <span style={{ fontSize: '0.75rem', color: '#a2d2ff', fontWeight: 700 }}>🫧 4 Balones O2</span>
               </div>
             </div>
           </div>
@@ -346,7 +324,12 @@ export default function App() {
       </header>
 
       {/* ====================================================================
-          SECCIÓN 1: "DISCOVER BY INTENTION" (5 TARJETAS DE CRISTAL CON PEDESTAL)
+          SECCIÓN 1: "DISCOVER BY INTENTION" (5 TARJETAS CON FOTOS REALES)
+          - Imagen 2: Mordedura de serpiente
+          - Imagen 3: Fiebre
+          - Imagen 4: Cortes
+          - Imagen 5: Diarrea
+          - Imagen 6: Chuzo
           ==================================================================== */}
       <section id="sec-intencion" className="section-discover">
         <div className="discover-header-row">
@@ -368,7 +351,9 @@ export default function App() {
               onClick={() => setActiveModalItem(item)}
               title="Toca para ver el protocolo de auxilio"
             >
-              <div className="intent-pedestal">{item.icono}</div>
+              <div className="intent-img-pedestal">
+                <img src={item.imagen} alt={item.titulo} />
+              </div>
               <h3>{item.titulo}</h3>
               <span>{item.subtitulo}</span>
             </div>
@@ -384,11 +369,11 @@ export default function App() {
           {/* Lado Izquierdo: Matraz Esférico con Principios Activos */}
           <div className="orb-stats-wrapper">
             <div className="curved-flask-container">
-              <div style="font-size: 4rem; line-height: 1;">🧪</div>
-              <h3 style="font-family: var(--font-serif); font-size: 1.4rem; color: #ffffff; margin-top: 8px;">
+              <div style={{ fontSize: '4rem', lineHeight: 1 }}>🧪</div>
+              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', color: '#ffffff', marginTop: '8px' }}>
                 Materia Médica Activa
               </h3>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>
                 Protocolos Oficiales del MINSA para Zonas de Selva
               </p>
               <div className="flask-active-compound">
@@ -405,13 +390,13 @@ export default function App() {
               En la Amazonía rural, cada minuto cuenta cuando el centro de salud se encuentra a horas de navegación fluvial. Conocer qué hacer y qué está estrictamente prohibido marca la diferencia entre la vida y la muerte.
             </p>
 
-            <button className="btn-lime-pill" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[0])} style="align-self: flex-start;">
+            <button className="btn-lime-pill" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[0])} style={{ alignSelf: 'flex-start' }}>
               <span>Explorar Protocolos de Emergencia</span>
               <span>→</span>
             </button>
 
             <div className="science-4features-vertical">
-              <div className="feature-micro-item" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[0])} style="cursor: pointer;">
+              <div className="feature-micro-item" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[0])} style={{ cursor: 'pointer' }}>
                 <div className="micro-icon">🚫</div>
                 <div className="micro-desc">
                   <h5>Cero Torniquetes</h5>
@@ -419,7 +404,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="feature-micro-item" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[1])} style="cursor: pointer;">
+              <div className="feature-micro-item" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[1])} style={{ cursor: 'pointer' }}>
                 <div className="micro-icon">💊</div>
                 <div className="micro-desc">
                   <h5>Solo Paracetamol</h5>
@@ -427,7 +412,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="feature-micro-item" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[2])} style="cursor: pointer;">
+              <div className="feature-micro-item" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[2])} style={{ cursor: 'pointer' }}>
                 <div className="micro-icon">⏱️</div>
                 <div className="micro-desc">
                   <h5>Presión 15 Minutos</h5>
@@ -435,7 +420,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="feature-micro-item" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[4])} style="cursor: pointer;">
+              <div className="feature-micro-item" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[4])} style={{ cursor: 'pointer' }}>
                 <div className="micro-icon">♨️</div>
                 <div className="micro-desc">
                   <h5>Agua Caliente a 45°C</h5>
@@ -456,9 +441,9 @@ export default function App() {
           <div className="curved-porthole-frame">
             <div className="porthole-bg-gradient"></div>
             <div className="porthole-badge-content">
-              <span className="hero-sub-dots" style="color: var(--color-lime-glow); font-size: 0.72rem;">SABIDURÍA TRADICIONAL VERIFICADA</span>
+              <span className="hero-sub-dots" style={{ color: 'var(--color-lime-glow)', fontSize: '0.72rem' }}>SABIDURÍA TRADICIONAL VERIFICADA</span>
               <h4>Chacras y Bosques Ribereños de Loreto</h4>
-              <p style="font-size: 0.85rem; color: var(--text-muted);">
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                 Especies vegetales recolectadas de manera sostenible por comunidades amazónicas.
               </p>
             </div>
@@ -527,7 +512,7 @@ export default function App() {
           <div>
             <span className="hero-sub-dots">NAVEGACIÓN Y DISPONIBILIDAD DE POSTAS</span>
             <h2>Rutas Fluviales en Tiempo Real</h2>
-            <p style="color: var(--text-muted); font-size: 1.05rem;">
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem' }}>
               Estima los tiempos reales de travesía fluvial hacia las postas médicas con stock de sueros antiofídicos y oxígeno.
             </p>
           </div>
@@ -570,10 +555,10 @@ export default function App() {
         {/* Panel Interactivo de la Calculadora Fluvial */}
         <div id="calc-panel" className="calc-interactive-panel">
           <div>
-            <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: #ffffff; margin-bottom: 8px;">
+            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', color: '#ffffff', marginBottom: '8px' }}>
               Calculador Fluvial Comunitario
             </h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 22px;">
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '22px' }}>
               Selecciona tu cuenca, embarcación y dirección para conocer el tiempo de viaje con el efecto de la corriente.
             </p>
 
@@ -621,19 +606,19 @@ export default function App() {
 
           <div className="calc-live-result-box">
             <div>
-              <span style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-lime-glow); letter-spacing: 1.5px; font-weight: 700;">
+              <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', color: 'var(--color-lime-glow)', letterSpacing: '1.5px', fontWeight: 700 }}>
                 TIEMPO ESTIMADO HACIA {rutaSeleccionada.posta.toUpperCase()}
               </span>
               <div className="big-fluvial-time">{calculoNavegacion.tiempoStr}</div>
-              <div style="font-size: 0.88rem; color: var(--text-muted);">
+              <div style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
                 Distancia en río: ~{rutaSeleccionada.distanciaKm} km | Velocidad real: ~{calculoNavegacion.velocidadCalculada} km/h
               </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border-glass-subtle); padding-top: 16px;">
-              <div style="font-size: 0.82rem; color: #ffffff;">💉 Suero: <strong>{rutaSeleccionada.suero}</strong></div>
-              <div style="font-size: 0.82rem; color: #ffffff;">🫧 Oxígeno: <strong>{rutaSeleccionada.oxigeno}</strong></div>
-              <div style="font-size: 0.82rem; color: var(--color-lime-glow); grid-column: 1/-1;">📻 Radio HF: {rutaSeleccionada.radio}</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '20px', borderTop: '1px solid var(--border-glass-subtle)', paddingTop: '16px' }}>
+              <div style={{ fontSize: '0.82rem', color: '#ffffff' }}>💉 Suero: <strong>{rutaSeleccionada.suero}</strong></div>
+              <div style={{ fontSize: '0.82rem', color: '#ffffff' }}>🫧 Oxígeno: <strong>{rutaSeleccionada.oxigeno}</strong></div>
+              <div style={{ fontSize: '0.82rem', color: 'var(--color-lime-glow)', gridColumn: '1/-1' }}>📻 Radio HF: {rutaSeleccionada.radio}</div>
             </div>
           </div>
         </div>
@@ -644,7 +629,7 @@ export default function App() {
           ==================================================================== */}
       <section className="section-testimonials">
         <span className="hero-sub-dots">RED DE SALUD MAYNAS & ALTO AMAZONAS</span>
-        <h2 style="font-family: var(--font-serif); font-size: 2.4rem; color: #ffffff; font-weight: 400;">
+        <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.4rem', color: '#ffffff', fontWeight: 400 }}>
           Reconocido por la Red de Salud y Pobladores de Loreto
         </h2>
 
@@ -656,7 +641,7 @@ export default function App() {
                 <div className="user-info-text">
                   <strong>{t.nombre}</strong>
                   <div className="stars-gold">{t.estrellas}</div>
-                  <small style="color: var(--text-muted); font-size: 0.75rem;">{t.rol}</small>
+                  <small style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>{t.rol}</small>
                 </div>
               </div>
               <p className="testimonial-quote">"{t.texto}"</p>
@@ -689,7 +674,7 @@ export default function App() {
           </div>
 
           <div className="capsule-action-pill">
-            <span style="font-size: 0.88rem; color: #ffffff; font-weight: 600;">SAMU Loreto: 106</span>
+            <span style={{ fontSize: '0.88rem', color: '#ffffff', fontWeight: 600 }}>SAMU Loreto: 106</span>
             <button 
               className="btn-lime-pill" 
               onClick={() => alert('🚨 LLAMADA DE EMERGENCIA LORETO:\nTeléfono: 106 (SAMU Gratuito)\nRadio HF: 5215 kHz\nHospital Apoyo Iquitos: (065) 26-4444')}
@@ -707,8 +692,8 @@ export default function App() {
       <footer className="herboria-footer">
         <div className="footer-inner-grid">
           <div className="footer-col-brand">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-              <span style="font-size: 1.5rem;">🌿</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+              <span style={{ fontSize: '1.5rem' }}>🌿</span>
               <h3>Guía Verde de Salud</h3>
             </div>
             <p>
@@ -751,29 +736,39 @@ export default function App() {
           <div>
             © 2026 Guía Verde de Salud — Desarrollado para comunidades de Loreto.
           </div>
-          <div style="color: var(--color-lime-glow); font-weight: 600;">
+          <div style={{ color: 'var(--color-lime-glow)', fontWeight: 600 }}>
             🟢 100% Autónomo y Offline • Funciona en medio de la selva sin conexión
           </div>
         </div>
       </footer>
 
       {/* ====================================================================
-          MODAL INTERACTIVO CON VOZ EN ESPAÑOL
+          MODAL INTERACTIVO CON FOTO Y VOZ EN ESPAÑOL
           ==================================================================== */}
       {activeModalItem && (
         <div className="herboria-modal-overlay" onClick={() => setActiveModalItem(null)}>
           <div className="herboria-modal-card" onClick={(e) => e.stopPropagation()}>
             <button className="btn-modal-close" onClick={() => setActiveModalItem(null)}>✕</button>
 
-            <span className="hero-sub-dots" style="color: var(--color-lime-glow);">PROTOCOLO MÉDICO DETALLADO</span>
-            <h2 style="font-family: var(--font-serif); font-size: 2.2rem; color: #ffffff; margin-bottom: 6px;">
-              {activeModalItem.titulo}
-            </h2>
-            <div style="color: var(--text-muted); font-weight: 600; margin-bottom: 20px;">
-              ⏱️ {activeModalItem.tiempoMax}
+            <span className="hero-sub-dots" style={{ color: 'var(--color-lime-glow)' }}>PROTOCOLO MÉDICO DETALLADO</span>
+            
+            <div className="modal-header-with-img">
+              {activeModalItem.imagen && (
+                <div className="modal-thumb-box">
+                  <img src={activeModalItem.imagen} alt={activeModalItem.titulo} />
+                </div>
+              )}
+              <div>
+                <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: '#ffffff', marginBottom: '4px' }}>
+                  {activeModalItem.titulo}
+                </h2>
+                <div style={{ color: 'var(--text-muted)', fontWeight: 600 }}>
+                  ⏱️ {activeModalItem.tiempoMax}
+                </div>
+              </div>
             </div>
 
-            <div style="margin-bottom: 22px;">
+            <div style={{ marginBottom: '22px' }}>
               <button 
                 className="btn-lime-pill"
                 onClick={() => hablarTexto(`${activeModalItem.titulo}. Qué hacer: ${activeModalItem.queHacer.join('. ')}. Qué no hacer: ${activeModalItem.queNoHacer.join('. ')}`)}
@@ -783,18 +778,18 @@ export default function App() {
               </button>
             </div>
 
-            <div style="background: rgba(45, 102, 71, 0.25); border: 1px solid rgba(82, 183, 136, 0.4); padding: 18px; border-radius: 16px; margin-bottom: 16px;">
-              <h4 style="color: var(--color-lime-glow); margin-bottom: 8px;">✅ QUÉ SÍ HACER:</h4>
-              <ol style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem; color: #ffffff;">
+            <div style={{ background: 'rgba(45, 102, 71, 0.25)', border: '1px solid rgba(82, 183, 136, 0.4)', padding: '18px', borderRadius: '16px', marginBottom: '16px' }}>
+              <h4 style={{ color: 'var(--color-lime-glow)', marginBottom: '8px' }}>✅ QUÉ SÍ HACER:</h4>
+              <ol style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.95rem', color: '#ffffff' }}>
                 {activeModalItem.queHacer.map((paso, idx) => (
                   <li key={idx}>{paso}</li>
                 ))}
               </ol>
             </div>
 
-            <div style="background: rgba(214, 40, 40, 0.15); border: 1px solid rgba(255, 77, 77, 0.4); padding: 18px; border-radius: 16px; margin-bottom: 16px;">
-              <h4 style="color: #ff6b6b; margin-bottom: 8px;">❌ QUÉ NUNCA DEBES HACER:</h4>
-              <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem; color: #ffd6d6;">
+            <div style={{ background: 'rgba(214, 40, 40, 0.15)', border: '1px solid rgba(255, 77, 77, 0.4)', padding: '18px', borderRadius: '16px', marginBottom: '16px' }}>
+              <h4 style={{ color: '#ff6b6b', marginBottom: '8px' }}>❌ QUÉ NUNCA DEBES HACER:</h4>
+              <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.95rem', color: '#ffd6d6' }}>
                 {activeModalItem.queNoHacer.map((prohibicion, idx) => (
                   <li key={idx}>{prohibicion}</li>
                 ))}
@@ -802,7 +797,7 @@ export default function App() {
             </div>
 
             {activeModalItem.alarma && (
-              <div style="background: rgba(230, 126, 34, 0.15); border: 1px dashed rgba(230, 126, 34, 0.5); padding: 14px; border-radius: 12px; font-size: 0.9rem; color: #ffbe76;">
+              <div style={{ background: 'rgba(230, 126, 34, 0.15)', border: '1px dashed rgba(230, 126, 34, 0.5)', padding: '14px', borderRadius: '12px', fontSize: '0.9rem', color: '#ffbe76' }}>
                 <strong>⚠️ Señales de alarma extrema:</strong> {activeModalItem.alarma}
               </div>
             )}
