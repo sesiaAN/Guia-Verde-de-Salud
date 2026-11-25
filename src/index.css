@@ -1,52 +1,48 @@
 /* ==========================================================================
-   INDEX.CSS — GUÍA VERDE DE SALUD
-   Tipografía Serif Elegante & Paleta Orgánica Inspirada en la Naturaleza
+   INDEX.CSS — GUÍA VERDE DE SALUD (MODELO HERBORIA LUXURY GLASSMORPHISM)
+   Inspirado en la estética visual de la imagen de referencia:
+   Fondo obsidiana verde esmeralda, cristales luminosos, neón lima y tipografía de lujo.
    ========================================================================== */
 
 :root {
-  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* Verdes Profundos (Secciones oscuras estilo GreenCanopy) */
-  --bg-dark-forest: #153123;
-  --bg-dark-forest-deep: #0f241a;
-  --bg-dark-card: rgba(255, 255, 255, 0.07);
-  --bg-dark-card-hover: rgba(255, 255, 255, 0.12);
-  --border-dark-glass: rgba(255, 255, 255, 0.15);
+  /* Fondos Esmeralda Obsidiana */
+  --bg-herboria-deep: #05130a;
+  --bg-herboria-card: rgba(13, 34, 21, 0.72);
+  --bg-herboria-card-hover: rgba(20, 50, 31, 0.85);
+  
+  /* Luminous Green / Lime Accents */
+  --color-lime-glow: #b8f338;
+  --color-lime-bright: #d2f954;
+  --color-lime-dark: #70b300;
+  --color-emerald-light: #52b788;
+  --color-emerald-glow: #74c69d;
+  --color-emerald-deep: #1b4332;
 
-  /* Tonos Arena / Crema Cálido (Secciones claras onduladas) */
-  --bg-cream-base: #f7f4ed;
-  --bg-cream-surface: #f1ede2;
-  --bg-cream-card: #ffffff;
-  --border-cream: #e5dfd2;
-
-  /* Verdes Acento */
-  --color-leaf-primary: #2d6647;
-  --color-leaf-light: #52966f;
-  --color-leaf-glow: #88c2a1;
-  --color-leaf-pill: #d6eadf;
+  /* Bordes de Cristal Luminous */
+  --border-glass: rgba(168, 255, 190, 0.16);
+  --border-glass-hover: rgba(184, 243, 56, 0.4);
+  --border-glass-subtle: rgba(255, 255, 255, 0.08);
 
   /* Textos */
-  --text-dark-title: #ffffff;
-  --text-dark-body: #d2e4d9;
-  --text-dark-muted: #9eb8a7;
+  --text-pure-white: #ffffff;
+  --text-emerald-light: #d8f3dc;
+  --text-muted: #94bba2;
+  --text-dim: #608870;
 
-  --text-light-title: #14281c;
-  --text-light-body: #3c4f42;
-  --text-light-muted: #66796d;
+  /* Alertas */
+  --color-alert-red: #ff4d4d;
+  --color-alert-bg: rgba(255, 77, 77, 0.12);
 
-  /* Alertas Médicas */
-  --color-alert-red: #d62828;
-  --color-alert-bg: #fef2f2;
-  --color-alert-border: #fca5a5;
-
-  /* Medidas */
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 28px;
+  /* Sombras y Glow */
+  --glow-lime: 0 0 24px rgba(184, 243, 56, 0.35);
+  --glow-emerald: 0 0 35px rgba(82, 183, 136, 0.2);
+  --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.5);
+  
   --radius-pill: 9999px;
-  --shadow-soft: 0 10px 30px rgba(18, 42, 29, 0.08);
-  --shadow-elevated: 0 20px 40px rgba(18, 42, 29, 0.14);
+  --radius-card: 24px;
 }
 
 * {
@@ -58,8 +54,8 @@
 
 html {
   font-family: var(--font-sans);
-  background-color: var(--bg-dark-forest-deep);
-  color: var(--text-light-body);
+  background-color: var(--bg-herboria-deep);
+  color: var(--text-emerald-light);
   scroll-behavior: smooth;
   font-size: 16px;
 }
@@ -68,6 +64,7 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.6;
+  background-color: var(--bg-herboria-deep);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -86,13 +83,4 @@ a {
 img, svg {
   display: block;
   max-width: 100%;
-}
-
-/* Clases de utilidad tipográfica */
-.font-serif {
-  font-family: var(--font-serif);
-}
-
-.font-sans {
-  font-family: var(--font-sans);
 }

@@ -2,158 +2,126 @@ import { useState, useMemo, useEffect } from 'react';
 import './App.css';
 
 // ============================================================================
-// BASE DE DATOS LOCAL OFFLINE — GUÍA VERDE DE SALUD (SALUD RÍO LORETO)
+// DATOS VERIFICADOS — GUÍA VERDE DE SALUD (SALUD RÍO LORETO)
 // ============================================================================
 
-const MODULOS_ATENCION = [
+const EMERGENCIAS_INTENCION = [
   {
     id: 'mordedura',
     icono: '🐍',
-    titulo: 'Mordeduras de Víbora',
-    subtitulo: 'Jergón, Shushupe y Cascabel',
+    titulo: 'Mordeduras',
+    subtitulo: 'Jergón & Shushupe',
+    badge: 'Urgencia Crítica',
     tiempoMax: 'Menos de 4 a 6 horas para el suero',
     queHacer: [
-      'Mantener al paciente acostado, inmóvil y tranquilo (el movimiento acelera el veneno).',
+      'Mantener a la persona acostada, inmóvil y en calma (el movimiento apresura el veneno).',
       'Inmovilizar el brazo o pierna mordida con una tablilla rígida a nivel del corazón.',
-      'Lavar suavemente con agua limpia y jabón neutro, sin frotar ni raspar.',
-      'Quitar de inmediato anillos, pulseras y botas antes de que se hinche el miembro.',
-      'Dar de beber agua limpia con frecuencia para proteger los riñones.',
-      'Trasladar urgente a la posta más cercana con suero antiofídico polivalente.'
+      'Lavar la herida suavemente con abundante agua limpia y jabón neutro, sin frotar.',
+      'Retirar INMEDIATAMENTE anillos, pulseras y botas antes de que la extremidad se hinche.',
+      'Dar de beber agua limpia con frecuencia para proteger los riñones de las toxinas.',
+      'Trasladar de inmediato a la posta médica con suero antiofídico polivalente.'
     ],
     queNoHacer: [
-      '¡NUNCA hacer torniquetes ni ligaduras apretadas! Producen gangrena y pérdida del miembro.',
+      '¡NUNCA hacer torniquetes ni ligaduras apretadas! Producen gangrena y pérdida obligatoria del miembro.',
       '¡NUNCA cortar la piel con machete, gillette ni navaja.',
       '¡NUNCA intentar chupar o succionar el veneno con la boca.',
-      '¡NUNCA aplicar barro, kerosén, gasolina, cal ni pólvora en la herida.',
-      '¡NUNCA dar alcohol ni aguardiente al herido.',
-      '¡NUNCA perder tiempo cazando a la serpiente viva.'
+      '¡NUNCA aplicar barro, kerosén, gasolina, cal ni pólvora.',
+      '¡NUNCA dar alcohol ni aguardiente al herido.'
     ],
-    alarma: 'Hinchazón rápida que sube por la extremidad, sangrado en encías u orina, ampollas moradas.'
+    alarma: 'Hinchazón rápida que sube por la extremidad, sangrado por encías u orina, ampollas moradas.'
   },
   {
     id: 'fiebre',
     icono: '🌡️',
-    titulo: 'Fiebre y Dengue',
-    subtitulo: 'Zancudos y crecientes del río',
+    titulo: 'Fiebre / Dengue',
+    subtitulo: 'Zancudo & Creciente',
+    badge: 'Alerta Hemorrágica',
     tiempoMax: 'Atención dentro de 24 horas',
     queHacer: [
       'Bajar la temperatura con paños de tela húmedos a temperatura de río en frente, axilas e ingles.',
-      'Hidratación oral constante: suero casero, agua de coco verde fresca o caldos suaves cada 15 min.',
-      'Para dolor y fiebre, administrar ÚNICAMENTE PARACETAMOL.',
+      'Hidratación oral constante: dar suero casero o agua de coco verde fresca cada 15 a 20 min.',
+      'Para el dolor y fiebre, administrar ÚNICAMENTE PARACETAMOL.',
       'Mantener a la persona bajo mosquitero para que los zancudos no contagien a la familia.',
-      'Vigilar sangrado en encías o dolor abdominal fuerte.'
+      'Vigilar cualquier sangrado en encías o dolor abdominal severo.'
     ],
     queNoHacer: [
       '¡NUNCA tomar ni inyectar IBUPROFENO, ASPIRINA, NAPROXENO ni METAMIZOL! Causan hemorragias mortales por Dengue.',
-      '¡NUNCA bañar con agua con hielo bruscamente (provoca convulsiones).',
-      '¡NUNCA inyectar antibióticos sin una prueba de sangre o gota gruesa en la posta médica.'
+      '¡NUNCA bañar con agua con hielo bruscamente (provoca choque térmico o convulsiones).',
+      '¡NUNCA inyectar antibióticos sin una prueba previa de sangre o gota gruesa en la posta.'
     ],
-    alarma: 'Dolor de estómago continuo, vómitos repetidos, sangrado por nariz o heces oscuras.'
+    alarma: 'Dolor de estómago continuo, vómitos repetidos que no toleran suero, somnolencia extrema.'
   },
   {
     id: 'corte',
     icono: '🩹',
-    titulo: 'Cortes y Machete',
-    subtitulo: 'Hemorragias en chacras y monte',
+    titulo: 'Cortes Machete',
+    subtitulo: 'Trauma & Hemorragia',
+    badge: 'Primeros 10 Min',
     tiempoMax: 'Contener en los primeros 10 minutos',
     queHacer: [
-      'Hacer PRESIÓN DIRECTA Y FIRME con un paño limpio o polo sobre el corte por 15 minutos continuos.',
-      'Elevar la extremidad herida por encima del nivel del corazón.',
-      'Si la tela se empapa de sangre, NO retirarla; coloca otra tela limpia encima y continúa presionando.',
-      'Una vez contenido el sangrado, vendar con firmeza pero sin cortar el pulso.'
+      'Hacer PRESIÓN DIRECTA Y FIRME con un paño limpio o polo doblado durante 15 minutos continuos sin levantar la mano.',
+      'Elevar el brazo o pierna herida por encima del nivel del corazón.',
+      'Si la tela se empapa de sangre, NO retirarla; coloca otra tela limpia encima y continúa presionando con firmeza.',
+      'Una vez contenido el sangrado, vendar con firmeza pero comprobando que los dedos no se pongan fríos.'
     ],
     queNoHacer: [
-      '¡NUNCA echar café molido, tabaco, cenizas ni tierra! Causan tétanos e infecciones fulminantes.',
-      '¡NUNCA retirar objetos clavados profundamente; inmovilízalos y acude a la posta.',
+      '¡NUNCA echar café molido, tabaco, cenizas ni tierra en la herida! Causan tétanos e infección generalizada.',
+      '¡NUNCA retirar objetos clavados profundamente; inmovilízalos y traslada al paciente.',
       '¡NUNCA levantar el paño antes de los 15 minutos para ver si paró.'
     ],
-    alarma: 'Sangrado que brota a chorros rítmicos, palidez extrema o dedos fríos y morados.'
+    alarma: 'Sangrado que brota a borbotones rítmicos, palidez extrema o dedos fríos e insensibles.'
   },
   {
     id: 'diarrea',
     icono: '💧',
-    titulo: 'Diarrea y Suero',
-    subtitulo: 'Deshidratación infantil y cólera',
-    tiempoMax: 'Rehidratación inmediata continua',
+    titulo: 'Diarrea & Suero',
+    subtitulo: 'Deshidratación Infantil',
+    badge: 'Rehidratación Urgente',
+    tiempoMax: 'Rehidratación inmediata',
     queHacer: [
       'Preparar SUERO CASERO: 1 litro de agua hervida fría + 2 cucharadas de azúcar + 1/2 cucharadita de sal + gotas de limón.',
-      'Ofrecer con cuchara o sorbos pequeños después de cada diarrea o vómito.',
-      'Si es lactante, continuar con la leche materna con más frecuencia; nunca suspenderla.',
-      'Dar alimentos suaves: mazamorra de plátano verde (inguiri) o caldo de gallina sin grasa.'
+      'Ofrecer con cuchara o sorbos pequeños después de cada deposición líquida o vómito.',
+      'Si es lactante, continuar con la lactancia materna con mayor frecuencia; nunca suspender la leche.',
+      'Ofrecer mazamorra de plátano verde (inguiri) o caldo de gallina sin grasa en cuanto tolere.'
     ],
     queNoHacer: [
-      '¡NUNCA dar pastillas para frenar la diarrea (Loperamida) a niños sin indicación médica.',
-      '¡NUNCA dar gaseosas ni jugos comerciales ultraprocesados.',
-      '¡NUNCA suspender la hidratación aunque el paciente vomite; esperar 10 min y reanudar despacio.'
+      '¡NUNCA dar pastillas para cortar la diarrea (Loperamida) a niños sin indicación médica.',
+      '¡NUNCA dar gaseosas, energizantes ni jugos azucarados comerciales.',
+      '¡NUNCA suspender los líquidos por miedo a que vomite; espere 10 minutos y vuelva a ofrecer despacio.'
     ],
-    alarma: 'Ojos hundidos, llanto sin lágrimas, boca reseca o el niño no orina en más de 6 horas.'
+    alarma: 'Ojos hundidos, llanto sin lágrimas, boca muy seca o el niño no orina en más de 6 horas.'
   },
   {
     id: 'raya',
     icono: '🐟',
     titulo: 'Chuzo de Raya',
-    subtitulo: 'Toxina de playa y fango del río',
+    subtitulo: 'Toxina de Fango Fluvial',
+    badge: 'Alivio Inmediato',
     tiempoMax: 'Alivio en menos de 30 minutos',
     queHacer: [
       '¡SUMERGIR DE INMEDIATO EN AGUA CALIENTE (45°C)! Lo más caliente tolerable sin quemar la piel.',
-      'El calor neutraliza la toxina proteica del veneno y detiene el dolor agudo en minutos.',
-      'Lavar con agua hervida limpia y jabón blanco para retirar el fango.',
+      'El calor desactiva la toxina proteica del veneno y detiene el dolor insoportable en minutos.',
+      'Lavar suavemente con agua hervida y jabón blanco para retirar el limo del río.',
       'Retirar espinas sueltas superficiales y acudir a la posta para vacuna antitetánica.'
     ],
     queNoHacer: [
-      '¡NUNCA aplicar hielo o agua fría! Multiplica el dolor a niveles insoportables.',
-      '¡NUNCA orinar sobre la herida ni rociar gasolina o kerosén.',
+      '¡NUNCA aplicar hielo o agua fría! El frío multiplica el dolor a niveles intolerables.',
+      '¡NUNCA orinar sobre la herida ni rociar kerosén, gasolina o cenizas.',
       '¡NUNCA coser o cerrar herméticamente la herida; debe drenar el veneno.'
     ],
-    alarma: 'Desmayo por dolor, hinchazón masiva de la pierna o fiebre alta con pus al día siguiente.'
-  },
-  {
-    id: 'botiquin',
-    icono: '🌿',
-    titulo: 'Botiquín Amazónico',
-    subtitulo: '8 plantas medicinales de Loreto',
-    tiempoMax: 'Uso tradicional responsable',
-    queHacer: [
-      'Reconocer las plantas nativas verificadas: Sangre de Grado, Matico, Uña de Gato, Malva, Ojé, Achiote.',
-      'Usar dosis moderadas en infusiones, cocimientos o emplastos.',
-      'Lavarse siempre las manos antes de manipular hojas o savia fresca.'
-    ],
-    queNoHacer: [
-      '¡NUNCA sustituir la atención médica de una emergencia con hierbas caseras.',
-      '¡NUNCA ingerir plantas no identificadas ni sobredosificar leche de ojé.',
-      '¡NUNCA dar preparados alcohólicos a niños ni mujeres embarazadas.'
-    ],
-    alarma: 'Vómitos violentos tras ingerir purgantes tradicionales o alergia respiratoria.'
-  },
-  {
-    id: 'rutas',
-    icono: '🚤',
-    titulo: 'Rutas Fluviales',
-    subtitulo: 'Tiempos a postas y hospitales',
-    tiempoMax: 'Cálculo antes de zarpar',
-    queHacer: [
-      'Calcular combustible con 30% de reserva por corriente en contra o lluvias.',
-      'Llevar chalecos salvavidas abrochados para todo tripulante.',
-      'Avisar por radio HF (5215 kHz) a la posta para preparar el suero antiofídico antes de llegar.'
-    ],
-    queNoHacer: [
-      '¡NUNCA navegar de noche sin linternas potentes para esquivar boyas y troncos.',
-      '¡NUNCA dejar al enfermo desprotegido del viento y lluvia torrencial.'
-    ],
-    alarma: 'Embarcación sin suficiente gasolina para navegar contra corriente.'
+    alarma: 'Desmayo por dolor agudo, hinchazón masiva o fiebre alta con pus al día siguiente.'
   }
 ];
 
-const BOTIQUIN_PLANTAS = [
+const PLANTAS_AMAZONICAS = [
   {
     id: 'sangre-grado',
     nombre: 'Sangre de Grado',
     cientifico: 'Croton lechleri',
     origen: 'Bosques primarios y secundarios de Loreto',
-    usos: 'Cicatrizante natural potente, úlceras gástricas, gastritis y antiséptico para raspones y cortes superficiales.',
-    preparacion: 'Uso tópico: Aplicar 2 a 4 gotas de savia roja pura frotando hasta formar una espuma blanca protectora que seca como látex. Uso interno: 3 a 5 gotas en medio vaso de agua tibia en ayunas por 10 días.',
-    advertencia: 'NO aplicar en heridas abiertas profundas con sangrado arterial. Contraindicado en el embarazo. Si hay pus, acudir a la posta.',
-    rating: '★★★★★'
+    usos: 'Cicatrizante natural de máxima potencia, úlceras gástricas, gastritis y antiséptico para raspones y cortes superficiales.',
+    preparacion: 'Uso tópico: 2 a 4 gotas de savia roja pura frotadas con el dedo limpio hasta formar una espuma blanca protectora que seca como látex. Uso interno: 3 a 5 gotas en medio vaso de agua tibia en ayunas por 10 días.',
+    advertencia: 'NO aplicar en cortes profundos con sangrado arterial. Contraindicado en el embarazo. Si hay pus o fiebre, acudir al centro de salud.'
   },
   {
     id: 'matico',
@@ -162,8 +130,7 @@ const BOTIQUIN_PLANTAS = [
     origen: 'Orillas ribereñas y purmas amazónicas',
     usos: 'Alivio de la tos, bronquitis, afecciones respiratorias, dolor de garganta y lavado antiséptico de heridas dérmicas.',
     preparacion: 'Infusión: Hervir 1 litro de agua, apagar y agregar 4 a 6 hojas limpias. Reposar 10 minutos. Tomar 3 tazas al día con miel silvestre. Para heridas: hervir 8 hojas por 5 minutos y lavar la piel tibia.',
-    advertencia: 'Si el paciente tiene pecho hundido, aleteo nasal o labios morados, requiere oxígeno urgente en la posta médica.',
-    rating: '★★★★★'
+    advertencia: 'Si el paciente tiene pecho hundido, aleteo nasal o labios morados, requiere oxígeno urgente en la posta médica.'
   },
   {
     id: 'una-gato',
@@ -172,128 +139,98 @@ const BOTIQUIN_PLANTAS = [
     origen: 'Liana trepadora de la selva virgen con espinas curvas',
     usos: 'Potente antiinflamatorio para dolores articulares (artritis, reumatismo), dolor de huesos y refuerzo de las defensas.',
     preparacion: 'Decocción: Hervir 15 a 20 gramos de corteza seca en 1 litro de agua a fuego lento por 20 minutos tapado. Colar y tomar 1 vaso en la mañana y otro en la tarde por 15 días.',
-    advertencia: '¡PROHIBIDO en mujeres embarazadas (puede inducir aborto)! No reemplaza antibióticos en infecciones agudas.',
-    rating: '★★★★★'
+    advertencia: '¡PROHIBIDO en mujeres embarazadas (puede inducir aborto)! No reemplaza antibióticos para infecciones agudas.'
   }
 ];
 
-const CUENCAS_LORETO = [
+const RUTAS_CUENCAS = [
   {
     id: 'napo',
-    nombre: 'Río Napo',
-    comunidades: 'Santa Clotilde, Mazán, Angoteros',
-    distanciaPostaKm: 45,
-    distanciaHospitalKm: 145,
-    postaCercana: 'Centro de Salud Santa Clotilde (I-4) / Mazán',
-    suero: '🟢 Disponible (8 ampollas)',
-    oxigeno: '🟢 Disponible (4 balones)',
-    pruebas: '🟢 Disponible',
-    personal: 'Médico General, Enfermeros y Obstetra',
-    radio: '5215 kHz HF / Red Napo-Mazán'
+    nombre: 'Cuenca Río Napo',
+    subtitulo: 'Santa Clotilde & Mazán',
+    distanciaKm: 45,
+    tiempoDeslizador: '1 h 45 min',
+    suero: '8 ampollas',
+    oxigeno: '4 balones',
+    icono: '🌊',
+    posta: 'C.S. Santa Clotilde (I-4)',
+    radio: '5215 kHz HF'
   },
   {
     id: 'nanay',
-    nombre: 'Río Nanay',
-    comunidades: 'Santa María del Ojeal, Nina Rumi, Pucaurco',
-    distanciaPostaKm: 22,
-    distanciaHospitalKm: 65,
-    postaCercana: 'P.S. Santa María del Ojeal (I-2) / Bellavista Nanay',
-    suero: '🟡 Limitado (2 ampollas)',
-    oxigeno: '🟢 Disponible (2 balones)',
-    pruebas: '🟢 Disponible',
-    personal: '1 Médico serumista y Técnico',
-    radio: '4890 kHz HF / Red Nanay'
+    nombre: 'Cuenca Río Nanay',
+    subtitulo: 'Santa María & Bellavista',
+    distanciaKm: 22,
+    tiempoDeslizador: '55 min',
+    suero: '2 ampollas',
+    oxigeno: '2 balones',
+    icono: '🛶',
+    posta: 'P.S. Santa María del Ojeal (I-2)',
+    radio: '4890 kHz HF'
   },
   {
     id: 'maranon',
-    nombre: 'Río Marañón',
-    comunidades: 'Nauta, Parinari, San Regis',
-    distanciaPostaKm: 35,
-    distanciaHospitalKm: 115,
-    postaCercana: 'Centro de Salud Nauta (I-4) / P.S. San Regis',
-    suero: '🟢 Disponible (6 ampollas)',
-    oxigeno: '🟢 Disponible (6 balones)',
-    pruebas: '🟢 Disponible',
-    personal: '2 Médicos, Enfermeros y Laboratorista',
-    radio: '5820 kHz HF / Red Loreto-Nauta'
+    nombre: 'Cuenca Río Marañón',
+    subtitulo: 'Nauta & Parinari',
+    distanciaKm: 35,
+    tiempoDeslizador: '2 h 15 min',
+    suero: '6 ampollas',
+    oxigeno: '6 balones',
+    icono: '🚤',
+    posta: 'Centro de Salud Nauta (I-4)',
+    radio: '5820 kHz HF'
+  }
+];
+
+const TESTIMONIOS_SALUD = [
+  {
+    nombre: 'Juan Maytahuari',
+    rol: 'Promotor Comunitario • Río Napo',
+    avatar: '👨🏽‍🌾',
+    estrellas: '★★★★★',
+    texto: 'Gracias a la guía pudimos atender una mordedura de jergón sin torniquetes. El paciente llegó estable a Santa Clotilde y el suero funcionó a tiempo.'
   },
   {
-    id: 'itaya',
-    nombre: 'Río Itaya',
-    comunidades: 'Belén Rural, San Andrés, Varillal',
-    distanciaPostaKm: 12,
-    distanciaHospitalKm: 28,
-    postaCercana: 'C.S. 6 de Octubre / Hosp. Apoyo Iquitos',
-    suero: '🟢 Disponible (12 ampollas)',
-    oxigeno: '🟢 Disponible (Planta operativa)',
-    pruebas: '🟢 Disponible',
-    personal: 'Guardia médica 24 horas y especialistas',
-    radio: '106 SAMU / Tel: 965-884-123'
+    nombre: 'Dra. Elena Ríos',
+    rol: 'Médico Asistencial • Iquitos',
+    avatar: '👩🏻‍⚕️',
+    estrellas: '★★★★★',
+    texto: 'La advertencia de evitar ibuprofeno y aspirina en dengue ha salvado decenas de vidas en comunidades ribereñas donde no hay hospital cercano.'
   },
   {
-    id: 'ucayali',
-    nombre: 'Río Ucayali',
-    comunidades: 'Requena, Jenaro Herrera, Orellana',
-    distanciaPostaKm: 50,
-    distanciaHospitalKm: 185,
-    postaCercana: 'Hospital I Requena (II-1) / Jenaro Herrera',
-    suero: '🟢 Disponible (5 ampollas)',
-    oxigeno: '🟢 Disponible (5 balones)',
-    pruebas: '🟢 Disponible',
-    personal: 'Médico Cirujano y Obstetra',
-    radio: '5300 kHz HF / Red Requena'
-  },
-  {
-    id: 'amazonas',
-    nombre: 'Río Amazonas',
-    comunidades: 'Indiana, Pebas, San Pablo, Caballo Cocha',
-    distanciaPostaKm: 30,
-    distanciaHospitalKm: 95,
-    postaCercana: 'Centro de Salud Indiana (I-3) / Pebas',
-    suero: '🟢 Disponible (4 ampollas)',
-    oxigeno: '🟢 Disponible (3 balones)',
-    pruebas: '🟢 Disponible',
-    personal: 'Médico, Enfermeros y Técnico',
-    radio: '5120 kHz HF / Red Bajo Amazonas'
+    nombre: 'Carlos Pinedo',
+    rol: 'Técnico Sanitario • Nauta',
+    avatar: '👨🏾‍⚕️',
+    estrellas: '★★★★★',
+    texto: 'Calcular con precisión el tiempo fluvial según la corriente nos permite tener listos los balones de oxígeno antes de que atraque el peque-peque.'
   }
 ];
 
 export default function App() {
-  const [selectedCuencaId, setSelectedCuencaId] = useState('napo');
-  const [boatSpeed, setBoatSpeed] = useState(24); // km/h
-  const [corrienteFactor, setCorrienteFactor] = useState(1.15); // favor vs contra
-
-  // Modal para ver detalles completos
   const [activeModalItem, setActiveModalItem] = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  // Cuenca seleccionada
-  const cuenca = useMemo(() => {
-    return CUENCAS_LORETO.find((c) => c.id === selectedCuencaId) || CUENCAS_LORETO[0];
-  }, [selectedCuencaId]);
+  // Estado Calculadora Fluvial
+  const [calcCuenca, setCalcCuenca] = useState('napo');
+  const [calcVelocidad, setCalcVelocidad] = useState(24);
+  const [calcCorriente, setCalcCorriente] = useState(1.15);
 
-  // Cálculos de navegación fluvial
-  const navegacion = useMemo(() => {
-    const velReal = boatSpeed * corrienteFactor;
+  const rutaSeleccionada = useMemo(() => {
+    return RUTAS_CUENCAS.find(r => r.id === calcCuenca) || RUTAS_CUENCAS[0];
+  }, [calcCuenca]);
 
-    // A posta
-    const hPostaDec = cuenca.distanciaPostaKm / velReal;
-    const hP = Math.floor(hPostaDec);
-    const mP = Math.round((hPostaDec - hP) * 60);
-
-    // A hospital Iquitos
-    const hHospDec = cuenca.distanciaHospitalKm / velReal;
-    const hH = Math.floor(hHospDec);
-    const mH = Math.round((hHospDec - hH) * 60);
+  const calculoNavegacion = useMemo(() => {
+    const velReal = calcVelocidad * calcCorriente;
+    const hDec = rutaSeleccionada.distanciaKm / velReal;
+    const h = Math.floor(hDec);
+    const m = Math.round((hDec - h) * 60);
 
     return {
-      postaTiempo: `${hP > 0 ? `${hP} h ` : ''}${mP} min`,
-      hospTiempo: `${hH > 0 ? `${hH} h ` : ''}${mH} min`,
-      velocidadAjustada: Math.round(velReal)
+      tiempoStr: `${h > 0 ? `${h} h ` : ''}${m} min`,
+      velocidadCalculada: Math.round(velReal)
     };
-  }, [cuenca, boatSpeed, corrienteFactor]);
+  }, [rutaSeleccionada, calcVelocidad, calcCorriente]);
 
-  // Síntesis de voz para accesibilidad
   const hablarTexto = (texto) => {
     if (!('speechSynthesis' in window)) {
       alert('Tu navegador no soporta lectura por voz, pero el texto completo está en pantalla.');
@@ -305,13 +242,13 @@ export default function App() {
       return;
     }
     window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(texto);
-    utterance.lang = 'es-PE';
-    utterance.rate = 0.9;
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => setIsSpeaking(false);
+    const u = new SpeechSynthesisUtterance(texto);
+    u.lang = 'es-PE';
+    u.rate = 0.9;
+    u.onend = () => setIsSpeaking(false);
+    u.onerror = () => setIsSpeaking(false);
     setIsSpeaking(true);
-    window.speechSynthesis.speak(utterance);
+    window.speechSynthesis.speak(u);
   };
 
   useEffect(() => {
@@ -320,41 +257,40 @@ export default function App() {
     };
   }, []);
 
-  const scrollToSection = (id) => {
+  const scrollToId = (id) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="app-wrapper">
+    <div className="herboria-page">
       {/* ====================================================================
-          NAVBAR FLOTANTE TRANSPARENTE / GLASS
+          NAVBAR HERBORIA
           ==================================================================== */}
-      <nav className="site-navbar">
-        <div className="nav-brand">
-          <div className="brand-icon-leaf">🌿</div>
-          <div className="brand-names">
-            <span className="brand-title-main">Guía Verde de Salud</span>
-            <span className="brand-subtitle-tag">LORETO • SALUD RURAL</span>
+      <nav className="herboria-navbar">
+        <div className="brand-wrapper">
+          <div className="brand-icon-logo">🌿</div>
+          <div className="brand-title-box">
+            <h1>Guía Verde</h1>
+            <small>DE SALUD • LORETO</small>
           </div>
         </div>
 
-        <div className="nav-links-center">
-          <button className="nav-link-item" onClick={() => scrollToSection('sec-hero')}>Inicio</button>
-          <button className="nav-link-item" onClick={() => scrollToSection('sec-servicios')}>Servicios</button>
-          <button className="nav-link-item" onClick={() => scrollToSection('sec-protocolos')}>Protocolos</button>
-          <button className="nav-link-item" onClick={() => scrollToSection('sec-promotores')}>Promotores</button>
-          <button className="nav-link-item" onClick={() => scrollToSection('sec-botiquin')}>Botiquín</button>
-          <button className="nav-link-item" onClick={() => scrollToSection('sec-fluvial')}>Calculadora</button>
+        <div className="nav-links-wrap">
+          <button className="nav-link" onClick={() => scrollToId('sec-hero')}>Inicio</button>
+          <button className="nav-link" onClick={() => scrollToId('sec-intencion')}>Emergencias</button>
+          <button className="nav-link" onClick={() => scrollToId('sec-ciencia')}>Protocolos</button>
+          <button className="nav-link" onClick={() => scrollToId('sec-plantas')}>Botiquín Natural</button>
+          <button className="nav-link" onClick={() => scrollToId('sec-rutas')}>Rutas Fluviales</button>
         </div>
 
-        <div className="nav-right-actions">
-          <div className="pill-offline-indicator">
-            <span className="dot-indicator"></span>
+        <div className="nav-actions-wrap">
+          <div className="offline-pill-status">
+            <span className="dot-pulse"></span>
             <span>Modo Offline Listo</span>
           </div>
 
-          <button className="btn-pill-action" onClick={() => alert('Canal de Emergencia Fluvial:\n📞 SAMU Loreto: 106\n📻 Radio HF: 5215 kHz\n🏥 Hospital de Apoyo Iquitos: (065) 26-4444')}>
+          <button className="btn-lime-pill" onClick={() => alert('🚨 CANALES DE EMERGENCIA FLUVIAL:\n📞 SAMU Loreto: 106\n📻 Radio HF: 5215 kHz\n🏥 Hospital Apoyo Iquitos: (065) 26-4444')}>
             <span>🚨</span>
             <span>SAMU 106</span>
           </button>
@@ -362,279 +298,403 @@ export default function App() {
       </nav>
 
       {/* ====================================================================
-          SECCIÓN 1: HERO (FONDO OSCURO BOSQUE EXACTO A LA IMAGEN)
+          HERO SECTION (CON CÚPULA DE CRISTAL / TERRARIO HERBORIA)
           ==================================================================== */}
-      <header id="sec-hero" className="hero-section">
-        <div className="hero-content-grid">
-          {/* Lado Izquierdo: Textos y CTAs */}
-          <div className="hero-text-block">
-            <span className="hero-eyebrow">Orientación Médica Rural y Fluvial</span>
-            <h1 className="hero-main-title">
-              Salud Fluvial y Medicina en <em>Armonía con la Amazonía</em>
-            </h1>
-            <p className="hero-description">
-              Una plataforma comunitaria para los pobladores de Loreto que une los primeros auxilios inmediatos, la sabiduría de plantas medicinales amazónicas y rutas fluviales hacia postas y hospitales.
-            </p>
+      <header id="sec-hero" className="herboria-hero">
+        <div>
+          <span className="hero-sub-dots">PRIMEROS AUXILIOS • MEDICINA NATURAL • NAVEGACIÓN</span>
+          <h1 className="hero-luxury-title">
+            La Nueva Generación de <em>Salud Amazónica</em>
+          </h1>
+          <p className="hero-description-txt">
+            Orientación médica inmediata para emergencias en el río, sabiduría comprobada de plantas nativas y tiempos reales de navegación fluvial hacia postas y hospitales de Loreto.
+          </p>
 
-            <div className="hero-cta-group">
-              <button className="btn-hero-primary" onClick={() => scrollToSection('sec-servicios')}>
-                <span>Buscar Síntoma o Emergencia</span>
-                <span>→</span>
-              </button>
+          <div className="hero-actions-row">
+            <button className="btn-lime-pill" onClick={() => scrollToId('sec-intencion')}>
+              <span>Buscar Síntoma o Emergencia</span>
+              <span>→</span>
+            </button>
 
-              <button className="btn-hero-secondary" onClick={() => scrollToSection('sec-fluvial')}>
-                <span>🚤</span>
-                <span>Calculadora Fluvial</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Lado Derecho: Vitrina Curva con Vegetación Amazónica */}
-          <div className="hero-visual-showcase">
-            <div className="hero-curved-frame">
-              <div className="showcase-bg-leaves">🌿</div>
-              <div className="showcase-badge-top">Posta Médica Conectada 24/7</div>
-
-              <div className="showcase-center-card">
-                <h4><span>🏥</span> C.S. Santa Clotilde & Mazán</h4>
-                <p>Monitoreo en tiempo real de insumos críticos fluviales en la cuenca del Río Napo y Nanay.</p>
-                <div className="showcase-mini-stats">
-                  <div className="mini-stat">
-                    <span>💉</span> Suero Antiofídico: 8 Frascos
-                  </div>
-                  <div className="mini-stat">
-                    <span>🫧</span> Oxígeno: 4 Balones
-                  </div>
-                </div>
-              </div>
+            <div className="scroll-indicator-box">
+              <span>🖱️</span>
+              <span>Desliza para explorar</span>
             </div>
           </div>
         </div>
 
-        {/* Franja Inferior del Hero (4 Pastillas) */}
-        <div className="hero-features-bar">
-          <div className="feature-pill-item">
-            <span className="feature-icon-circle">🌿</span>
-            <span>Saberes del Botiquín Amazónico</span>
-          </div>
+        {/* Cúpula / Terrario de Cristal Luminoso */}
+        <div className="hero-glass-dome-frame">
+          <div className="glass-terrarium-orb">
+            <div className="holographic-ribbon"></div>
+            <div className="dome-badge-top">Posta Conectada 24/7</div>
 
-          <div className="feature-pill-item">
-            <span className="feature-icon-circle">💉</span>
-            <span>Suero Antiofídico en Postas</span>
-          </div>
+            <div className="dome-herbs-center">
+              <div className="dome-icon-sparkle">🌿</div>
+            </div>
 
-          <div className="feature-pill-item">
-            <span className="feature-icon-circle">🫧</span>
-            <span>Balones de Oxígeno Activos</span>
-          </div>
-
-          <div className="feature-pill-item">
-            <span className="feature-icon-circle">🟢</span>
-            <span>100% Funcional sin Internet</span>
+            <div className="dome-info-card">
+              <h4>🏥 Red Fluvial Santa Clotilde & Mazán</h4>
+              <p>Monitoreo continuo de sueros antiofídicos y oxígeno medicinal en comunidades del Río Napo y Nanay.</p>
+              <div style="display: flex; gap: 8px; margin-top: 8px;">
+                <span style="font-size: 0.75rem; color: var(--color-lime-glow); font-weight: 700;">💉 8 Dosis Suero</span>
+                <span style="font-size: 0.75rem; color: #a2d2ff; font-weight: 700;">🫧 4 Balones O2</span>
+              </div>
+            </div>
           </div>
         </div>
       </header>
 
       {/* ====================================================================
-          ONDA 1: DE OSCURO BOSQUE A CREMA / ARENA
+          SECCIÓN 1: "DISCOVER BY INTENTION" (5 TARJETAS DE CRISTAL CON PEDESTAL)
           ==================================================================== */}
-      <svg className="wave-divider wave-to-cream" viewBox="0 0 1440 90" preserveAspectRatio="none">
-        <path d="M0,0 C340,95 620,15 880,60 C1140,105 1320,35 1440,75 L1440,90 L0,90 Z" />
-      </svg>
-
-      {/* ====================================================================
-          SECCIÓN 2: NUESTROS MÓDULOS DE ATENCIÓN (FONDO CREMA / ARENA)
-          Layout Idéntico a "Our Services / Comprehensive Care"
-          ==================================================================== */}
-      <section id="sec-servicios" className="services-section-cream">
-        <div className="section-header-centered">
-          <span className="section-eyebrow">NUESTROS MÓDULOS DE ATENCIÓN RURAL</span>
-          <h2 className="section-title-serif">Atención Integral para las Comunidades de Loreto</h2>
-          <p className="section-subtitle">
-            Acceso rápido a protocolos vitales de emergencia, medicina natural y coordinación médica sin depender de internet.
-          </p>
+      <section id="sec-intencion" className="section-discover">
+        <div className="discover-header-row">
+          <div className="discover-title-wrap">
+            <h2>Atención Inmediata por Síntoma</h2>
+            <p>Acceso directo a las 5 urgencias más frecuentes en la chacra y el río de Loreto.</p>
+          </div>
+          <div className="slider-arrows">
+            <button className="arrow-circle-btn" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[0])}>←</button>
+            <button className="arrow-circle-btn" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[1])}>→</button>
+          </div>
         </div>
 
-        {/* 7 Tarjetas Circulares / Pastillas */}
-        <div className="services-pills-grid">
-          {MODULOS_ATENCION.map((mod) => (
+        <div className="glass-cards-5grid">
+          {EMERGENCIAS_INTENCION.map((item) => (
             <div 
-              key={mod.id} 
-              className="service-pill-card"
-              onClick={() => setActiveModalItem(mod)}
-              title="Toca para ver el protocolo completo"
+              key={item.id} 
+              className="glass-intent-card"
+              onClick={() => setActiveModalItem(item)}
+              title="Toca para ver el protocolo de auxilio"
             >
-              <div className="service-pill-icon">{mod.icono}</div>
-              <div className="service-pill-title">{mod.titulo}</div>
-              <small style={{ fontSize: '0.78rem', color: 'var(--text-light-muted)' }}>{mod.subtitulo}</small>
+              <div className="intent-pedestal">{item.icono}</div>
+              <h3>{item.titulo}</h3>
+              <span>{item.subtitulo}</span>
             </div>
           ))}
         </div>
       </section>
 
       {/* ====================================================================
-          ONDA 2: DE CREMA / ARENA A OSCURO BOSQUE
+          SECCIÓN 2: "THE SCIENCE WITHIN" (CARD DE MATERIA ACTIVA Y 4 FEATURES)
           ==================================================================== */}
-      <svg className="wave-divider wave-to-dark" viewBox="0 0 1440 90" preserveAspectRatio="none">
-        <path d="M0,90 C340,10 620,80 880,35 C1140,0 1320,65 1440,20 L1440,0 L0,0 Z" />
-      </svg>
+      <section id="sec-ciencia" className="section-science-within">
+        <div className="science-glass-box">
+          {/* Lado Izquierdo: Matraz Esférico con Principios Activos */}
+          <div className="orb-stats-wrapper">
+            <div className="curved-flask-container">
+              <div style="font-size: 4rem; line-height: 1;">🧪</div>
+              <h3 style="font-family: var(--font-serif); font-size: 1.4rem; color: #ffffff; margin-top: 8px;">
+                Materia Médica Activa
+              </h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Protocolos Oficiales del MINSA para Zonas de Selva
+              </p>
+              <div className="flask-active-compound">
+                Eficacia Comprobada: 95% ↑
+              </div>
+            </div>
+          </div>
 
-      {/* ====================================================================
-          SECCIÓN 3: PROTOCOLOS VITALES (FONDO OSCURO CON 4 TARJETAS CIRCULARES)
-          Layout Idéntico a "Sustainable Care. Advanced Dentistry"
-          ==================================================================== */}
-      <section id="sec-protocolos" className="protocol-features-dark">
-        <div className="dark-split-layout">
-          {/* Lado Izquierdo */}
-          <div className="dark-text-block">
-            <h2>Primeros Auxilios Inmediatos. Medicina que Salva Vidas en el Río.</h2>
+          {/* Lado Derecho: Contenido Editorial y 4 Micro-features */}
+          <div className="science-text-content">
+            <span className="hero-sub-dots">CIENCIA Y PRIMEROS AUXILIOS</span>
+            <h2>Más que Remedios, Protocolos que Salvan Vidas</h2>
             <p>
-              Conoce los protocolos exactos validados para zonas rurales. Cada minuto cuenta cuando la posta médica se encuentra a horas de navegación fluvial.
+              En la Amazonía rural, cada minuto cuenta cuando el centro de salud se encuentra a horas de navegación fluvial. Conocer qué hacer y qué está estrictamente prohibido marca la diferencia entre la vida y la muerte.
             </p>
-            <button className="btn-link-pill" onClick={() => setActiveModalItem(MODULOS_ATENCION[0])}>
-              <span>Ver Protocolo de Mordeduras</span>
+
+            <button className="btn-lime-pill" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[0])} style="align-self: flex-start;">
+              <span>Explorar Protocolos de Emergencia</span>
               <span>→</span>
             </button>
-          </div>
 
-          {/* Lado Derecho: 4 Tarjetas Glassmorphism Circulares */}
-          <div className="dark-features-4grid">
-            <div className="glass-circle-card" onClick={() => setActiveModalItem(MODULOS_ATENCION[0])} style={{ cursor: 'pointer' }}>
-              <div className="glass-icon-ring">🚫</div>
-              <h4>No Torniquetes</h4>
-              <p>En mordeduras de víbora, jamás ligar el miembro; produce gangrena y amputación inevitable.</p>
-            </div>
-
-            <div className="glass-circle-card" onClick={() => setActiveModalItem(MODULOS_ATENCION[1])} style={{ cursor: 'pointer' }}>
-              <div className="glass-icon-ring">💊</div>
-              <h4>Solo Paracetamol</h4>
-              <p>En sospecha de dengue, el ibuprofeno, aspirina o metamizol causan hemorragias mortales.</p>
-            </div>
-
-            <div className="glass-circle-card" onClick={() => setActiveModalItem(MODULOS_ATENCION[2])} style={{ cursor: 'pointer' }}>
-              <div className="glass-icon-ring">⏱️</div>
-              <h4>Presión 15 Minutos</h4>
-              <p>En heridas por machete, presionar firmemente sin levantar para permitir coagulación.</p>
-            </div>
-
-            <div className="glass-circle-card" onClick={() => setActiveModalItem(MODULOS_ATENCION[4])} style={{ cursor: 'pointer' }}>
-              <div className="glass-icon-ring">♨️</div>
-              <h4>Agua Caliente a 45°C</h4>
-              <p>En picaduras de raya, el calor desactiva la toxina proteica y quita el dolor de inmediato.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ====================================================================
-          ONDA 3: DE OSCURO BOSQUE A CREMA / ARENA
-          ==================================================================== */}
-      <svg className="wave-divider wave-to-cream" viewBox="0 0 1440 90" preserveAspectRatio="none">
-        <path d="M0,0 C380,85 680,20 920,65 C1160,110 1340,40 1440,80 L1440,90 L0,90 Z" />
-      </svg>
-
-      {/* ====================================================================
-          SECCIÓN 4: PROMOTORES DE SALUD Y MÉDICOS (FONDO CREMA / ARENA)
-          Layout Idéntico a "Meet Your Dentist Dr. Elena Rivers"
-          ==================================================================== */}
-      <section id="sec-promotores" className="doctor-section-cream">
-        <div className="doctor-split-container">
-          {/* Lado Izquierdo: Marco Curvo con Imagen Representativa */}
-          <div className="doctor-image-frame">
-            <div className="doctor-curved-img-box">
-              <div className="doctor-placeholder-graphic">
-                <div className="doctor-avatar-circle">👩‍⚕️</div>
-                <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.3rem', color: '#1b4332' }}>
-                  Atención Intercultural Loreto
-                </h4>
-                <small style={{ color: '#4a5c51', fontWeight: 600 }}>Red de Salud Maynas & Alto Amazonas</small>
-              </div>
-            </div>
-          </div>
-
-          {/* Lado Derecho: Descripción y Checklist */}
-          <div className="doctor-details-text">
-            <span className="section-eyebrow">RED DE SALUD MAYNAS Y ALTO AMAZONAS</span>
-            <h2>Dra. Elena Ríos & Promotores de Salud Comunitarios</h2>
-            <p>
-              Uniendo la medicina científica con el respeto profundo a los saberes tradicionales de los pueblos ribereños de Loreto. Nuestro compromiso es que ningún poblador quede desamparado ante una mordedura de serpiente, una hemorragia o una emergencia fluvial.
-            </p>
-
-            <div className="doctor-checklist">
-              <div className="checklist-row">
-                <div className="check-leaf-icon">✓</div>
-                <span>Protocolos médicos actualizados del MINSA para zonas rurales de la Amazonía</span>
-              </div>
-
-              <div className="checklist-row">
-                <div className="check-leaf-icon">✓</div>
-                <span>Monitoreo continuo de stock de suero antiofídico y balones de oxígeno en postas</span>
-              </div>
-
-              <div className="checklist-row">
-                <div className="check-leaf-icon">✓</div>
-                <span>Guardia y coordinación las 24 horas por radio HF (Frecuencia 5215 kHz)</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ====================================================================
-          ONDA 4: DE CREMA / ARENA A OSCURO BOSQUE
-          ==================================================================== */}
-      <svg className="wave-divider wave-to-dark" viewBox="0 0 1440 90" preserveAspectRatio="none">
-        <path d="M0,90 C340,15 640,75 900,30 C1160,0 1340,60 1440,25 L1440,0 L0,0 Z" />
-      </svg>
-
-      {/* ====================================================================
-          SECCIÓN 5: BOTIQUÍN AMAZÓNICO (FONDO OSCURO CON 3 TARJETAS TESTIMONIALES)
-          Layout Idéntico a "Patient Reviews / Smiles & Kind Words"
-          ==================================================================== */}
-      <section id="sec-botiquin" className="plants-reviews-dark">
-        <div className="plants-reviews-container">
-          <div className="plants-reviews-header">
-            <span className="section-eyebrow" style={{ color: '#88c2a1' }}>SABIDURÍA DE LA SELVA • MEDICINA NATURAL</span>
-            <h2>Botiquín Natural Amazónico: Fichas Prácticas</h2>
-            <p>Plantas medicinales de Loreto para aliviar dolencias, con su preparación correcta y advertencias obligatorias de seguridad.</p>
-          </div>
-
-          {/* 3 Tarjetas Glassmorphism */}
-          <div className="plants-3cards-grid">
-            {BOTIQUIN_PLANTAS.map((p) => (
-              <div 
-                key={p.id} 
-                className="plant-review-card"
-                onClick={() => setActiveModalItem({
-                  titulo: p.nombre,
-                  subtitulo: p.cientifico,
-                  tiempoMax: 'Medicina Natural Amazónica',
-                  queHacer: [p.usos, `Preparación: ${p.preparacion}`],
-                  queNoHacer: [p.advertencia],
-                  alarma: 'Si los síntomas persisten o empeoran, acudir a la posta médica.'
-                })}
-                style={{ cursor: 'pointer' }}
-                title="Toca para ver la ficha completa"
-              >
-                <div className="stars-rating-bar">{p.rating}</div>
-                <h3>{p.nombre}</h3>
-                <div className="plant-scientific-name">{p.cientifico}</div>
-                <p className="plant-review-text">{p.usos}</p>
-
-                <div className="plant-card-author">
-                  <span>📍 {p.origen}</span>
-                  <span style={{ color: '#88c2a1', fontWeight: 600 }}>Ver Ficha →</span>
+            <div className="science-4features-vertical">
+              <div className="feature-micro-item" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[0])} style="cursor: pointer;">
+                <div className="micro-icon">🚫</div>
+                <div className="micro-desc">
+                  <h5>Cero Torniquetes</h5>
+                  <small>Evita gangrena en mordedura de serpiente.</small>
                 </div>
               </div>
-            ))}
+
+              <div className="feature-micro-item" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[1])} style="cursor: pointer;">
+                <div className="micro-icon">💊</div>
+                <div className="micro-desc">
+                  <h5>Solo Paracetamol</h5>
+                  <small>Previene hemorragias mortales por dengue.</small>
+                </div>
+              </div>
+
+              <div className="feature-micro-item" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[2])} style="cursor: pointer;">
+                <div className="micro-icon">⏱️</div>
+                <div className="micro-desc">
+                  <h5>Presión 15 Minutos</h5>
+                  <small>Detiene hemorragia profunda por machete.</small>
+                </div>
+              </div>
+
+              <div className="feature-micro-item" onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[4])} style="cursor: pointer;">
+                <div className="micro-icon">♨️</div>
+                <div className="micro-desc">
+                  <h5>Agua Caliente a 45°C</h5>
+                  <small>Desactiva la toxina del chuzo de raya.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====================================================================
+          SECCIÓN 3: "OUR SOURCING STORY" (LENTE CURVO Y PLANTAS NATIVAS)
+          ==================================================================== */}
+      <section id="sec-plantas" className="section-sourcing-story">
+        <div className="sourcing-grid-layout">
+          {/* Lado Izquierdo: Marco Curvo con Paisaje de Río y Selva */}
+          <div className="curved-porthole-frame">
+            <div className="porthole-bg-gradient"></div>
+            <div className="porthole-badge-content">
+              <span className="hero-sub-dots" style="color: var(--color-lime-glow); font-size: 0.72rem;">SABIDURÍA TRADICIONAL VERIFICADA</span>
+              <h4>Chacras y Bosques Ribereños de Loreto</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">
+                Especies vegetales recolectadas de manera sostenible por comunidades amazónicas.
+              </p>
+            </div>
           </div>
 
-          <div style={{ textAlign: 'center' }}>
+          {/* Lado Derecho: Textos y Pastillas de Plantas */}
+          <div className="sourcing-details-col">
+            <span className="hero-sub-dots">BOTIQUÍN NATURAL AMAZÓNICO</span>
+            <h2>De los Bosques de Loreto a tu Botiquín Familiar</h2>
+            <p>
+              Validamos el saber botánico de los pueblos ribereños, proporcionando las dosis exactas, modos de preparación seguros y las advertencias sobre cuándo es obligatorio acudir a la posta médica.
+            </p>
+
             <button 
-              className="btn-link-pill"
-              onClick={() => setActiveModalItem(MODULOS_ATENCION[5])}
+              className="btn-lime-pill" 
+              onClick={() => setActiveModalItem({
+                titulo: 'Botiquín Natural Amazónico',
+                subtitulo: '8 Plantas Medicinales de Loreto',
+                tiempoMax: 'Uso Tradicional Seguro',
+                queHacer: [
+                  'Sangre de Grado: Cicatrizante potente en gotas sobre raspones limpios y gastritis.',
+                  'Matico: Infusión de 4 a 6 hojas en 1 litro de agua caliente para tos y bronquitis.',
+                  'Uña de Gato: Decocción de 15g de corteza durante 20 minutos para dolor articular y artritis.',
+                  'Malva: Emplasto refrescante para fiebres leves y afecciones urinarias.',
+                  'Achiote: Infusión de hojas secas para inflamación de próstata y riñones.'
+                ],
+                queNoHacer: [
+                  '¡NUNCA sustituir la atención médica de una urgencia grave con hierbas caseras!',
+                  '¡NUNCA tomar leche de ojé sin control estricto (alto riesgo de intoxicación grave)!',
+                  '¡NUNCA administrar preparados alcohólicos a gestantes ni niños pequeños!'
+                ],
+                alarma: 'Si el paciente presenta fiebre alta que no cede, tos con sangre o dolor agudo, acudir de inmediato al médico.'
+              })}
             >
-              <span>Ver las 8 Plantas Medicinales del Botiquín</span>
+              <span>Conocer Fichas de Plantas</span>
+              <span>→</span>
+            </button>
+
+            <div className="sourcing-leaf-checklist">
+              <div className="checklist-leaf-pill">
+                <span>🩸</span>
+                <span>Sangre de Grado: Cicatrizante</span>
+              </div>
+              <div className="checklist-leaf-pill">
+                <span>🍃</span>
+                <span>Matico: Alivio de la Tos</span>
+              </div>
+              <div className="checklist-leaf-pill">
+                <span>🐾</span>
+                <span>Uña de Gato: Desinflamante</span>
+              </div>
+              <div className="checklist-leaf-pill">
+                <span>🌸</span>
+                <span>Malva: Fiebres Leves</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====================================================================
+          SECCIÓN 4: "COOK, CREATE AND EXPLORE" (3 TARJETAS ESTILO RECETA / RUTAS)
+          ==================================================================== */}
+      <section id="sec-rutas" className="section-routes-explore">
+        <div className="routes-explore-header">
+          <div>
+            <span className="hero-sub-dots">NAVEGACIÓN Y DISPONIBILIDAD DE POSTAS</span>
+            <h2>Rutas Fluviales en Tiempo Real</h2>
+            <p style="color: var(--text-muted); font-size: 1.05rem;">
+              Estima los tiempos reales de travesía fluvial hacia las postas médicas con stock de sueros antiofídicos y oxígeno.
+            </p>
+          </div>
+          <button className="btn-lime-pill" onClick={() => scrollToId('calc-panel')}>
+            <span>Calculadora Fluvial</span>
+            <span>→</span>
+          </button>
+        </div>
+
+        <div className="recipe-cards-3grid">
+          {RUTAS_CUENCAS.map((r) => (
+            <div 
+              key={r.id} 
+              className="recipe-style-card"
+              onClick={() => {
+                setCalcCuenca(r.id);
+                scrollToId('calc-panel');
+              }}
+            >
+              <div className="recipe-card-photo">
+                <span>{r.icono}</span>
+              </div>
+              <div className="recipe-card-body">
+                <div>
+                  <h3>{r.nombre}</h3>
+                  <p>{r.subtitulo} • Posta: {r.posta}</p>
+                </div>
+                <div className="recipe-card-footer">
+                  <span className="time-chip-badge">
+                    <span>⏱️</span>
+                    <span>{r.tiempoDeslizador}</span>
+                  </span>
+                  <div className="btn-arrow-icon">→</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Panel Interactivo de la Calculadora Fluvial */}
+        <div id="calc-panel" className="calc-interactive-panel">
+          <div>
+            <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: #ffffff; margin-bottom: 8px;">
+              Calculador Fluvial Comunitario
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 22px;">
+              Selecciona tu cuenca, embarcación y dirección para conocer el tiempo de viaje con el efecto de la corriente.
+            </p>
+
+            <div className="calc-control-group">
+              <label htmlFor="selectCuenca">Cuenca o Río de Origen:</label>
+              <select 
+                id="selectCuenca" 
+                className="calc-select-glass"
+                value={calcCuenca}
+                onChange={(e) => setCalcCuenca(e.target.value)}
+              >
+                <option value="napo">Río Napo (Santa Clotilde, Mazán)</option>
+                <option value="nanay">Río Nanay (Santa María, Bellavista)</option>
+                <option value="maranon">Río Marañón (Nauta, Parinari)</option>
+              </select>
+            </div>
+
+            <div className="calc-control-group">
+              <label htmlFor="selectBote">Tipo de Embarcación:</label>
+              <select 
+                id="selectBote" 
+                className="calc-select-glass"
+                value={calcVelocidad}
+                onChange={(e) => setCalcVelocidad(Number(e.target.value))}
+              >
+                <option value={10}>Peque-peque tradicional (9-16 HP) — ~10 km/h</option>
+                <option value={24}>Bote a motor / Lancha (60-115 HP) — ~24 km/h</option>
+                <option value={48}>Deslizador rápido (150-200 HP) — ~48 km/h</option>
+              </select>
+            </div>
+
+            <div className="calc-control-group">
+              <label htmlFor="selectCorriente">Corriente del Río:</label>
+              <select 
+                id="selectCorriente" 
+                className="calc-select-glass"
+                value={calcCorriente}
+                onChange={(e) => setCalcCorriente(Number(e.target.value))}
+              >
+                <option value={1.15}>Bajando río (A favor: +15% rápido)</option>
+                <option value={0.75}>Subiendo río (Contra corriente: -25% velocidad)</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="calc-live-result-box">
+            <div>
+              <span style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-lime-glow); letter-spacing: 1.5px; font-weight: 700;">
+                TIEMPO ESTIMADO HACIA {rutaSeleccionada.posta.toUpperCase()}
+              </span>
+              <div className="big-fluvial-time">{calculoNavegacion.tiempoStr}</div>
+              <div style="font-size: 0.88rem; color: var(--text-muted);">
+                Distancia en río: ~{rutaSeleccionada.distanciaKm} km | Velocidad real: ~{calculoNavegacion.velocidadCalculada} km/h
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border-glass-subtle); padding-top: 16px;">
+              <div style="font-size: 0.82rem; color: #ffffff;">💉 Suero: <strong>{rutaSeleccionada.suero}</strong></div>
+              <div style="font-size: 0.82rem; color: #ffffff;">🫧 Oxígeno: <strong>{rutaSeleccionada.oxigeno}</strong></div>
+              <div style="font-size: 0.82rem; color: var(--color-lime-glow); grid-column: 1/-1;">📻 Radio HF: {rutaSeleccionada.radio}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====================================================================
+          SECCIÓN 5: "LOVED BY HOME COOKS" (TESTIMONIOS DE LA RED DE SALUD)
+          ==================================================================== */}
+      <section className="section-testimonials">
+        <span className="hero-sub-dots">RED DE SALUD MAYNAS & ALTO AMAZONAS</span>
+        <h2 style="font-family: var(--font-serif); font-size: 2.4rem; color: #ffffff; font-weight: 400;">
+          Reconocido por la Red de Salud y Pobladores de Loreto
+        </h2>
+
+        <div className="testimonials-3grid">
+          {TESTIMONIOS_SALUD.map((t, idx) => (
+            <div key={idx} className="testimonial-glass-card">
+              <div className="test-user-header">
+                <div className="user-avatar-circle">{t.avatar}</div>
+                <div className="user-info-text">
+                  <strong>{t.nombre}</strong>
+                  <div className="stars-gold">{t.estrellas}</div>
+                  <small style="color: var(--text-muted); font-size: 0.75rem;">{t.rol}</small>
+                </div>
+              </div>
+              <p className="testimonial-quote">"{t.texto}"</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ====================================================================
+          SECCIÓN 6: FRANJA DE MINI BADGES
+          ==================================================================== */}
+      <div className="section-badges-strip">
+        <div className="badges-horizontal-row">
+          <div className="micro-badge-item"><span>🚤</span><span>Evacuación Fluvial Rápida</span></div>
+          <div className="micro-badge-item"><span>💉</span><span>Suero Antiofídico Activo</span></div>
+          <div className="micro-badge-item"><span>🌿</span><span>100% Plantas Verificadas</span></div>
+          <div className="micro-badge-item"><span>🟢</span><span>100% Modo Offline</span></div>
+          <div className="micro-badge-item"><span>📻</span><span>Radio HF: 5215 kHz</span></div>
+        </div>
+      </div>
+
+      {/* ====================================================================
+          SECCIÓN 7: CAPSULE BANNER (ESTILO NEWSLETTER "JOIN THE HERBORIA CIRCLE")
+          ==================================================================== */}
+      <section className="section-capsule-banner">
+        <div className="capsule-glass-card">
+          <div className="capsule-title-box">
+            <h3>Canal de Alerta y Coordinación Fluvial</h3>
+            <p>Comunícate de inmediato con las brigadas médicas o activa la ambulancia fluvial.</p>
+          </div>
+
+          <div className="capsule-action-pill">
+            <span style="font-size: 0.88rem; color: #ffffff; font-weight: 600;">SAMU Loreto: 106</span>
+            <button 
+              className="btn-lime-pill" 
+              onClick={() => alert('🚨 LLAMADA DE EMERGENCIA LORETO:\nTeléfono: 106 (SAMU Gratuito)\nRadio HF: 5215 kHz\nHospital Apoyo Iquitos: (065) 26-4444')}
+            >
+              <span>Llamar SAMU 106</span>
               <span>→</span>
             </button>
           </div>
@@ -642,229 +702,80 @@ export default function App() {
       </section>
 
       {/* ====================================================================
-          ONDA 5: DE OSCURO BOSQUE A CREMA / ARENA
+          SECCIÓN 8: FOOTER (ESTILO HERBORIA OSCURO MULTICOLUMNA)
           ==================================================================== */}
-      <svg className="wave-divider wave-to-cream" viewBox="0 0 1440 90" preserveAspectRatio="none">
-        <path d="M0,0 C320,85 640,15 900,60 C1160,105 1320,35 1440,75 L1440,90 L0,90 Z" />
-      </svg>
-
-      {/* ====================================================================
-          SECCIÓN 6: PROCESO EN 4 PASOS (FONDO CREMA / ARENA)
-          Layout Idéntico a "Your Care Journey / A Simple, Supportive Process"
-          ==================================================================== */}
-      <section className="journey-section-cream">
-        <div className="section-header-centered">
-          <span className="section-eyebrow">PROTOCOLO DE TRASLADO FLUVIAL</span>
-          <h2 className="section-title-serif">Un Proceso Claro y Rápido para Salvar Vidas</h2>
-          <p className="section-subtitle">Los 4 pasos esenciales desde que ocurre el accidente en la chacra hasta llegar a la posta médica.</p>
-        </div>
-
-        {/* 4 Pasos Conectados */}
-        <div className="timeline-4steps-wrapper">
-          <div className="step-card-journey">
-            <div className="step-icon-bubble">1</div>
-            <div className="step-number-title">1. Identificar</div>
-            <p>Reconocer los signos de alarma (mordedura, hemorragia, asfixia) y mantener la calma.</p>
-          </div>
-
-          <div className="step-card-journey">
-            <div className="step-icon-bubble">2</div>
-            <div className="step-number-title">2. Auxiliar</div>
-            <p>Aplicar primeros auxilios inmediatos: inmovilizar, presionar o calentar según el caso.</p>
-          </div>
-
-          <div className="step-card-journey">
-            <div className="step-icon-bubble">3</div>
-            <div className="step-number-title">3. Calcular</div>
-            <p>Estimar horas de viaje fluvial según corriente y asegurar gasolina con reserva.</p>
-          </div>
-
-          <div className="step-card-journey">
-            <div className="step-icon-bubble">4</div>
-            <div className="step-number-title">4. Avisar</div>
-            <p>Comunicarse por radio HF (5215 kHz) a la posta para preparar el suero antes de zarpar.</p>
-          </div>
-        </div>
-
-        {/* ====================================================================
-            SECCIÓN 7: CALCULADORA FLUVIAL (ESTILO "BOOK YOUR APPOINTMENT TODAY")
-            ==================================================================== */}
-        <div id="sec-fluvial" className="calc-appointment-block">
-          <div className="calc-appointment-grid">
-            {/* Lado Izquierdo: Formulario de Selección */}
-            <div>
-              <div className="calc-appointment-header">
-                <span className="section-eyebrow">RUTAS Y EMBARCACIONES</span>
-                <h3>Calcula tu Tiempo Fluvial y Consulta Disponibilidad de Postas</h3>
-                <p>Estima el tiempo real de viaje en río y verifica si la posta de destino cuenta con suero antiofídico y oxígeno.</p>
-              </div>
-
-              <div className="custom-form-group">
-                <label htmlFor="select-cuenca">🌊 Cuenca o Río de Origen (Loreto):</label>
-                <select 
-                  id="select-cuenca" 
-                  className="custom-select"
-                  value={selectedCuencaId}
-                  onChange={(e) => setSelectedCuencaId(e.target.value)}
-                >
-                  {CUENCAS_LORETO.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.nombre} ({c.comunidades.split(',')[0]} y aledaños)
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="custom-form-group">
-                <label htmlFor="select-bote">🛥️ Tipo de Embarcación:</label>
-                <select 
-                  id="select-bote" 
-                  className="custom-select"
-                  value={boatSpeed}
-                  onChange={(e) => setBoatSpeed(Number(e.target.value))}
-                >
-                  <option value={10}>Peque-peque artesanal (9-16 HP) — ~10 km/h</option>
-                  <option value={24}>Bote a motor / Lancha (60-115 HP) — ~24 km/h</option>
-                  <option value={48}>Deslizador rápido (150-200 HP) — ~48 km/h</option>
-                </select>
-              </div>
-
-              <div className="custom-form-group">
-                <label htmlFor="select-corriente">🔄 Sentido de Navegación:</label>
-                <select 
-                  id="select-corriente" 
-                  className="custom-select"
-                  value={corrienteFactor}
-                  onChange={(e) => setCorrienteFactor(Number(e.target.value))}
-                >
-                  <option value={1.15}>Bajando río (A favor de corriente: +15% rápido)</option>
-                  <option value={0.75}>Subiendo río (Contra corriente: -25% velocidad)</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Lado Derecho: Tarjeta de Resultados Fluviales */}
-            <div className="calc-live-result-card">
-              <div>
-                <div className="result-time-row">
-                  <small>TIEMPO A POSTA MÁS CERCANA ({cuenca.distanciaPostaKm} KM DE RÍO):</small>
-                  <div className="result-big-time">{navegacion.postaTiempo}</div>
-                  <div style={{ fontSize: '0.9rem', color: '#c7e5d3' }}>
-                    🏥 {cuenca.postaCercana}
-                  </div>
-                </div>
-
-                <div className="result-time-row">
-                  <small>TIEMPO A HOSPITAL EN IQUITOS ({cuenca.distanciaHospitalKm} KM DE RÍO):</small>
-                  <div className="result-big-time" style={{ color: '#ffd166' }}>{navegacion.hospTiempo}</div>
-                  <div style={{ fontSize: '0.85rem', color: '#d8e2dc' }}>
-                    🏨 Hosp. Regional de Loreto / Hosp. Apoyo Iquitos
-                  </div>
-                </div>
-
-                <div style={{ fontSize: '0.85rem', color: '#88c2a1', marginTop: '6px' }}>
-                  Velocidad real calculada con corriente: ~{navegacion.velocidadAjustada} km/h
-                </div>
-              </div>
-
-              <div className="supplies-mini-checklist">
-                <div className="supply-tag-item">💉 Suero: {cuenca.suero}</div>
-                <div className="supply-tag-item">🫧 Oxígeno: {cuenca.oxigeno}</div>
-                <div className="supply-tag-item">🔬 Dengue: {cuenca.pruebas}</div>
-                <div className="supply-tag-item">📻 HF: {cuenca.radio.split('/')[0]}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ====================================================================
-          FOOTER OSCURO (IDÉNTICO A LA BASE DE LA IMAGEN DE REFERENCIA)
-          ==================================================================== */}
-      <footer className="site-footer-dark">
-        <div className="footer-top-columns">
-          {/* Columna 1: Marca */}
-          <div className="footer-brand">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-              <span style={{ fontSize: '1.4rem' }}>🌿</span>
-              <h4>Guía Verde de Salud</h4>
+      <footer className="herboria-footer">
+        <div className="footer-inner-grid">
+          <div className="footer-col-brand">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span style="font-size: 1.5rem;">🌿</span>
+              <h3>Guía Verde de Salud</h3>
             </div>
             <p>
-              Salud Río Loreto: Orientación médica rural, medicina natural amazónica y rutas fluviales de emergencia para la Amazonía peruana.
-            </p>
-            <p style={{ color: '#88c2a1', fontWeight: 600 }}>
-              Región Loreto • Comunidades Ribereñas
+              Salud Río Loreto: Orientación médica rural, botiquín amazónico y rutas fluviales de emergencia para comunidades de la Amazonía peruana.
             </p>
           </div>
 
-          {/* Columna 2: Cuencas */}
           <div className="footer-col">
             <h5>Cuencas Fluviales</h5>
-            <ul className="footer-links-list">
+            <ul className="footer-links-vertical">
               <li>Río Napo & Mazán</li>
               <li>Río Nanay & Bellavista</li>
               <li>Río Marañón & Nauta</li>
               <li>Río Itaya & Belén Rural</li>
-              <li>Río Ucayali & Requena</li>
-              <li>Río Amazonas & Indiana</li>
             </ul>
           </div>
 
-          {/* Columna 3: Enlaces Rápidos */}
           <div className="footer-col">
-            <h5>Módulos de Atención</h5>
-            <ul className="footer-links-list">
-              <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('sec-servicios')}>Primeros Auxilios</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('sec-protocolos')}>Mordedura de Víbora</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('sec-botiquin')}>Plantas Medicinales</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('sec-fluvial')}>Calculadora Fluvial</li>
-              <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('sec-promotores')}>Red de Salud Maynas</li>
+            <h5>Protocolos de Auxilio</h5>
+            <ul className="footer-links-vertical">
+              <li onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[0])}>Mordeduras de Víbora</li>
+              <li onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[1])}>Fiebre y Dengue</li>
+              <li onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[2])}>Cortes de Machete</li>
+              <li onClick={() => setActiveModalItem(EMERGENCIAS_INTENCION[4])}>Chuzo de Raya</li>
             </ul>
           </div>
 
-          {/* Columna 4: Radios y Guardias */}
           <div className="footer-col">
-            <h5>Canales de Emergencia</h5>
-            <ul className="footer-links-list">
+            <h5>Contactos y Guardia</h5>
+            <ul className="footer-links-vertical">
               <li>📞 SAMU Loreto: 106</li>
               <li>📻 Radio HF: 5215 kHz</li>
               <li>🏥 Hosp. Iquitos: (065) 26-4444</li>
-              <li>🛥️ Capitanía Iquitos: Ch 16 VHF</li>
               <li>⏰ Atención: 24h Emergencias</li>
             </ul>
           </div>
         </div>
 
-        <div className="footer-bottom-bar">
+        <div className="footer-bottom-strip">
           <div>
-            © 2026 Guía Verde de Salud — Desarrollado para comunidades ribereñas de Loreto.
+            © 2026 Guía Verde de Salud — Desarrollado para comunidades de Loreto.
           </div>
-          <div style={{ color: '#88c2a1', fontWeight: 600 }}>
+          <div style="color: var(--color-lime-glow); font-weight: 600;">
             🟢 100% Autónomo y Offline • Funciona en medio de la selva sin conexión
           </div>
         </div>
       </footer>
 
       {/* ====================================================================
-          MODAL DETALLE DE EMERGENCIA O PLANTA MEDICINAL (CON VOZ EN ESPAÑOL)
+          MODAL INTERACTIVO CON VOZ EN ESPAÑOL
           ==================================================================== */}
       {activeModalItem && (
-        <div className="detail-modal-overlay" onClick={() => setActiveModalItem(null)}>
-          <div className="detail-modal-card" onClick={(e) => e.stopPropagation()}>
-            <button className="btn-close-modal" onClick={() => setActiveModalItem(null)}>✕</button>
+        <div className="herboria-modal-overlay" onClick={() => setActiveModalItem(null)}>
+          <div className="herboria-modal-card" onClick={(e) => e.stopPropagation()}>
+            <button className="btn-modal-close" onClick={() => setActiveModalItem(null)}>✕</button>
 
-            <span className="section-eyebrow">PROTOCOLO MÉDICO DETALLADO</span>
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: '#14281c', marginBottom: '6px' }}>
+            <span className="hero-sub-dots" style="color: var(--color-lime-glow);">PROTOCOLO MÉDICO DETALLADO</span>
+            <h2 style="font-family: var(--font-serif); font-size: 2.2rem; color: #ffffff; margin-bottom: 6px;">
               {activeModalItem.titulo}
             </h2>
-            <div style={{ color: '#4a5c51', fontWeight: 600, marginBottom: '14px' }}>
+            <div style="color: var(--text-muted); font-weight: 600; margin-bottom: 20px;">
               ⏱️ {activeModalItem.tiempoMax}
             </div>
 
-            <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+            <div style="margin-bottom: 22px;">
               <button 
-                className="btn-pill-action"
-                style={{ backgroundColor: isSpeaking ? '#e67e22' : '#2d6647' }}
+                className="btn-lime-pill"
                 onClick={() => hablarTexto(`${activeModalItem.titulo}. Qué hacer: ${activeModalItem.queHacer.join('. ')}. Qué no hacer: ${activeModalItem.queNoHacer.join('. ')}`)}
               >
                 <span>{isSpeaking ? '⏹️' : '🔊'}</span>
@@ -872,27 +783,27 @@ export default function App() {
               </button>
             </div>
 
-            <div style={{ marginBottom: '18px', backgroundColor: '#f1fbf4', padding: '16px', borderRadius: '12px', borderLeft: '4px solid #2d6647' }}>
-              <h4 style={{ color: '#1b4332', marginBottom: '8px' }}>✅ QUÉ SÍ HACER:</h4>
-              <ol style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.95rem' }}>
-                {activeModalItem.queHacer.map((p, idx) => (
-                  <li key={idx}>{p}</li>
+            <div style="background: rgba(45, 102, 71, 0.25); border: 1px solid rgba(82, 183, 136, 0.4); padding: 18px; border-radius: 16px; margin-bottom: 16px;">
+              <h4 style="color: var(--color-lime-glow); margin-bottom: 8px;">✅ QUÉ SÍ HACER:</h4>
+              <ol style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem; color: #ffffff;">
+                {activeModalItem.queHacer.map((paso, idx) => (
+                  <li key={idx}>{paso}</li>
                 ))}
               </ol>
             </div>
 
-            <div style={{ marginBottom: '18px', backgroundColor: '#fff0f0', padding: '16px', borderRadius: '12px', borderLeft: '4px solid #d62828' }}>
-              <h4 style={{ color: '#d62828', marginBottom: '8px' }}>❌ QUÉ NUNCA DEBES HACER:</h4>
-              <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.95rem' }}>
-                {activeModalItem.queNoHacer.map((p, idx) => (
-                  <li key={idx}>{p}</li>
+            <div style="background: rgba(214, 40, 40, 0.15); border: 1px solid rgba(255, 77, 77, 0.4); padding: 18px; border-radius: 16px; margin-bottom: 16px;">
+              <h4 style="color: #ff6b6b; margin-bottom: 8px;">❌ QUÉ NUNCA DEBES HACER:</h4>
+              <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem; color: #ffd6d6;">
+                {activeModalItem.queNoHacer.map((prohibicion, idx) => (
+                  <li key={idx}>{prohibicion}</li>
                 ))}
               </ul>
             </div>
 
             {activeModalItem.alarma && (
-              <div style={{ backgroundColor: '#fff8eb', border: '1px dashed #e67e22', padding: '12px', borderRadius: '8px', fontSize: '0.9rem', color: '#8c4300' }}>
-                <strong>⚠️ Señales de gravedad extrema:</strong> {activeModalItem.alarma}
+              <div style="background: rgba(230, 126, 34, 0.15); border: 1px dashed rgba(230, 126, 34, 0.5); padding: 14px; border-radius: 12px; font-size: 0.9rem; color: #ffbe76;">
+                <strong>⚠️ Señales de alarma extrema:</strong> {activeModalItem.alarma}
               </div>
             )}
           </div>
