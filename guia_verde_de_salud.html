@@ -4,49 +4,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="theme-color" content="#05130a">
+  <meta name="theme-color" content="#032b35">
   <meta name="description"
     content="Guía Verde de Salud - Salud Río Loreto. Orientación médica rural, botiquín amazónico y calculadora fluvial para comunidades de Loreto. 100% Offline.">
   <title>Guía Verde de Salud — Salud Río Loreto</title>
 
-  <!-- Tipografías elegantes Google Fonts con fallbacks locales -->
+  <!-- Tipografías de alta legibilidad con fallbacks locales -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
 
   <style>
     /* ==========================================================================
-       ESTILOS MODELO HERBORIA: OBSIDIANA ESMERALDA, CRISTALES LUMINOSOS & LIMA
+       GUÍA VERDE DE SALUD — SALUD RÍO LORETO
+       Estilo visual: Modelo OceanKind (Aquatic Immersion, Clean Cards, Wave Dividers)
        ========================================================================== */
+
     :root {
-      --font-serif: 'Playfair Display', Georgia, serif;
-      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --ocean-darkest: #01181f;
+      --ocean-deep: #032b35;
+      --ocean-navy: #053b47;
+      --ocean-teal: #086171;
+      --ocean-teal-light: #0d8396;
+      --ocean-cyan: #14b8a6;
+      --ocean-cyan-glow: #22d3ee;
+      --ocean-ice: #e2f4f8;
+      --ocean-light-bg: #f3fafc;
+      --ocean-white: #ffffff;
 
-      --bg-herboria-deep: #05130a;
-      --bg-herboria-card: rgba(13, 34, 21, 0.72);
-      --bg-herboria-card-hover: rgba(20, 50, 31, 0.85);
+      --coral-primary: #f25c3b;
+      --coral-hover: #d94828;
+      --coral-glow: rgba(242, 92, 59, 0.45);
+      --coral-light: #ffece6;
 
-      --color-lime-glow: #b8f338;
-      --color-lime-bright: #d2f954;
-      --color-emerald-light: #52b788;
+      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --text-white: #ffffff;
+      --text-ice: #e0f2f7;
+      --text-muted: #85b8c4;
+      --text-dark: #09262e;
+      --text-dark-muted: #4b6f79;
 
-      --border-glass: rgba(168, 255, 190, 0.16);
-      --border-glass-hover: rgba(184, 243, 56, 0.4);
-      --border-glass-subtle: rgba(255, 255, 255, 0.08);
-
-      --text-pure-white: #ffffff;
-      --text-emerald-light: #d8f3dc;
-      --text-muted: #94bba2;
-      --text-dim: #608870;
-
-      --glow-lime: 0 0 24px rgba(184, 243, 56, 0.35);
-      --glow-emerald: 0 0 35px rgba(82, 183, 136, 0.2);
-      --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.5);
-
+      --border-cyan-glow: rgba(34, 211, 238, 0.35);
+      --border-glass: rgba(255, 255, 255, 0.15);
       --radius-pill: 9999px;
-      --radius-card: 24px;
+      --radius-card: 22px;
+      --radius-sm: 12px;
+      --shadow-float: 0 15px 35px rgba(3, 43, 53, 0.18);
     }
 
     * {
@@ -57,9 +62,9 @@
     }
 
     html {
-      font-family: var(--font-sans);
-      background-color: var(--bg-herboria-deep);
-      color: var(--text-emerald-light);
+      font-family: var(--font-main);
+      background-color: var(--ocean-darkest);
+      color: var(--text-ice);
       scroll-behavior: smooth;
     }
 
@@ -67,7 +72,8 @@
       margin: 0;
       padding: 0;
       line-height: 1.6;
-      background-color: var(--bg-herboria-deep);
+      background-color: var(--ocean-darkest);
+      overflow-x: hidden;
     }
 
     button {
@@ -75,6 +81,7 @@
       cursor: pointer;
       border: none;
       outline: none;
+      transition: all 0.25s ease;
     }
 
     a {
@@ -82,374 +89,1019 @@
       text-decoration: none;
     }
 
+    /* BARRA SUPERIOR OFFLINE */
+    .top-offline-strip {
+      background: linear-gradient(90deg, #022027 0%, #06404d 50%, #022027 100%);
+      border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #a7f3d0;
+      text-align: center;
+    }
+
+    .top-offline-strip .pulse-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #34d399;
+      box-shadow: 0 0 10px #34d399;
+      animation: pulseGreen 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseGreen {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+    }
+
     /* NAVBAR */
-    .herboria-navbar {
+    .ocean-navbar {
       position: sticky;
       top: 0;
       z-index: 1000;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      background: rgba(5, 19, 11, 0.85);
-      border-bottom: 1px solid var(--border-glass-subtle);
-      padding: 16px 36px;
+      background: rgba(3, 43, 53, 0.88);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 14px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .brand-wrapper {
+    .brand-ocean-wrap {
       display: flex;
       align-items: center;
       gap: 12px;
+      cursor: pointer;
     }
 
-    .brand-icon-logo {
-      width: 38px;
-      height: 38px;
+    .brand-wave-icon {
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      border: 1px solid rgba(184, 243, 56, 0.4);
-      background: linear-gradient(135deg, rgba(82, 183, 136, 0.25), rgba(5, 19, 11, 0.8));
+      background: linear-gradient(135deg, #14b8a6, #032b35);
+      border: 1.5px solid var(--ocean-cyan-glow);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.3rem;
-      box-shadow: 0 0 15px rgba(184, 243, 56, 0.2);
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
     }
 
-    .brand-title-box h1 {
-      font-family: var(--font-serif);
-      font-size: 1.35rem;
-      font-weight: 600;
-      color: #fff;
-      line-height: 1;
-    }
-
-    .brand-title-box small {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--color-lime-glow);
-      font-weight: 700;
-    }
-
-    .nav-links-wrap {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-    }
-
-    .nav-link {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      font-weight: 500;
-      cursor: pointer;
-      background: none;
-    }
-
-    .nav-link:hover {
+    .brand-ocean-text h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
       color: #ffffff;
+      line-height: 1.1;
+      letter-spacing: -0.3px;
     }
 
-    .nav-actions-wrap {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .offline-pill-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-glass);
-      padding: 6px 14px;
-      border-radius: var(--radius-pill);
-      font-size: 0.82rem;
-      font-weight: 600;
-    }
-
-    .dot-pulse {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: var(--color-lime-glow);
-      box-shadow: 0 0 10px var(--color-lime-glow);
-    }
-
-    .btn-lime-pill {
-      background: linear-gradient(135deg, var(--color-lime-bright), var(--color-lime-glow));
-      color: #07190e;
-      font-weight: 800;
-      font-size: 0.88rem;
-      padding: 10px 22px;
-      border-radius: var(--radius-pill);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: var(--glow-lime);
-    }
-
-    /* HERO SECTION */
-    .herboria-hero {
-      position: relative;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 70px 24px 60px 24px;
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      align-items: center;
-      gap: 50px;
-    }
-
-    .hero-sub-dots {
-      font-size: 0.8rem;
+    .brand-ocean-text small {
+      font-size: 0.68rem;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: 800;
-      color: var(--color-lime-glow);
-      margin-bottom: 16px;
-      display: inline-block;
+      letter-spacing: 1.5px;
+      color: var(--ocean-cyan-glow);
+      font-weight: 700;
+      display: block;
     }
 
-    .hero-luxury-title {
-      font-family: var(--font-serif);
-      font-size: 3.8rem;
-      font-weight: 400;
-      line-height: 1.12;
-      color: #fff;
-      margin-bottom: 22px;
-    }
-
-    .hero-luxury-title em {
-      font-style: italic;
-      color: var(--color-lime-bright);
-      font-weight: 300;
-    }
-
-    .hero-desc {
-      font-size: 1.12rem;
-      line-height: 1.65;
-      color: var(--text-muted);
-      max-width: 580px;
-      margin-bottom: 34px;
-    }
-
-    .hero-actions-row {
+    .nav-ocean-links {
       display: flex;
       align-items: center;
       gap: 24px;
-      flex-wrap: wrap;
     }
 
-    .scroll-indicator-box {
+    .nav-ocean-link {
+      color: var(--text-ice);
+      font-size: 0.92rem;
+      font-weight: 600;
+      background: none;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+    }
+
+    .nav-ocean-link:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-coral-nav {
+      background: var(--coral-primary);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 4px 15px var(--coral-glow);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-coral-nav:hover {
+      background: var(--coral-hover);
+      transform: translateY(-2px);
+    }
+
+    /* HERO */
+    .ocean-hero {
+      position: relative;
+      background: radial-gradient(circle at 75% 30%, #064f5f 0%, #032b35 45%, #01181f 90%);
+      padding: 80px 40px 90px 40px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.95fr;
+      align-items: center;
+      gap: 50px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    .hero-text-side {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .hero-ocean-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: var(--text-dim);
-      font-size: 0.82rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    /* CÚPULA DE CRISTAL / TERRARIO */
-    .hero-glass-dome-frame {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .glass-terrarium-orb {
-      width: 440px;
-      height: 500px;
-      border-radius: 220px 220px 40px 40px;
-      background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.15), rgba(12, 38, 22, 0.6) 60%, rgba(5, 19, 10, 0.95) 100%);
-      border: 1px solid rgba(184, 243, 56, 0.3);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), inset 0 2px 20px rgba(255, 255, 255, 0.25);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 30px;
-    }
-
-    .holographic-ribbon {
-      position: absolute;
-      top: 15%;
-      left: -20%;
-      width: 140%;
-      height: 90px;
-      background: linear-gradient(135deg, rgba(184, 243, 56, 0.25), rgba(82, 183, 136, 0.1), rgba(160, 220, 255, 0.2));
-      transform: rotate(-18deg);
-      border-radius: 50%;
-      filter: blur(1px);
-      pointer-events: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.4);
-      opacity: 0.75;
-    }
-
-    .dome-badge-top {
-      align-self: center;
-      background: rgba(5, 19, 11, 0.75);
-      border: 1px solid var(--border-glass);
+      background: rgba(20, 184, 166, 0.15);
+      border: 1px solid rgba(34, 211, 238, 0.4);
+      color: var(--ocean-cyan-glow);
       padding: 6px 16px;
       border-radius: var(--radius-pill);
       font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: var(--color-lime-glow);
+      font-weight: 800;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      z-index: 2;
+      width: fit-content;
     }
 
-    /* Imagen 1: Red Fluvial y Medicina Ancestral */
-    .dome-image-showcase {
+    .hero-ocean-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.12;
+      color: #ffffff;
+      letter-spacing: -1px;
+    }
+
+    .hero-ocean-title .coral-highlight {
+      color: var(--coral-primary);
+      display: block;
+    }
+
+    .hero-ocean-desc {
+      font-size: 1.1rem;
+      color: var(--text-ice);
+      max-width: 580px;
+      line-height: 1.6;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .btn-coral-pill {
+      background: var(--coral-primary);
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 6px 20px var(--coral-glow);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-coral-pill:hover {
+      background: var(--coral-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--coral-glow);
+    }
+
+    .btn-outline-pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-outline-pill:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .hero-4badges-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 22px;
+    }
+
+    .hero-micro-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-micro-badge span.icon {
+      font-size: 1.4rem;
+    }
+
+    .hero-micro-badge span.label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-ice);
+      line-height: 1.25;
+    }
+
+    /* HERO CARD DERECHA */
+    .hero-visual-side {
       position: relative;
-      z-index: 2;
-      width: 100%;
-      height: 250px;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 2px solid rgba(184, 243, 56, 0.35);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(184, 243, 56, 0.25);
-      margin: 12px 0;
-      background: #0d2215;
+      display: flex;
+      justify-content: center;
     }
 
-    .dome-image-showcase img {
+    .hero-floating-card {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 2px solid rgba(34, 211, 238, 0.4);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(20, 184, 166, 0.25);
+      background: #022027;
+    }
+
+    .hero-floating-card img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .hero-floating-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .hero-floating-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      background: linear-gradient(180deg, transparent 0%, rgba(1, 24, 31, 0.95) 45%, #01181f 100%);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-floating-badge-top {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(3, 43, 53, 0.85);
+      border: 1px solid var(--ocean-cyan-glow);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--ocean-cyan-glow);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-floating-overlay h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .hero-floating-overlay p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    .hero-floating-pills-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill-stat-mini {
+      background: rgba(20, 184, 166, 0.18);
+      border: 1px solid rgba(34, 211, 238, 0.35);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    /* WAVE DIVIDERS */
+    .wave-divider {
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      display: block;
+    }
+
+    .wave-divider svg {
+      position: relative;
+      display: block;
+      width: calc(100% + 1.3px);
+      height: 60px;
+    }
+
+    /* STATS IMPACT */
+    .stats-impact-section {
+      background: var(--ocean-white);
+      color: var(--text-dark);
+      padding: 35px 40px;
+      border-bottom: 1px solid #d8edf3;
+    }
+
+    .stats-impact-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .impact-lead-box h3 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--ocean-deep);
+    }
+
+    .impact-lead-box p {
+      font-size: 0.85rem;
+      color: var(--text-dark-muted);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .impact-stat-item {
+      border-left: 1px solid #d2eaf0;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-num-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-num-box .stat-icon {
+      font-size: 1.5rem;
+    }
+
+    .stat-num-box .stat-big-number {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--ocean-teal);
+      letter-spacing: -0.5px;
+    }
+
+    .impact-stat-item small {
+      font-size: 0.8rem;
+      color: var(--text-dark-muted);
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    /* FEATURED BUNDLES */
+    .section-featured-bundles {
+      background: var(--ocean-light-bg);
+      padding: 65px 40px 85px 40px;
+    }
+
+    .bundles-header-row {
+      max-width: 1280px;
+      margin: 0 auto 40px auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .bundles-title-wrap h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--ocean-deep);
+      letter-spacing: -0.5px;
+    }
+
+    .bundles-title-wrap .coral-badge-tag {
+      display: inline-block;
+      background: var(--coral-primary);
+      color: #ffffff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .bundles-header-row p {
+      font-size: 0.95rem;
+      color: var(--text-dark-muted);
+      font-weight: 500;
+      max-width: 450px;
+      text-align: right;
+    }
+
+    .bundles-3grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .bundle-card {
+      background: var(--ocean-white);
+      border: 1px solid #d2eaf0;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-float);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .bundle-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 45px rgba(3, 43, 53, 0.16);
+      border-color: #0d8396;
+    }
+
+    .bundle-card-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 230px;
+      overflow: hidden;
+      background: #022027;
+    }
+
+    .bundle-card-img-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.4s ease;
     }
 
-    .dome-image-showcase:hover img {
-      transform: scale(1.05);
+    .bundle-card:hover .bundle-card-img-wrap img {
+      transform: scale(1.06);
     }
 
-    .dome-info-card {
-      background: rgba(8, 26, 15, 0.85);
-      border: 1px solid var(--border-glass);
-      border-radius: 20px;
-      padding: 16px;
-      backdrop-filter: blur(10px);
+    .bundle-pill-alert {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--coral-primary);
+      color: #ffffff;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      box-shadow: 0 3px 10px rgba(242, 92, 59, 0.4);
       z-index: 2;
     }
 
-    .dome-info-card h4 {
-      font-family: var(--font-serif);
-      font-size: 1.15rem;
-      color: #fff;
+    .bundle-card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .bundle-card-body h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ocean-deep);
       margin-bottom: 4px;
     }
 
-    .dome-info-card p {
+    .bundle-card-body .bundle-sub-tag {
       font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.4;
+      color: var(--ocean-teal);
+      font-weight: 700;
+      margin-bottom: 12px;
     }
 
-    /* SECCIÓN 1: DISCOVER BY INTENTION (5 CARDS) */
-    .section-discover {
+    .bundle-checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .bundle-checklist li {
+      font-size: 0.85rem;
+      color: var(--text-dark-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.35;
+    }
+
+    .bundle-checklist li.positive span.bullet {
+      color: #10b981;
+      font-weight: 800;
+    }
+
+    .bundle-checklist li.negative span.bullet {
+      color: #ef4444;
+      font-weight: 800;
+    }
+
+    .bundle-footer-strip {
+      margin-top: auto;
+      border-top: 1px solid #eef6f8;
+      padding-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .bundle-time-badge {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ocean-teal);
+    }
+
+    .btn-bundle-view {
+      background: var(--coral-primary);
+      color: #ffffff;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 4px 12px var(--coral-glow);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-bundle-view:hover {
+      background: var(--coral-hover);
+      transform: translateY(-2px);
+    }
+
+    /* SHOP BY COLLECTION */
+    .section-shop-collection {
+      background: linear-gradient(180deg, #02232c 0%, #032b35 100%);
+      padding: 70px 40px 90px 40px;
+    }
+
+    .collection-header-row {
       max-width: 1280px;
-      margin: 0 auto;
-      padding: 60px 24px;
-    }
-
-    .discover-header-row {
+      margin: 0 auto 36px auto;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 30px;
     }
 
-    .discover-header-row h2 {
-      font-family: var(--font-serif);
+    .collection-header-row h2 {
       font-size: 2.2rem;
-      font-weight: 400;
-      color: #fff;
-      margin-bottom: 6px;
+      font-weight: 800;
+      color: #ffffff;
     }
 
-    .glass-cards-5grid {
+    .collection-header-row p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .collection-cards-grid {
+      max-width: 1280px;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 16px;
     }
 
-    .glass-intent-card {
-      background: var(--bg-herboria-card);
-      border: 1px solid var(--border-glass);
+    .collection-pill-card {
+      background: rgba(5, 59, 71, 0.45);
+      border: 1.5px solid rgba(34, 211, 238, 0.3);
       border-radius: 20px;
-      padding: 24px 16px;
-      text-align: center;
-      backdrop-filter: blur(12px);
-      cursor: pointer;
+      padding: 18px 14px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      transition: all 0.25s;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
     }
 
-    .glass-intent-card:hover {
-      background: var(--bg-herboria-card-hover);
-      border-color: var(--border-glass-hover);
+    .collection-pill-card:hover {
+      background: rgba(5, 59, 71, 0.85);
+      border-color: var(--ocean-cyan-glow);
       transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), var(--glow-emerald);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(34, 211, 238, 0.25);
     }
 
-    .intent-pedestal {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(184, 243, 56, 0.2) 0%, rgba(13, 34, 21, 0.4) 70%);
-      border: 1px solid rgba(184, 243, 56, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.2rem;
-      margin-bottom: 16px;
-      box-shadow: 0 0 15px rgba(184, 243, 56, 0.25);
-    }
-
-    /* Marco de Imagen de la Tarjeta */
-    .intent-img-pedestal {
-      width: 86px;
-      height: 86px;
-      border-radius: 20px;
+    .collection-card-img-thumb {
+      width: 100%;
+      height: 110px;
+      border-radius: 14px;
       overflow: hidden;
-      border: 2px solid rgba(184, 243, 56, 0.4);
-      background: #0d2215;
-      box-shadow: 0 0 18px rgba(184, 243, 56, 0.25);
       margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.25s ease, border-color 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #01181f;
     }
 
-    .intent-img-pedestal img {
+    .collection-card-img-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
+      transition: transform 0.4s ease;
     }
 
-    .glass-intent-card:hover .intent-img-pedestal {
-      transform: scale(1.08);
-      border-color: var(--color-lime-glow);
-      box-shadow: 0 0 25px rgba(184, 243, 56, 0.45);
+    .collection-pill-card:hover .collection-card-img-thumb img {
+      transform: scale(1.1);
+    }
+
+    .collection-pill-card h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+
+    .collection-pill-card p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .collection-card-arrow-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: auto;
+    }
+
+    .collection-circle-arrow {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(34, 211, 238, 0.5);
+      color: var(--ocean-cyan-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    .collection-pill-card:hover .collection-circle-arrow {
+      background: var(--ocean-cyan-glow);
+      color: var(--ocean-darkest);
+    }
+
+    /* CALCULADORA PANORÁMICA */
+    .section-panoramic-calc {
+      position: relative;
+      background: linear-gradient(180deg, #02232c 0%, rgba(2, 35, 44, 0.75) 40%, rgba(3, 43, 53, 0.9) 100%),
+                  radial-gradient(circle at 50% 90%, #f25c3b 0%, #086171 40%, #01181f 85%);
+      padding: 85px 40px 95px 40px;
+      color: #ffffff;
+    }
+
+    .panoramic-header-box {
+      max-width: 820px;
+      margin: 0 auto 40px auto;
+      text-align: center;
+    }
+
+    .panoramic-header-box h2 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    .panoramic-header-box p {
+      font-size: 1.05rem;
+      color: var(--text-ice);
+      line-height: 1.6;
+    }
+
+    .fluvial-calc-card {
+      max-width: 1040px;
+      margin: 0 auto;
+      background: rgba(3, 43, 53, 0.85);
+      border: 2px solid rgba(34, 211, 238, 0.35);
+      border-radius: 28px;
+      padding: 38px 44px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(20, 184, 166, 0.2);
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .calc-controls-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .calc-input-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--ocean-cyan-glow);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .calc-select-ocean {
+      width: 100%;
+      background: rgba(1, 24, 31, 0.8);
+      border: 1.5px solid rgba(34, 211, 238, 0.4);
+      color: #ffffff;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .calc-results-col {
+      background: rgba(1, 24, 31, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 22px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .calc-time-display {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .calc-time-display small {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--ocean-cyan-glow);
+      font-weight: 800;
+    }
+
+    .calc-time-display .time-big {
+      font-size: 3.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+      margin: 6px 0;
+      text-shadow: 0 0 25px rgba(34, 211, 238, 0.5);
+    }
+
+    .calc-time-display p {
+      font-size: 0.85rem;
+      color: var(--text-ice);
+    }
+
+    .supplies-tags-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .supply-tag-card {
+      background: rgba(8, 97, 113, 0.35);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      padding: 10px 12px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .btn-emergency-action {
+      width: 100%;
+      background: var(--coral-primary);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 14px 20px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 6px 20px var(--coral-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .btn-emergency-action:hover {
+      background: var(--coral-hover);
+      transform: translateY(-2px);
+    }
+
+    /* BOTIQUÍN NATURAL */
+    .section-botiquin-natural {
+      background: var(--ocean-white);
+      color: var(--text-dark);
+      padding: 75px 40px 90px 40px;
+    }
+
+    .botiquin-header-row {
+      max-width: 1280px;
+      margin: 0 auto 36px auto;
+      text-align: center;
+    }
+
+    .botiquin-header-row h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--ocean-deep);
+    }
+
+    .botiquin-header-row p {
+      font-size: 0.95rem;
+      color: var(--text-dark-muted);
+      max-width: 650px;
+      margin: 8px auto 0 auto;
+    }
+
+    .botiquin-cards-5grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    .plant-card {
+      background: var(--ocean-light-bg);
+      border: 1px solid #d2eaf0;
+      border-radius: 20px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 6px 18px rgba(3, 43, 53, 0.06);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .plant-card:hover {
+      transform: translateY(-5px);
+      border-color: #0d8396;
+      box-shadow: 0 15px 30px rgba(3, 43, 53, 0.12);
+    }
+
+    .plant-card .plant-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      background: rgba(20, 184, 166, 0.15);
+      border: 1px solid rgba(20, 184, 166, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+    }
+
+    .plant-card h4 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--ocean-deep);
+    }
+
+    .plant-card p {
+      font-size: 0.85rem;
+      color: var(--text-dark-muted);
+      line-height: 1.4;
+    }
+
+    .plant-card .plant-prep {
+      background: #ffffff;
+      border: 1px solid #e2f0f4;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      color: var(--ocean-teal);
+      font-weight: 600;
+    }
+
+    .plant-card .plant-warning {
+      font-size: 0.75rem;
+      color: #b91c1c;
+      font-weight: 700;
+      background: #fef2f2;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #fecaca;
+      margin-top: auto;
+    }
+
+    /* MODAL */
+    .ocean-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(1, 24, 31, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .ocean-modal-card {
+      background: #032b35;
+      border: 2px solid var(--ocean-cyan-glow);
+      border-radius: 26px;
+      width: 100%;
+      max-width: 640px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 34px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 40px rgba(34, 211, 238, 0.3);
+      position: relative;
+      color: #ffffff;
+    }
+
+    .btn-modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .btn-modal-close:hover {
+      background: var(--coral-primary);
     }
 
     .modal-header-with-img {
       display: flex;
       align-items: center;
       gap: 18px;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .modal-thumb-box {
@@ -457,8 +1109,8 @@
       height: 90px;
       border-radius: 18px;
       overflow: hidden;
-      border: 2px solid var(--color-lime-glow);
-      box-shadow: 0 0 20px rgba(184, 243, 56, 0.3);
+      border: 2px solid var(--ocean-cyan-glow);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.35);
       flex-shrink: 0;
     }
 
@@ -468,907 +1120,702 @@
       object-fit: cover;
     }
 
-    .glass-intent-card h3 {
-      font-family: var(--font-serif);
-      font-size: 1.1rem;
-      color: #fff;
-      margin-bottom: 4px;
+    .modal-box-positive {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 18px;
+      border-radius: 16px;
+      margin-bottom: 16px;
     }
 
-    .glass-intent-card span {
-      font-size: 0.78rem;
-      color: var(--color-lime-glow);
-      font-weight: 600;
+    .modal-box-negative {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      padding: 18px;
+      border-radius: 16px;
+      margin-bottom: 16px;
     }
 
-    /* SECCIÓN 2: THE SCIENCE WITHIN (MATRAZ & 4 FEATURES) */
-    .section-science-within {
+    .modal-box-alert {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px dashed rgba(245, 158, 11, 0.5);
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      color: #fde68a;
+    }
+
+    /* BOTTOM BADGES & FOOTER */
+    .ocean-bottom-badges-bar {
+      background: #011b22;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 26px 40px;
+    }
+
+    .bottom-badges-container {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 50px 24px 70px 24px;
-    }
-
-    .science-glass-box {
-      background: linear-gradient(135deg, rgba(14, 38, 24, 0.8), rgba(7, 21, 13, 0.95));
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-card);
-      padding: 44px;
-      backdrop-filter: blur(20px);
-      box-shadow: var(--shadow-card);
       display: grid;
-      grid-template-columns: 0.9fr 1.25fr;
-      align-items: center;
-      gap: 50px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
     }
 
-    .curved-flask-container {
-      width: 100%;
-      max-width: 360px;
-      height: 340px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.25), rgba(184, 243, 56, 0.15) 30%, rgba(13, 38, 23, 0.8) 70%, rgba(5, 19, 10, 0.95) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 0 50px rgba(184, 243, 56, 0.2);
+    .bottom-value-badge {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      margin: 0 auto;
+      gap: 12px;
     }
 
-    .flask-active-compound {
-      background: rgba(5, 19, 11, 0.85);
-      border: 1px solid var(--color-lime-glow);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 0.82rem;
-      color: var(--color-lime-glow);
-      font-weight: 800;
-      margin-top: 10px;
+    .bottom-value-badge .badge-icon {
+      font-size: 1.6rem;
+      color: var(--ocean-cyan-glow);
     }
 
-    .science-text-content h2 {
-      font-family: var(--font-serif);
-      font-size: 2.6rem;
-      font-weight: 400;
-      color: #fff;
-      line-height: 1.2;
-      margin: 8px 0 16px 0;
-    }
-
-    .science-4features-vertical {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .feature-micro-item {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border-glass-subtle);
-      border-radius: 14px;
-      padding: 12px 14px;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      cursor: pointer;
-    }
-
-    .micro-desc h5 {
-      color: #fff;
+    .bottom-value-badge .badge-text h5 {
       font-size: 0.92rem;
-      margin-bottom: 2px;
+      font-weight: 800;
+      color: #ffffff;
     }
 
-    .micro-desc small {
+    .bottom-value-badge .badge-text small {
+      font-size: 0.78rem;
       color: var(--text-muted);
-      font-size: 0.8rem;
-      line-height: 1.35;
     }
 
-    /* SECCIÓN 3: OUR SOURCING STORY (LENTE & BOTIQUÍN) */
-    .section-sourcing-story {
+    .ocean-footer {
+      background: #01141a;
+      padding: 55px 40px 30px 40px;
+      color: var(--text-muted);
+    }
+
+    .footer-main-grid {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 60px 24px;
-    }
-
-    .sourcing-grid-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 50px;
-    }
-
-    .curved-porthole-frame {
-      width: 100%;
-      height: 420px;
-      border-radius: 40px;
-      background: linear-gradient(135deg, rgba(82, 183, 136, 0.2), rgba(5, 19, 10, 0.85));
-      border: 1px solid var(--border-glass);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 24px;
-    }
-
-    .porthole-badge-content {
-      background: rgba(7, 24, 14, 0.9);
-      border: 1px solid var(--border-glass);
-      border-radius: 18px;
-      padding: 16px 20px;
-      backdrop-filter: blur(10px);
-    }
-
-    .sourcing-details-col h2 {
-      font-family: var(--font-serif);
-      font-size: 2.6rem;
-      font-weight: 400;
-      color: #fff;
-      margin: 8px 0 16px 0;
-    }
-
-    .sourcing-leaf-checklist {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 20px;
-    }
-
-    .checklist-leaf-pill {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-pill);
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    /* SECCIÓN 4: 3 TARJETAS RECETA / RUTAS + CALCULADORA */
-    .section-routes-explore {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 60px 24px;
-    }
-
-    .recipe-cards-3grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin: 30px 0;
-    }
-
-    .recipe-style-card {
-      background: var(--bg-herboria-card);
-      border: 1px solid var(--border-glass);
-      border-radius: 22px;
-      overflow: hidden;
-      backdrop-filter: blur(14px);
-      cursor: pointer;
-      transition: all 0.25s;
-    }
-
-    .recipe-style-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--border-glass-hover);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), var(--glow-lime);
-    }
-
-    .recipe-card-photo {
-      height: 180px;
-      background: linear-gradient(135deg, rgba(82, 183, 136, 0.3), rgba(7, 24, 14, 0.9));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.5rem;
-    }
-
-    .recipe-card-body {
-      padding: 20px;
-    }
-
-    .recipe-card-body h3 {
-      font-family: var(--font-serif);
-      font-size: 1.3rem;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-
-    .time-chip-badge {
-      background: rgba(184, 243, 56, 0.15);
-      border: 1px solid rgba(184, 243, 56, 0.3);
-      color: var(--color-lime-glow);
-      padding: 4px 12px;
-      border-radius: var(--radius-pill);
-      font-size: 0.82rem;
-      font-weight: 700;
-    }
-
-    .btn-arrow-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--color-lime-glow);
-      color: #05130b;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-    }
-
-    /* CALCULADORA FLUVIAL */
-    .calc-interactive-panel {
-      background: linear-gradient(145deg, rgba(14, 38, 24, 0.9), rgba(5, 19, 10, 0.98));
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-card);
-      padding: 34px;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 40px;
-      margin-top: 20px;
-    }
-
-    .calc-select-glass {
-      width: 100%;
-      padding: 12px 16px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border-glass);
-      border-radius: 14px;
-      color: #fff;
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 14px;
-    }
-
-    .calc-select-glass option {
-      background-color: #0a2214;
-      color: #fff;
-    }
-
-    .calc-live-result-box {
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid var(--border-glass);
-      border-radius: 20px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .big-fluvial-time {
-      font-family: var(--font-serif);
-      font-size: 2.8rem;
-      font-weight: 400;
-      color: #fff;
-      margin: 6px 0;
-    }
-
-    /* TESTIMONIOS */
-    .section-testimonials {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 50px 24px 60px 24px;
-    }
-
-    .testimonials-3grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 24px;
-    }
-
-    .testimonial-glass-card {
-      background: var(--bg-herboria-card);
-      border: 1px solid var(--border-glass);
-      border-radius: 20px;
-      padding: 22px;
-    }
-
-    .user-avatar-circle {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(184, 243, 56, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-    }
-
-    /* BADGES */
-    .section-badges-strip {
-      border-top: 1px solid var(--border-glass-subtle);
-      border-bottom: 1px solid var(--border-glass-subtle);
-      background: rgba(5, 19, 11, 0.7);
-      padding: 24px;
-    }
-
-    .badges-horizontal-row {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    /* CAPSULE BANNER */
-    .section-capsule-banner {
-      max-width: 1100px;
-      margin: 60px auto 40px auto;
-      padding: 0 24px;
-    }
-
-    .capsule-glass-card {
-      background: linear-gradient(135deg, rgba(14, 38, 24, 0.85), rgba(7, 21, 13, 0.95));
-      border: 1px solid rgba(184, 243, 56, 0.3);
-      border-radius: var(--radius-pill);
-      padding: 28px 44px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 30px;
-    }
-
-    /* FOOTER */
-    .herboria-footer {
-      border-top: 1px solid var(--border-glass-subtle);
-      background-color: #030d07;
-      padding: 60px 24px 30px 24px;
-    }
-
-    .footer-inner-grid {
-      max-width: 1280px;
-      margin: 0 auto 40px auto;
       display: grid;
       grid-template-columns: 1.4fr 1fr 1fr 1fr;
       gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .footer-links-vertical {
+    .footer-col h5 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-    }
-
-    .footer-links-vertical li {
-      color: var(--text-muted);
+      gap: 10px;
       font-size: 0.88rem;
-      cursor: pointer;
     }
 
-    /* MODAL */
-    .herboria-modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(3, 10, 6, 0.85);
-      backdrop-filter: blur(12px);
-      z-index: 9999;
-      display: none;
+    .footer-col ul li {
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .footer-col ul li:hover {
+      color: #ffffff;
+    }
+
+    .footer-bottom-copy {
+      max-width: 1280px;
+      margin: 25px auto 0 auto;
+      display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-
-    .herboria-modal-card {
-      background: linear-gradient(145deg, #0d2617, #07190e);
-      border: 1px solid rgba(184, 243, 56, 0.4);
-      max-width: 680px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      border-radius: 28px;
-      padding: 34px;
-      position: relative;
-      color: #fff;
-    }
-
-    .btn-modal-close {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      font-size: 1.2rem;
-      cursor: pointer;
+      justify-content: space-between;
+      font-size: 0.82rem;
     }
 
     @media (max-width: 1024px) {
-
-      .herboria-hero,
-      .science-glass-box,
-      .sourcing-grid-layout,
-      .calc-interactive-panel {
-        grid-template-columns: 1fr;
-      }
-
-      .glass-cards-5grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .recipe-cards-3grid,
-      .testimonials-3grid {
-        grid-template-columns: 1fr;
-      }
-
-      .capsule-glass-card {
-        flex-direction: column;
-        border-radius: 24px;
-        padding: 24px;
-        text-align: center;
-      }
+      .ocean-hero { grid-template-columns: 1fr; padding: 50px 24px; gap: 40px; }
+      .hero-4badges-row { grid-template-columns: repeat(2, 1fr); }
+      .stats-impact-container { grid-template-columns: 1fr 1fr; }
+      .bundles-3grid { grid-template-columns: 1fr; }
+      .collection-cards-grid { grid-template-columns: repeat(3, 1fr); }
+      .fluvial-calc-card { grid-template-columns: 1fr; }
+      .botiquin-cards-5grid { grid-template-columns: repeat(2, 1fr); }
+      .bottom-badges-container { grid-template-columns: repeat(2, 1fr); }
+      .footer-main-grid { grid-template-columns: 1fr 1fr; }
     }
 
-    @media (max-width: 680px) {
-      .hero-luxury-title {
-        font-size: 2.3rem;
-      }
-
-      .nav-links-wrap {
-        display: none;
-      }
-
-      .glass-cards-5grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .footer-inner-grid {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 640px) {
+      .ocean-navbar { padding: 12px 18px; }
+      .nav-ocean-links { display: none; }
+      .hero-ocean-title { font-size: 2.3rem; }
+      .stats-impact-container { grid-template-columns: 1fr; }
+      .collection-cards-grid { grid-template-columns: 1fr; }
+      .botiquin-cards-5grid { grid-template-columns: 1fr; }
+      .bottom-badges-container { grid-template-columns: 1fr; }
+      .footer-main-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
+  <!-- 1. BARRA SUPERIOR OFFLINE -->
+  <div class="top-offline-strip">
+    <span class="pulse-dot"></span>
+    <span>MODO OFFLINE ACTIVO • GUÍA MÉDICA RURAL Y RUTAS FLUVIALES DE LORETO • FUNCIONA 100% SIN INTERNET</span>
+  </div>
 
-  <!-- NAVBAR -->
-  <nav class="herboria-navbar">
-    <div class="brand-wrapper">
-      <div class="brand-icon-logo">🌿</div>
-      <div class="brand-title-box">
-        <h1>Guía Verde</h1>
-        <small>DE SALUD • LORETO</small>
+  <!-- 2. NAVBAR OCEANKIND -->
+  <nav class="ocean-navbar">
+    <div class="brand-ocean-wrap" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+      <div class="brand-wave-icon">🌿</div>
+      <div class="brand-ocean-text">
+        <h1>Guía Verde de Salud</h1>
+        <small>Salud Río Loreto</small>
       </div>
     </div>
 
-    <div class="nav-links-wrap">
-      <a href="#sec-hero" class="nav-link">Inicio</a>
-      <a href="#sec-intencion" class="nav-link">Emergencias</a>
-      <a href="#sec-ciencia" class="nav-link">Protocolos</a>
-      <a href="#sec-plantas" class="nav-link">Botiquín Natural</a>
-      <a href="#sec-rutas" class="nav-link">Rutas Fluviales</a>
+    <div class="nav-ocean-links">
+      <a href="#hero-section" class="nav-ocean-link">Inicio</a>
+      <a href="#bundles-section" class="nav-ocean-link">Primeros Auxilios</a>
+      <a href="#collection-section" class="nav-ocean-link">Guías Rápidas</a>
+      <a href="#calc-section" class="nav-ocean-link">Rutas Fluviales</a>
+      <a href="#botiquin-section" class="nav-ocean-link">Botiquín Natural</a>
     </div>
 
-    <div class="nav-actions-wrap">
-      <div class="offline-pill-status">
-        <span class="dot-pulse"></span>
-        <span>Modo Offline Listo</span>
-      </div>
-      <button class="btn-lime-pill"
-        onclick="alert('🚨 CANALES DE EMERGENCIA FLUVIAL:\n📞 SAMU Loreto: 106\n📻 Radio HF: 5215 kHz\n🏥 Hosp. Apoyo Iquitos: (065) 26-4444')">
-        <span>🚨 SAMU 106</span>
+    <div class="nav-ocean-actions">
+      <button class="btn-coral-nav"
+        onclick="alert('🚨 CANAL DE EMERGENCIA FLUVIAL LORETO:\n📞 Teléfono SAMU: 106 (Gratuito)\n📻 Radio HF: 5215 kHz\n🏥 Hospital de Apoyo Iquitos: (065) 26-4444\n🚤 Centro Salud Santa Clotilde: HF 5215 kHz')">
+        <span>🚨</span>
+        <span>SAMU 106</span>
       </button>
     </div>
   </nav>
 
-  <!-- HERO SECTION -->
-  <header id="sec-hero" class="herboria-hero">
-    <div>
-      <span class="hero-sub-dots">PRIMEROS AUXILIOS • MEDICINA NATURAL • NAVEGACIÓN</span>
-      <h1 class="hero-luxury-title">
-        La Nueva Generación de <em>Salud Amazónica</em>
-      </h1>
-      <p class="hero-desc">
-        Orientación médica inmediata para emergencias en el río, sabiduría comprobada de plantas nativas y tiempos
-        reales de navegación fluvial hacia postas y hospitales de Loreto.
+  <!-- 3. HERO SECTION -->
+  <header id="hero-section" class="ocean-hero">
+    <div class="hero-text-side">
+      <div class="hero-ocean-badge">
+        <span>💧</span>
+        <span>SALUD RÍO LORETO • ACCESIBILIDAD RURAL OFFLINE</span>
+      </div>
+
+      <h2 class="hero-ocean-title">
+        Salud en los Ríos de Loreto.
+        <span class="coral-highlight">Protege la Vida en Cada Comunidad.</span>
+      </h2>
+
+      <p class="hero-ocean-desc">
+        Orientación médica inmediata ante mordeduras, fiebres y heridas, combinada con la sabiduría botánica de nuestras plantas amazónicas y cálculo exacto de navegación hacia la posta más cercana.
       </p>
 
-      <div class="hero-actions-row">
-        <a href="#sec-intencion" class="btn-lime-pill">
-          <span>Buscar Síntoma o Emergencia</span>
+      <div class="hero-cta-group">
+        <a href="#bundles-section" class="btn-coral-pill">
+          <span>🚨 Ver Primeros Auxilios Inmediatos</span>
           <span>→</span>
         </a>
-        <div class="scroll-indicator-box">
-          <span>🖱️</span>
-          <span>Desliza para explorar</span>
+        <a href="#calc-section" class="btn-outline-pill">
+          <span>⏱️ Calcular Tiempos de Río</span>
+        </a>
+      </div>
+
+      <div class="hero-4badges-row">
+        <div class="hero-micro-badge">
+          <span class="icon">🌿</span>
+          <span class="label">100% Offline<br>Sin Internet</span>
+        </div>
+        <div class="hero-micro-badge">
+          <span class="icon">💊</span>
+          <span class="label">Botiquín Seguro<br>Plantas Nativas</span>
+        </div>
+        <div class="hero-micro-badge">
+          <span class="icon">⏱️</span>
+          <span class="label">Rutas de Río<br>Tiempos Reales</span>
+        </div>
+        <div class="hero-micro-badge">
+          <span class="icon">📡</span>
+          <span class="label">Radio HF 24/7<br>SAMU Loreto 106</span>
         </div>
       </div>
     </div>
 
-    <!-- CÚPULA DE CRISTAL / TERRARIO HERBORIA -->
-    <div class="hero-glass-dome-frame">
-      <div class="glass-terrarium-orb">
-        <div class="holographic-ribbon"></div>
-        <div class="dome-badge-top">Posta Conectada 24/7</div>
+    <div class="hero-visual-side">
+      <div class="hero-floating-card">
+        <div class="hero-floating-badge-top">Posta Conectada 24/7</div>
+        <img src="images/red-fluvial.jpg" alt="Red Fluvial y Medicina Ancestral de Loreto">
 
-        <div class="dome-image-showcase">
-          <img src="images/red-fluvial.jpg" alt="Red Fluvial y Medicina Ancestral de Loreto">
-        </div>
+        <div class="hero-floating-overlay">
+          <h3>🏥 Red Fluvial Santa Clotilde & Mazán</h3>
+          <p>Monitoreo continuo de sueros antiofídicos y oxígeno medicinal en comunidades ribereñas del Río Napo y Nanay.</p>
 
-        <div class="dome-info-card">
-          <h4>🏥 Red Fluvial Santa Clotilde & Mazán</h4>
-          <p>Monitoreo continuo de sueros antiofídicos y oxígeno medicinal en comunidades del Río Napo y Nanay.</p>
-          <div style="display: flex; gap: 8px; margin-top: 8px;">
-            <span style="font-size: 0.75rem; color: var(--color-lime-glow); font-weight: 700;">💉 8 Dosis Suero</span>
-            <span style="font-size: 0.75rem; color: #a2d2ff; font-weight: 700;">🫧 4 Balones O2</span>
+          <div class="hero-floating-pills-row">
+            <span class="pill-stat-mini">💉 8 Dosis Suero</span>
+            <span class="pill-stat-mini">🫧 4 Balones O2</span>
+            <span class="pill-stat-mini">📻 5215 kHz HF</span>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- SECCIÓN 1: DISCOVER BY INTENTION (5 CARDS DE VIDRIO CON PEDESTAL) -->
-  <section id="sec-intencion" class="section-discover">
-    <div class="discover-header-row">
-      <div>
-        <h2>Atención Inmediata por Síntoma</h2>
-        <p>Acceso directo a las 5 urgencias más frecuentes en la chacra y el río de Loreto.</p>
-      </div>
-    </div>
-
-    <div class="glass-cards-5grid" id="gridIntencion">
-      <!-- Inyectado por JS -->
-    </div>
-  </section>
-
-  <!-- SECCIÓN 2: THE SCIENCE WITHIN (MATRAZ & PROTOCOLOS) -->
-  <section id="sec-ciencia" class="section-science-within">
-    <div class="science-glass-box">
-      <div class="curved-flask-container">
-        <div style="font-size: 4rem; line-height: 1;">🧪</div>
-        <h3 style="font-family: var(--font-serif); font-size: 1.4rem; color: #ffffff; margin-top: 8px;">Materia Médica
-          Activa</h3>
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Protocolos Oficiales del MINSA para
-          Selva</p>
-        <div class="flask-active-compound">Eficacia Comprobada: 95% ↑</div>
-      </div>
-
-      <div class="science-text-content">
-        <span class="hero-sub-dots">CIENCIA Y PRIMEROS AUXILIOS</span>
-        <h2>Más que Remedios, Protocolos que Salvan Vidas</h2>
-        <p>
-          En la Amazonía rural, cada minuto cuenta cuando el centro de salud se encuentra a horas de navegación fluvial.
-          Conocer qué hacer y qué está estrictamente prohibido marca la diferencia entre la vida y la muerte.
-        </p>
-
-        <button class="btn-lime-pill" onclick="abrirModal(0)" style="align-self: flex-start;">
-          <span>Explorar Protocolos de Emergencia</span>
-          <span>→</span>
-        </button>
-
-        <div class="science-4features-vertical">
-          <div class="feature-micro-item" onclick="abrirModal(0)">
-            <div style="font-size: 1.2rem;">🚫</div>
-            <div class="micro-desc">
-              <h5>Cero Torniquetes</h5>
-              <small>Evita gangrena en mordedura de víbora.</small>
-            </div>
-          </div>
-
-          <div class="feature-micro-item" onclick="abrirModal(1)">
-            <div style="font-size: 1.2rem;">💊</div>
-            <div class="micro-desc">
-              <h5>Solo Paracetamol</h5>
-              <small>Previene hemorragias mortales por dengue.</small>
-            </div>
-          </div>
-
-          <div class="feature-micro-item" onclick="abrirModal(2)">
-            <div style="font-size: 1.2rem;">⏱️</div>
-            <div class="micro-desc">
-              <h5>Presión 15 Minutos</h5>
-              <small>Detiene hemorragia profunda por machete.</small>
-            </div>
-          </div>
-
-          <div class="feature-micro-item" onclick="abrirModal(4)">
-            <div style="font-size: 1.2rem;">♨️</div>
-            <div class="micro-desc">
-              <h5>Agua Caliente a 45°C</h5>
-              <small>Desactiva la toxina del chuzo de raya.</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECCIÓN 3: OUR SOURCING STORY (LENTE & BOTIQUÍN) -->
-  <section id="sec-plantas" class="section-sourcing-story">
-    <div class="sourcing-grid-layout">
-      <div class="curved-porthole-frame">
-        <div class="porthole-badge-content">
-          <span class="hero-sub-dots" style="color: var(--color-lime-glow); font-size: 0.72rem;">SABIDURÍA TRADICIONAL
-            VERIFICADA</span>
-          <h4 style="font-family: var(--font-serif); font-size: 1.3rem; color: #fff;">Chacras y Bosques Ribereños de
-            Loreto</h4>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">Especies vegetales recolectadas de manera sostenible
-            por comunidades amazónicas.</p>
-        </div>
-      </div>
-
-      <div class="sourcing-details-col">
-        <span class="hero-sub-dots">BOTIQUÍN NATURAL AMAZÓNICO</span>
-        <h2>De los Bosques de Loreto a tu Botiquín Familiar</h2>
-        <p>
-          Validamos el saber botánico de los pueblos ribereños, proporcionando las dosis exactas, modos de preparación
-          seguros y las advertencias sobre cuándo es obligatorio acudir a la posta médica.
-        </p>
-
-        <button class="btn-lime-pill" onclick="abrirModalPlantas()">
-          <span>Conocer Fichas de Plantas</span>
-          <span>→</span>
-        </button>
-
-        <div class="sourcing-leaf-checklist">
-          <div class="checklist-leaf-pill"><span>🩸</span><span>Sangre de Grado</span></div>
-          <div class="checklist-leaf-pill"><span>🍃</span><span>Matico (Tos)</span></div>
-          <div class="checklist-leaf-pill"><span>🐾</span><span>Uña de Gato</span></div>
-          <div class="checklist-leaf-pill"><span>🌸</span><span>Malva Amazónica</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECCIÓN 4: 3 TARJETAS RECETA / RUTAS + CALCULADORA -->
-  <section id="sec-rutas" class="section-routes-explore">
-    <div class="routes-explore-header">
-      <div>
-        <span class="hero-sub-dots">NAVEGACIÓN Y DISPONIBILIDAD DE POSTAS</span>
-        <h2 style="font-family: var(--font-serif); font-size: 2.6rem; color: #fff;">Rutas Fluviales en Tiempo Real</h2>
-        <p style="color: var(--text-muted); font-size: 1.05rem;">Estima los tiempos reales de viaje hacia postas con
-          sueros antiofídicos y oxígeno.</p>
-      </div>
-    </div>
-
-    <div class="recipe-cards-3grid" id="gridRecetas">
-      <!-- Inyectado por JS -->
-    </div>
-
-    <!-- CALCULADORA INTERACTIVA -->
-    <div id="calc-panel" class="calc-interactive-panel">
-      <div>
-        <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: #ffffff; margin-bottom: 8px;">Calculador
-          Fluvial Comunitario</h3>
-        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 22px;">Selecciona cuenca, bote y
-          corriente para conocer el tiempo de viaje.</p>
-
-        <label
-          style="font-size: 0.88rem; font-weight: 700; color: var(--color-lime-glow); text-transform: uppercase;">Cuenca
-          de Origen:</label>
-        <select id="selCuenca" class="calc-select-glass" onchange="calcular()">
-          <option value="napo">Río Napo (Santa Clotilde, Mazán)</option>
-          <option value="nanay">Río Nanay (Santa María, Bellavista)</option>
-          <option value="maranon">Río Marañón (Nauta, Parinari)</option>
-        </select>
-
-        <label
-          style="font-size: 0.88rem; font-weight: 700; color: var(--color-lime-glow); text-transform: uppercase;">Tipo
-          de Embarcación:</label>
-        <select id="selBote" class="calc-select-glass" onchange="calcular()">
-          <option value="10">Peque-peque artesanal (9-16 HP) — ~10 km/h</option>
-          <option value="24" selected>Bote a motor / Lancha (60-115 HP) — ~24 km/h</option>
-          <option value="48">Deslizador rápido (150-200 HP) — ~48 km/h</option>
-        </select>
-
-        <label
-          style="font-size: 0.88rem; font-weight: 700; color: var(--color-lime-glow); text-transform: uppercase;">Sentido
-          de Corriente:</label>
-        <select id="selCorriente" class="calc-select-glass" onchange="calcular()">
-          <option value="1.15">Bajando río (A favor: +15% rápido)</option>
-          <option value="0.75">Subiendo río (Contra corriente: -25% velocidad)</option>
-        </select>
-      </div>
-
-      <div class="calc-live-result-box">
-        <div>
-          <span
-            style="font-size: 0.78rem; text-transform: uppercase; color: var(--color-lime-glow); letter-spacing: 1.5px; font-weight: 700;">TIEMPO
-            ESTIMADO A LA POSTA</span>
-          <div class="big-fluvial-time" id="resTiempo">-- h -- min</div>
-          <div id="resDetalle" style="font-size: 0.88rem; color: var(--text-muted);">Distancia estimada en río</div>
-        </div>
-
-        <div
-          style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border-glass-subtle); padding-top: 16px;">
-          <div id="resSuero" style="font-size: 0.82rem; color: #fff;">💉 Suero: 8 ampollas</div>
-          <div id="resOxigeno" style="font-size: 0.82rem; color: #fff;">🫧 Oxígeno: 4 balones</div>
-          <div id="resRadio" style="font-size: 0.82rem; color: var(--color-lime-glow); grid-column: 1/-1;">📻 Radio HF:
-            5215 kHz</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECCIÓN 5: TESTIMONIOS -->
-  <section class="section-testimonials">
-    <span class="hero-sub-dots">RED DE SALUD MAYNAS & ALTO AMAZONAS</span>
-    <h2 style="font-family: var(--font-serif); font-size: 2.4rem; color: #ffffff; font-weight: 400;">Reconocido por la
-      Red de Salud y Pobladores de Loreto</h2>
-
-    <div class="testimonials-3grid">
-      <div class="testimonial-glass-card">
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-          <div class="user-avatar-circle">👨🏽‍🌾</div>
-          <div>
-            <strong style="color: #fff;">Juan Maytahuari</strong>
-            <div style="color: #f4c430; font-size: 0.82rem;">★★★★★</div>
-            <small style="color: var(--text-muted); font-size: 0.75rem;">Promotor Comunitario • Río Napo</small>
-          </div>
-        </div>
-        <p style="font-size: 0.88rem; color: var(--text-muted); font-style: italic;">"Gracias a la guía pudimos atender
-          una mordedura de jergón sin torniquetes. El paciente llegó estable a Santa Clotilde y el suero funcionó a
-          tiempo."</p>
-      </div>
-
-      <div class="testimonial-glass-card">
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-          <div class="user-avatar-circle">👩🏻‍⚕️</div>
-          <div>
-            <strong style="color: #fff;">Dra. Elena Ríos</strong>
-            <div style="color: #f4c430; font-size: 0.82rem;">★★★★★</div>
-            <small style="color: var(--text-muted); font-size: 0.75rem;">Médico Asistencial • Iquitos</small>
-          </div>
-        </div>
-        <p style="font-size: 0.88rem; color: var(--text-muted); font-style: italic;">"La advertencia de evitar
-          ibuprofeno y aspirina en dengue ha salvado decenas de vidas en comunidades ribereñas donde no hay hospital
-          cercano."</p>
-      </div>
-
-      <div class="testimonial-glass-card">
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-          <div class="user-avatar-circle">👨🏾‍⚕️</div>
-          <div>
-            <strong style="color: #fff;">Carlos Pinedo</strong>
-            <div style="color: #f4c430; font-size: 0.82rem;">★★★★★</div>
-            <small style="color: var(--text-muted); font-size: 0.75rem;">Técnico Sanitario • Nauta</small>
-          </div>
-        </div>
-        <p style="font-size: 0.88rem; color: var(--text-muted); font-style: italic;">"Calcular con precisión el tiempo
-          fluvial según la corriente nos permite tener listos los balones de oxígeno antes de que atraque el
-          peque-peque."</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECCIÓN 6: BADGES -->
-  <div class="section-badges-strip">
-    <div class="badges-horizontal-row">
-      <div><span>🚤</span> <strong>Evacuación Fluvial Rápida</strong></div>
-      <div><span>💉</span> <strong>Suero Antiofídico Activo</strong></div>
-      <div><span>🌿</span> <strong>100% Plantas Verificadas</strong></div>
-      <div><span>🟢</span> <strong>100% Modo Offline</strong></div>
-      <div><span>📻</span> <strong>Radio HF: 5215 kHz</strong></div>
-    </div>
+  <!-- 4. WAVE DIVIDER 1 -->
+  <div class="wave-divider" style="background: var(--ocean-darkest);">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0,0 C150,90 350,-40 500,45 C650,130 900,10 1200,50 L1200,120 L0,120 Z" fill="#ffffff"></path>
+    </svg>
   </div>
 
-  <!-- SECCIÓN 7: CAPSULE BANNER -->
-  <section class="section-capsule-banner">
-    <div class="capsule-glass-card">
-      <div>
-        <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: #fff;">Canal de Alerta y Coordinación
-          Fluvial</h3>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Comunícate de inmediato con las brigadas médicas o
-          activa la ambulancia fluvial.</p>
+  <!-- 5. STATS BAR -->
+  <section class="stats-impact-section">
+    <div class="stats-impact-container">
+      <div class="impact-lead-box">
+        <h3>Nuestra Red de<br>Salud Fluvial</h3>
+        <p>Monitoreo en tiempo real de postas e insumos en Loreto</p>
       </div>
-      <button class="btn-lime-pill"
-        onclick="alert('🚨 LLAMADA DE EMERGENCIA LORETO:\nTeléfono: 106 (SAMU Gratuito)\nRadio HF: 5215 kHz\nHospital Apoyo Iquitos: (065) 26-4444')">
-        <span>Llamar SAMU 106</span>
-        <span>→</span>
-      </button>
+
+      <div class="impact-stat-item">
+        <div class="stat-num-box">
+          <span class="stat-icon">🏥</span>
+          <span class="stat-big-number">4</span>
+        </div>
+        <small>Postas Conectadas en Santa Clotilde, Nauta y Nanay</small>
+      </div>
+
+      <div class="impact-stat-item">
+        <div class="stat-num-box">
+          <span class="stat-icon">💉</span>
+          <span class="stat-big-number">16+</span>
+        </div>
+        <small>Dosis de Suero Antiofídico Polivalente en red</small>
+      </div>
+
+      <div class="impact-stat-item">
+        <div class="stat-num-box">
+          <span class="stat-icon">🫧</span>
+          <span class="stat-big-number">8</span>
+        </div>
+        <small>Balones de Oxígeno Medicinal para emergencias</small>
+      </div>
+
+      <div class="impact-stat-item">
+        <div class="stat-num-box">
+          <span class="stat-icon">📻</span>
+          <span class="stat-big-number">24/7</span>
+        </div>
+        <small>Canal Abierto de Radiofonía HF 5215 kHz y SAMU 106</small>
+      </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="herboria-footer">
-    <div class="footer-inner-grid">
-      <div>
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-          <span style="font-size: 1.5rem;">🌿</span>
-          <h3 style="font-family: var(--font-serif); font-size: 1.4rem; color: #fff;">Guía Verde de Salud</h3>
+  <!-- 6. FEATURED BUNDLES -->
+  <section id="bundles-section" class="section-featured-bundles">
+    <div class="bundles-header-row">
+      <div class="bundles-title-wrap">
+        <span class="coral-badge-tag">URGENCIAS FRECUENTES</span>
+        <h2>Primeros Auxilios Inmediatos</h2>
+      </div>
+      <p>Protocolos paso a paso sobre qué hacer y qué NUNCA hacer mientras se organiza el traslado a la posta médica.</p>
+    </div>
+
+    <div class="bundles-3grid">
+      <!-- Card 1: Serpiente -->
+      <div class="bundle-card">
+        <div class="bundle-card-img-wrap">
+          <span class="bundle-pill-alert">URGENCIA CRÍTICA</span>
+          <img src="images/mordedura-serpiente.jpg" alt="Mordedura de Serpiente Jergón">
         </div>
-        <p style="color: var(--text-muted); font-size: 0.88rem;">Salud Río Loreto: Orientación médica rural, botiquín
-          amazónico y rutas fluviales de emergencia para comunidades de la Amazonía peruana.</p>
+        <div class="bundle-card-body">
+          <h3>Mordedura de Serpiente</h3>
+          <div class="bundle-sub-tag">Jergón, Shushupe y Loromachaco</div>
+
+          <ul class="bundle-checklist">
+            <li class="positive"><span class="bullet">✔</span> Inmovilizar con tablilla a nivel del corazón</li>
+            <li class="positive"><span class="bullet">✔</span> Lavar suavemente con agua y jabón neutro</li>
+            <li class="positive"><span class="bullet">✔</span> Retirar anillos, botas y ropa ajustada</li>
+            <li class="negative"><span class="bullet">✖</span> NUNCA hacer torniquetes ni tajear con machete</li>
+          </ul>
+
+          <div class="bundle-footer-strip">
+            <div class="bundle-time-badge">⏱️ Menos de 4 a 6 horas</div>
+            <button class="btn-bundle-view" onclick="abrirModalEmergencia(0)">
+              <span>Ver Protocolo</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
       </div>
 
+      <!-- Card 2: Fiebre -->
+      <div class="bundle-card">
+        <div class="bundle-card-img-wrap">
+          <span class="bundle-pill-alert">ALERTA HEMORRÁGICA</span>
+          <img src="images/fiebre-dengue.jpg" alt="Fiebre Alta y Dengue en Niños">
+        </div>
+        <div class="bundle-card-body">
+          <h3>Fiebre Alta y Dengue</h3>
+          <div class="bundle-sub-tag">Zancudo Aedes y Época de Creciente</div>
+
+          <ul class="bundle-checklist">
+            <li class="positive"><span class="bullet">✔</span> Paños húmedos a temperatura de río</li>
+            <li class="positive"><span class="bullet">✔</span> Hidratación continua con suero o agua de coco</li>
+            <li class="positive"><span class="bullet">✔</span> Para dolor y fiebre: ÚNICAMENTE Paracetamol</li>
+            <li class="negative"><span class="bullet">✖</span> NUNCA tomar Ibuprofeno, Aspirina ni Metamizol</li>
+          </ul>
+
+          <div class="bundle-footer-strip">
+            <div class="bundle-time-badge">⏱️ Atención en 24 horas</div>
+            <button class="btn-bundle-view" onclick="abrirModalEmergencia(1)">
+              <span>Ver Protocolo</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Cortes -->
+      <div class="bundle-card">
+        <div class="bundle-card-img-wrap">
+          <span class="bundle-pill-alert">PRIMEROS 10 MINUTOS</span>
+          <img src="images/cortes-machete.jpg" alt="Cortes Profundos de Machete">
+        </div>
+        <div class="bundle-card-body">
+          <h3>Cortes por Machete</h3>
+          <div class="bundle-sub-tag">Trauma en Chacra y Hemorragias</div>
+
+          <ul class="bundle-checklist">
+            <li class="positive"><span class="bullet">✔</span> Presión directa firme por 15 min sin soltar</li>
+            <li class="positive"><span class="bullet">✔</span> Elevar el miembro por encima del corazón</li>
+            <li class="positive"><span class="bullet">✔</span> Si empapa, poner otra tela encima</li>
+            <li class="negative"><span class="bullet">✖</span> NUNCA aplicar café, tabaco, cenizas ni tierra</li>
+          </ul>
+
+          <div class="bundle-footer-strip">
+            <div class="bundle-time-badge">⏱️ Contener en 10 min</div>
+            <button class="btn-bundle-view" onclick="abrirModalEmergencia(2)">
+              <span>Ver Protocolo</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. WAVE DIVIDER 2 -->
+  <div class="wave-divider" style="background: var(--ocean-light-bg);">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0,0 C200,100 450,20 700,90 C950,160 1100,30 1200,60 L1200,120 L0,120 Z" fill="#02232c"></path>
+    </svg>
+  </div>
+
+  <!-- 8. SHOP BY COLLECTION -->
+  <section id="collection-section" class="section-shop-collection">
+    <div class="collection-header-row">
       <div>
-        <h5 style="color: #fff; margin-bottom: 12px;">Cuencas Fluviales</h5>
-        <ul class="footer-links-vertical">
-          <li>Río Napo & Mazán</li>
-          <li>Río Nanay & Bellavista</li>
-          <li>Río Marañón & Nauta</li>
+        <h2>Guías Rápidas por Síntoma</h2>
+        <p>Toca cualquier tarjeta para abrir el protocolo médico con voz guiada sin conexión.</p>
+      </div>
+    </div>
+
+    <div class="collection-cards-grid">
+      <!-- 1: Serpiente -->
+      <div class="collection-pill-card" onclick="abrirModalEmergencia(0)">
+        <div class="collection-card-img-thumb">
+          <img src="images/mordedura-serpiente.jpg" alt="Mordedura">
+        </div>
+        <h4>Mordedura Serpiente</h4>
+        <p>Jergón, shushupe y traslado con suero.</p>
+        <div class="collection-card-arrow-row">
+          <div class="collection-circle-arrow">→</div>
+        </div>
+      </div>
+
+      <!-- 2: Fiebre -->
+      <div class="collection-pill-card" onclick="abrirModalEmergencia(1)">
+        <div class="collection-card-img-thumb">
+          <img src="images/fiebre-dengue.jpg" alt="Fiebre">
+        </div>
+        <h4>Fiebre y Dengue</h4>
+        <p>Manejo térmico y prevención hemorrágica.</p>
+        <div class="collection-card-arrow-row">
+          <div class="collection-circle-arrow">→</div>
+        </div>
+      </div>
+
+      <!-- 3: Cortes -->
+      <div class="collection-pill-card" onclick="abrirModalEmergencia(2)">
+        <div class="collection-card-img-thumb">
+          <img src="images/cortes-machete.jpg" alt="Cortes">
+        </div>
+        <h4>Cortes Machete</h4>
+        <p>Presión continua y vendaje en chacra.</p>
+        <div class="collection-card-arrow-row">
+          <div class="collection-circle-arrow">→</div>
+        </div>
+      </div>
+
+      <!-- 4: Diarrea -->
+      <div class="collection-pill-card" onclick="abrirModalEmergencia(3)">
+        <div class="collection-card-img-thumb">
+          <img src="images/diarrea-deshidratacion.jpg" alt="Diarrea">
+        </div>
+        <h4>Diarrea y Suero</h4>
+        <p>Fórmula de rehidratación oral infantil.</p>
+        <div class="collection-card-arrow-row">
+          <div class="collection-circle-arrow">→</div>
+        </div>
+      </div>
+
+      <!-- 5: Chuzo -->
+      <div class="collection-pill-card" onclick="abrirModalEmergencia(4)">
+        <div class="collection-card-img-thumb">
+          <img src="images/chuzo-raya.jpg" alt="Chuzo Raya">
+        </div>
+        <h4>Chuzo de Raya</h4>
+        <p>Inmersión en agua caliente para alivio.</p>
+        <div class="collection-card-arrow-row">
+          <div class="collection-circle-arrow">→</div>
+        </div>
+      </div>
+
+      <!-- 6: Botiquín -->
+      <div class="collection-pill-card" onclick="document.getElementById('botiquin-section').scrollIntoView({behavior:'smooth'})">
+        <div class="collection-card-img-thumb">
+          <img src="images/red-fluvial.jpg" alt="Plantas Medicinales">
+        </div>
+        <h4>Botiquín Natural</h4>
+        <p>Sangre de grado, matico y uña de gato.</p>
+        <div class="collection-card-arrow-row">
+          <div class="collection-circle-arrow">→</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CALCULADORA FLUVIAL PANORÁMICA -->
+  <section id="calc-section" class="section-panoramic-calc">
+    <div class="panoramic-header-box">
+      <h2>Más que una Guía: Una Ruta Segura en el Río Loreto.</h2>
+      <p>Calcula con precisión las horas y minutos de navegación según tu río, embarcación y corriente para llegar a tiempo a la posta con suero y oxígeno.</p>
+    </div>
+
+    <div class="fluvial-calc-card">
+      <div class="calc-controls-col">
+        <div class="calc-input-group">
+          <label for="selCuenca">1. Cuenca o Río de Origen:</label>
+          <select id="selCuenca" class="calc-select-ocean" onchange="calcularFluvial()">
+            <option value="napo">Cuenca Río Napo — Santa Clotilde & Mazán (45 km)</option>
+            <option value="nanay">Cuenca Río Nanay — Santa María & Bellavista (22 km)</option>
+            <option value="maranon">Cuenca Río Marañón — Nauta & Parinari (35 km)</option>
+            <option value="itaya">Cuenca Río Itaya — Belén & San Juan (18 km)</option>
+          </select>
+        </div>
+
+        <div class="calc-input-group">
+          <label for="selBote">2. Tipo de Embarcación:</label>
+          <select id="selBote" class="calc-select-ocean" onchange="calcularFluvial()">
+            <option value="12">Peque-peque artesanal (12 km/h)</option>
+            <option value="24" selected>Bote con motor fuera de borda (24 km/h)</option>
+            <option value="45">Deslizador rápido de emergencia (45 km/h)</option>
+          </select>
+        </div>
+
+        <div class="calc-input-group">
+          <label for="selCorriente">3. Sentido de la Corriente del Río:</label>
+          <select id="selCorriente" class="calc-select-ocean" onchange="calcularFluvial()">
+            <option value="1.2" selected>Aguas abajo (Corriente a favor +20%)</option>
+            <option value="1.0">Aguas tranquilas / Remanso normal</option>
+            <option value="0.75">Aguas arriba (Contra corriente -25%)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="calc-results-col">
+        <div class="calc-time-display">
+          <small>Tiempo Estimado de Viaje</small>
+          <div id="resTiempo" class="time-big">1 h 34 min</div>
+          <p id="resDestino">Destino: C.S. Santa Clotilde (I-4) (~45 km)</p>
+        </div>
+
+        <div class="supplies-tags-grid">
+          <div class="supply-tag-card">
+            <span>💉</span>
+            <span id="resSuero">8 ampollas</span>
+          </div>
+          <div class="supply-tag-card">
+            <span>🫧</span>
+            <span id="resOxigeno">4 balones</span>
+          </div>
+          <div class="supply-tag-card">
+            <span>🦟</span>
+            <span id="resDengue">Pruebas Rápidas</span>
+          </div>
+          <div class="supply-tag-card">
+            <span>📻</span>
+            <span id="resRadio">HF: 5215 kHz</span>
+          </div>
+        </div>
+
+        <button class="btn-emergency-action"
+          onclick="alert('🚨 ALERTA FLUVIAL ACTIVADA:\nPosta: Santa Clotilde\nFrecuencia Radio: 5215 kHz HF\nSAMU Loreto: 106')">
+          <span>🚨 Activar Alerta Fluvial SAMU 106</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. BOTIQUÍN NATURAL -->
+  <section id="botiquin-section" class="section-botiquin-natural">
+    <div class="botiquin-header-row">
+      <h2>Botiquín Natural Amazónico</h2>
+      <p>Fichas prácticas de plantas medicinales locales con modo de preparación seguro y advertencia sobre cuándo es obligatorio acudir al médico.</p>
+    </div>
+
+    <div class="botiquin-cards-5grid" id="gridBotiquin">
+      <!-- Inyectado por JS -->
+    </div>
+  </section>
+
+  <!-- 11. BOTTOM 4 VALUE BADGES -->
+  <section class="ocean-bottom-badges-bar">
+    <div class="bottom-badges-container">
+      <div class="bottom-value-badge">
+        <span class="badge-icon">🌿</span>
+        <div class="badge-text">
+          <h5>100% Autónomo y Offline</h5>
+          <small>No requiere conexión en el río</small>
+        </div>
+      </div>
+
+      <div class="bottom-value-badge">
+        <span class="badge-icon">🩺</span>
+        <div class="badge-text">
+          <h5>Protocolos Médicos Validados</h5>
+          <small>Basados en directivas oficiales MINSA</small>
+        </div>
+      </div>
+
+      <div class="bottom-value-badge">
+        <span class="badge-icon">🛶</span>
+        <div class="badge-text">
+          <h5>Tiempos Reales de Navegación</h5>
+          <small>Cuencas de Napo, Nanay, Marañón e Itaya</small>
+        </div>
+      </div>
+
+      <div class="bottom-value-badge">
+        <span class="badge-icon">📡</span>
+        <div class="badge-text">
+          <h5>Red Fluvial de Auxilio 24/7</h5>
+          <small>Enlace SAMU 106 y Radio HF 5215 kHz</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. FOOTER -->
+  <footer class="ocean-footer">
+    <div class="footer-main-grid">
+      <div class="footer-col">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+          <span style="font-size: 1.6rem;">🌿</span>
+          <h4 style="color: #ffffff; fontSize: 1.3rem; font-weight: 800;">Guía Verde de Salud</h4>
+        </div>
+        <p style="font-size: 0.88rem; line-height: 1.5;">
+          Salud Río Loreto: Plataforma de asistencia médica rural, sabiduría botánica tradicional y tiempos de auxilio fluvial para comunidades de la Amazonía peruana.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Navegación Rápida</h5>
+        <ul>
+          <li onclick="window.scrollTo({top:0, behavior:'smooth'})">Inicio</li>
+          <li onclick="document.getElementById('bundles-section').scrollIntoView({behavior:'smooth'})">Primeros Auxilios</li>
+          <li onclick="document.getElementById('collection-section').scrollIntoView({behavior:'smooth'})">Guías Rápidas</li>
+          <li onclick="document.getElementById('calc-section').scrollIntoView({behavior:'smooth'})">Calculadora Fluvial</li>
+          <li onclick="document.getElementById('botiquin-section').scrollIntoView({behavior:'smooth'})">Botiquín Natural</li>
         </ul>
       </div>
 
-      <div>
-        <h5 style="color: #fff; margin-bottom: 12px;">Protocolos</h5>
-        <ul class="footer-links-vertical">
-          <li onclick="abrirModal(0)">Mordeduras de Víbora</li>
-          <li onclick="abrirModal(1)">Fiebre y Dengue</li>
-          <li onclick="abrirModal(2)">Cortes de Machete</li>
+      <div class="footer-col">
+        <h5>Urgencias</h5>
+        <ul>
+          <li onclick="abrirModalEmergencia(0)">Mordedura de Serpiente</li>
+          <li onclick="abrirModalEmergencia(1)">Fiebre Alta y Dengue</li>
+          <li onclick="abrirModalEmergencia(2)">Cortes de Machete</li>
+          <li onclick="abrirModalEmergencia(3)">Diarrea y Deshidratación</li>
+          <li onclick="abrirModalEmergencia(4)">Chuzo de Raya</li>
         </ul>
       </div>
 
-      <div>
-        <h5 style="color: #fff; margin-bottom: 12px;">Contactos</h5>
-        <ul class="footer-links-vertical">
-          <li>📞 SAMU: 106</li>
-          <li>📻 Radio HF: 5215 kHz</li>
-          <li>🏥 Hosp. Iquitos: (065) 26-4444</li>
+      <div class="footer-col">
+        <h5>Canales de Emergencia</h5>
+        <ul>
+          <li>📞 SAMU Loreto: 106 (Gratuito)</li>
+          <li>📻 Radio HF Fluvial: 5215 kHz</li>
+          <li>🏥 Hospital Regional Iquitos: (065) 26-4444</li>
+          <li>🚤 Posta Santa Clotilde: HF 5215 kHz</li>
         </ul>
       </div>
     </div>
 
-    <div class="footer-bottom-strip">
-      <div>© 2026 Guía Verde de Salud — Desarrollado para comunidades de Loreto.</div>
-      <div style="color: var(--color-lime-glow); font-weight: 600;">🟢 100% Autónomo y Offline • Funciona sin internet
+    <div class="footer-bottom-copy">
+      <div>© 2026 Guía Verde de Salud — Desarrollado para comunidades y pueblos de Loreto.</div>
+      <div style="color: var(--ocean-cyan-glow); font-weight: 700;">
+        🟢 100% Funcional sin Internet ni Señal
       </div>
     </div>
   </footer>
 
-  <!-- MODAL INTERACTIVO CON VOZ -->
-  <div id="modalOverlay" class="herboria-modal-overlay" onclick="cerrarModal()">
-    <div class="herboria-modal-card" onclick="event.stopPropagation()">
+  <!-- 13. MODAL INTERACTIVO -->
+  <div id="modalOverlay" class="ocean-modal-overlay" onclick="cerrarModal()">
+    <div class="ocean-modal-card" onclick="event.stopPropagation()">
       <button class="btn-modal-close" onclick="cerrarModal()">✕</button>
-      <span class="hero-sub-dots" style="color: var(--color-lime-glow);">PROTOCOLO MÉDICO DETALLADO</span>
-      
+
+      <span style="font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px; color: var(--ocean-cyan-glow); text-transform: uppercase;">
+        PROTOCOLO MÉDICO VERIFICADO
+      </span>
+
       <div class="modal-header-with-img">
         <div id="modalThumb" class="modal-thumb-box" style="display: none;">
           <img id="modalImg" src="" alt="Emergencia">
         </div>
         <div>
-          <h2 id="modalTit" style="font-family: var(--font-serif); font-size: 2.2rem; color: #fff; margin-bottom: 6px;">
-            Título</h2>
+          <h3 id="modalTit" style="font-size: 1.8rem; font-weight: 800; color: #ffffff; margin-bottom: 4px;">Título</h3>
           <div id="modalSub" style="color: var(--text-muted); font-weight: 600;">Subtítulo</div>
         </div>
       </div>
 
       <div style="margin-bottom: 20px;">
-        <button id="btnVoz" class="btn-lime-pill" onclick="hablar()">
-          <span>🔊 Escuchar en Voz Alta</span>
+        <button id="btnVoz" class="btn-coral-pill" onclick="hablarProtocolo()">
+          <span>🔊</span>
+          <span id="btnVozTxt">Escuchar Protocolo en Voz Alta</span>
         </button>
       </div>
 
-      <div
-        style="background: rgba(45, 102, 71, 0.25); border: 1px solid rgba(82, 183, 136, 0.4); padding: 18px; border-radius: 16px; margin-bottom: 16px;">
-        <h4 style="color: var(--color-lime-glow); margin-bottom: 8px;">✅ QUÉ SÍ HACER:</h4>
-        <ol id="modalDo"
-          style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem; color: #fff;">
+      <div class="modal-box-positive">
+        <h4 style="color: #34d399; margin-bottom: 8px; font-size: 0.95rem;">✅ QUÉ SÍ HACER:</h4>
+        <ol id="modalDo" style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 0.92rem; color: #ffffff;">
         </ol>
       </div>
 
-      <div
-        style="background: rgba(214, 40, 40, 0.15); border: 1px solid rgba(255, 77, 77, 0.4); padding: 18px; border-radius: 16px; margin-bottom: 16px;">
-        <h4 style="color: #ff6b6b; margin-bottom: 8px;">❌ QUÉ NUNCA DEBES HACER:</h4>
-        <ul id="modalDont"
-          style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem; color: #ffd6d6;">
+      <div class="modal-box-negative">
+        <h4 style="color: #f87171; margin-bottom: 8px; font-size: 0.95rem;">❌ QUÉ NUNCA DEBES HACER:</h4>
+        <ul id="modalDont" style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 0.92rem; color: #fee2e2;">
         </ul>
       </div>
 
-      <div id="modalAlarm"
-        style="background: rgba(230, 126, 34, 0.15); border: 1px dashed rgba(230, 126, 34, 0.5); padding: 14px; border-radius: 12px; font-size: 0.9rem; color: #ffbe76;">
+      <div id="modalAlarm" class="modal-box-alert">
       </div>
     </div>
   </div>
 
-  <!-- JAVASCRIPT DE LÓGICA -->
+  <!-- JAVASCRIPT DE LÓGICA COMPLETA -->
   <script>
     const EMERGENCIAS = [
       {
-        titulo: 'Mordeduras de Víbora (Jergón & Shushupe)', subtitulo: 'Menos de 4 a 6 horas para el suero', icono: '🐍',
+        titulo: 'Mordedura de Serpiente',
+        subtitulo: 'Jergón, Shushupe y Loromachaco',
+        tiempoMax: 'Menos de 4 a 6 horas para el suero',
         imagen: 'images/mordedura-serpiente.jpg',
         queHacer: [
           'Mantener a la persona acostada, inmóvil y en calma (el movimiento apresura el veneno).',
@@ -1379,7 +1826,7 @@
           'Trasladar de inmediato a la posta médica con suero antiofídico polivalente.'
         ],
         queNoHacer: [
-          '¡NUNCA hacer torniquetes ni ligaduras apretadas! Producen gangrena y pérdida obligatoria del miembro.',
+          '¡NUNCA hacer torniquetes ni ligaduras apretadas! Producen gangrena y pérdida del miembro.',
           '¡NUNCA cortar la piel con machete, gillette ni navaja.',
           '¡NUNCA intentar chupar o succionar el veneno con la boca.',
           '¡NUNCA aplicar barro, kerosén, gasolina, cal ni pólvora.',
@@ -1388,7 +1835,9 @@
         alarma: 'Hinchazón rápida que sube por la extremidad, sangrado por encías u orina, ampollas moradas.'
       },
       {
-        titulo: 'Fiebre Alta y Dengue', subtitulo: 'Atención dentro de 24 horas', icono: '🌡️',
+        titulo: 'Fiebre Alta y Dengue',
+        subtitulo: 'Zancudo Aedes y Época de Creciente',
+        tiempoMax: 'Atención dentro de 24 horas',
         imagen: 'images/fiebre-dengue.jpg',
         queHacer: [
           'Bajar la temperatura con paños de tela húmedos a temperatura de río en frente, axilas e ingles.',
@@ -1397,13 +1846,15 @@
           'Mantener a la persona bajo mosquitero para que los zancudos no contagien a la familia.'
         ],
         queNoHacer: [
-          '¡NUNCA tomar ni inyectar IBUPROFENO, ASPIRINA, NAPROXENO ni METAMIZOL! Causan hemorragias mortales por Dengue.',
+          '¡NUNCA tomar ni inyectar IBUPROFENO, ASPIRINA, NAPROXENO ni METAMIZOL! Causan hemorragias mortales.',
           '¡NUNCA bañar con agua helada bruscamente.'
         ],
         alarma: 'Dolor de estómago continuo, vómitos repetidos que no toleran suero, somnolencia extrema.'
       },
       {
-        titulo: 'Cortes Profundos por Machete', subtitulo: 'Presión en los primeros 10 minutos', icono: '🩹',
+        titulo: 'Cortes Profundos por Machete',
+        subtitulo: 'Trauma en Chacra y Hemorragias',
+        tiempoMax: 'Contener en los primeros 10 minutos',
         imagen: 'images/cortes-machete.jpg',
         queHacer: [
           'Hacer PRESIÓN DIRECTA Y FIRME con un paño limpio durante 15 minutos continuos sin levantar la mano.',
@@ -1417,7 +1868,9 @@
         alarma: 'Sangrado a borbotones rítmicos o palidez extrema con mareo.'
       },
       {
-        titulo: 'Diarrea Aguda y Suero Casero', subtitulo: 'Rehidratación inmediata continua', icono: '💧',
+        titulo: 'Diarrea Aguda y Deshidratación',
+        subtitulo: 'Suero Casero & Protección Infantil',
+        tiempoMax: 'Rehidratación inmediata continua',
         imagen: 'images/diarrea-deshidratacion.jpg',
         queHacer: [
           'Preparar SUERO CASERO: 1 litro de agua hervida fría + 2 cucharadas de azúcar + 1/2 cucharadita de sal + limón.',
@@ -1431,7 +1884,9 @@
         alarma: 'Ojos hundidos, llanto sin lágrimas, boca muy seca o falta de orina.'
       },
       {
-        titulo: 'Chuzo de Raya de Río', subtitulo: 'Alivio en menos de 30 minutos', icono: '🐟',
+        titulo: 'Chuzo de Raya de Río',
+        subtitulo: 'Toxina de Fondo Fluvial',
+        tiempoMax: 'Alivio en menos de 30 minutos',
         imagen: 'images/chuzo-raya.jpg',
         queHacer: [
           '¡SUMERGIR DE INMEDIATO EN AGUA CALIENTE (45°C)!',
@@ -1446,71 +1901,91 @@
       }
     ];
 
-    const RUTAS = {
-      napo: { nombre: 'Río Napo', posta: 'C.S. Santa Clotilde', dist: 45, suero: '8 ampollas', o2: '4 balones', radio: '5215 kHz HF', icono: '🌊' },
-      nanay: { nombre: 'Río Nanay', posta: 'P.S. Santa María', dist: 22, suero: '2 ampollas', o2: '2 balones', radio: '4890 kHz HF', icono: '🛶' },
-      maranon: { nombre: 'Río Marañón', posta: 'Centro de Salud Nauta', dist: 35, suero: '6 ampollas', o2: '6 balones', radio: '5820 kHz HF', icono: '🚤' }
+    const RUTAS_MAP = {
+      napo: { nombre: 'Cuenca Río Napo', posta: 'C.S. Santa Clotilde (I-4)', dist: 45, suero: '8 ampollas polivalentes', oxigeno: '4 balones (6m³)', dengue: 'Pruebas Rápidas', radio: '5215 kHz HF' },
+      nanay: { nombre: 'Cuenca Río Nanay', posta: 'P.S. Santa María del Ojeal (I-2)', dist: 22, suero: '2 ampollas polivalentes', oxigeno: '2 balones (6m³)', dengue: 'Disponibles', radio: '4890 kHz HF' },
+      maranon: { nombre: 'Cuenca Río Marañón', posta: 'Centro de Salud Nauta (I-4)', dist: 35, suero: '6 ampollas polivalentes', oxigeno: '6 balones (6m³)', dengue: 'Laboratorio básico', radio: '5820 kHz HF' },
+      itaya: { nombre: 'Cuenca Río Itaya', posta: 'P.S. San Juan Bautista (I-3)', dist: 18, suero: '4 ampollas polivalentes', oxigeno: '3 balones (6m³)', dengue: 'Disponibles', radio: '4550 kHz HF' }
     };
 
-    let itemActual = null;
+    const PLANTAS = [
+      {
+        nombre: 'Sangre de Grado',
+        icono: '🩸',
+        sirve: 'Cicatrizante potente en heridas limpias, raspaduras y protector gástrico.',
+        prep: 'Aplicar 2 a 3 gotas de látex puro frotando hasta hacer película blanca.',
+        advertencia: 'No usar en heridas profundas que requieran sutura médica.'
+      },
+      {
+        nombre: 'Matico Amazónico',
+        icono: '🍃',
+        sirve: 'Afecciones respiratorias, bronquitis, tos seca y lavado antiséptico.',
+        prep: 'Infusión: 4 a 6 hojas en 1 litro de agua hervida con miel.',
+        advertencia: 'Si hay dolor torácico o asfixia, acudir de urgencia a la posta.'
+      },
+      {
+        nombre: 'Uña de Gato',
+        icono: '🐾',
+        sirve: 'Antiinflamatorio de articulaciones, reumatismo y refuerzo inmune.',
+        prep: 'Decocción: Hervir 15g de corteza por 20 minutos a fuego lento.',
+        advertencia: 'Contraindicado en mujeres embarazadas y lactantes.'
+      },
+      {
+        nombre: 'Malva Silvestre',
+        icono: '🌸',
+        sirve: 'Refrescante en fiebres leves, inflamación gástrica y contusiones.',
+        prep: 'Emplasto de hojas machacadas con agua fría sobre frente o abdomen.',
+        advertencia: 'Si la fiebre supera 38.5°C acudir de inmediato al médico.'
+      },
+      {
+        nombre: 'Ojé (Supervisado)',
+        icono: '🌱',
+        sirve: 'Antiparasitario tradicional de amplio espectro en comunidades.',
+        prep: 'Tomar solo bajo dosificación rigurosa de sabios locales.',
+        advertencia: '¡ALTO RIESGO DE INTOXICACIÓN! No dar a niños menores.'
+      }
+    ];
 
-    function renderIntencion() {
-      const g = document.getElementById('gridIntencion');
-      g.innerHTML = EMERGENCIAS.map((e, idx) => `
-        <div class="glass-intent-card" onclick="abrirModal(${idx})">
-          <div class="intent-img-pedestal">
-            <img src="${e.imagen}" alt="${e.titulo}">
-          </div>
-          <h3>${e.titulo.split(' ')[0]}</h3>
-          <span>${e.subtitulo}</span>
+    let itemActual = null;
+    let hablando = false;
+
+    function renderBotiquin() {
+      const g = document.getElementById('gridBotiquin');
+      g.innerHTML = PLANTAS.map(p => `
+        <div class="plant-card" onclick="abrirModalPlanta('${p.nombre}')">
+          <div class="plant-icon">${p.icono}</div>
+          <h4>${p.nombre}</h4>
+          <p>${p.sirve}</p>
+          <div class="plant-prep"><strong>Preparación:</strong> ${p.prep}</div>
+          <div class="plant-warning"><strong>Advertencia:</strong> ${p.advertencia}</div>
         </div>
       `).join('');
     }
 
-    function renderRecetas() {
-      const r = document.getElementById('gridRecetas');
-      r.innerHTML = Object.keys(RUTAS).map(k => {
-        const item = RUTAS[k];
-        return `
-          <div class="recipe-style-card" onclick="document.getElementById('selCuenca').value='${k}'; calcular();">
-            <div class="recipe-card-photo">${item.icono}</div>
-            <div class="recipe-card-body">
-              <div>
-                <h3>${item.nombre}</h3>
-                <p>Posta: ${item.posta} (~${item.dist} km de río)</p>
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,0.08); padding-top:12px;">
-                <span class="time-chip-badge">⏱️ Posta Conectada</span>
-                <div class="btn-arrow-icon">→</div>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function calcular() {
+    function calcularFluvial() {
       const cuencaKey = document.getElementById('selCuenca').value;
       const velBase = parseFloat(document.getElementById('selBote').value);
-      const factor = parseFloat(document.getElementById('selCorriente').value);
+      const corriente = parseFloat(document.getElementById('selCorriente').value);
 
-      const d = RUTAS[cuencaKey];
-      const velReal = velBase * factor;
+      const d = RUTAS_MAP[cuencaKey];
+      const velReal = velBase * corriente;
       const hDec = d.dist / velReal;
       const h = Math.floor(hDec);
       const m = Math.round((hDec - h) * 60);
 
       document.getElementById('resTiempo').innerText = `${h > 0 ? `${h} h ` : ''}${m} min`;
-      document.getElementById('resDetalle').innerText = `Hacia ${d.posta} (${d.dist} km) • Velocidad: ~${Math.round(velReal)} km/h`;
-      document.getElementById('resSuero').innerText = `💉 Suero: ${d.suero}`;
-      document.getElementById('resOxigeno').innerText = `🫧 Oxígeno: ${d.o2}`;
-      document.getElementById('resRadio').innerText = `📻 Radio HF: ${d.radio}`;
+      document.getElementById('resDestino').innerText = `Destino: ${d.posta} (~${d.dist} km a ~${Math.round(velReal)} km/h)`;
+      document.getElementById('resSuero').innerText = d.suero;
+      document.getElementById('resOxigeno').innerText = d.oxigeno;
+      document.getElementById('resDengue').innerText = d.dengue;
+      document.getElementById('resRadio').innerText = `HF: ${d.radio}`;
     }
 
-    function abrirModal(idx) {
+    function abrirModalEmergencia(idx) {
       itemActual = EMERGENCIAS[idx];
       document.getElementById('modalTit').innerText = itemActual.titulo;
-      document.getElementById('modalSub').innerText = `⏱️ ${itemActual.subtitulo}`;
+      document.getElementById('modalSub').innerText = `⏱️ ${itemActual.tiempoMax}`;
+      
       if (itemActual.imagen) {
         document.getElementById('modalThumb').style.display = 'block';
         document.getElementById('modalImg').src = itemActual.imagen;
@@ -1518,56 +1993,76 @@
       } else {
         document.getElementById('modalThumb').style.display = 'none';
       }
+
       document.getElementById('modalDo').innerHTML = itemActual.queHacer.map(p => `<li>${p}</li>`).join('');
       document.getElementById('modalDont').innerHTML = itemActual.queNoHacer.map(p => `<li>${p}</li>`).join('');
-      document.getElementById('modalAlarm').innerHTML = `<strong>⚠️ Señales de alarma:</strong> ${itemActual.alarma}`;
+      document.getElementById('modalAlarm').innerHTML = `<strong>⚠️ Señales de alarma extrema:</strong> ${itemActual.alarma}`;
       document.getElementById('modalOverlay').style.display = 'flex';
     }
 
-    function abrirModalPlantas() {
+    function abrirModalPlanta(nombre) {
+      const p = PLANTAS.find(x => x.nombre === nombre);
+      if (!p) return;
       itemActual = {
-        titulo: 'Botiquín Natural Amazónico',
-        subtitulo: 'Plantas Medicinales de Loreto',
+        titulo: p.nombre,
+        subtitulo: 'Botiquín Natural Amazónico',
+        tiempoMax: 'Uso Tradicional Seguro',
+        imagen: 'images/red-fluvial.jpg',
         queHacer: [
-          'Sangre de Grado: Cicatrizante potente en heridas limpias y protector gástrico.',
-          'Matico: Infusión de hojas calientes con miel silvestre para tos y bronquitis.',
-          'Uña de Gato: Decocción de 15g de corteza durante 20 minutos para dolor articular.',
-          'Malva: Emplasto refrescante para inflamaciones y fiebres moderadas.'
+          `Para qué sirve: ${p.sirve}`,
+          `Modo de preparación: ${p.prep}`
         ],
         queNoHacer: [
-          '¡NUNCA sustituir la atención médica de una urgencia con hierbas caseras!',
-          '¡NUNCA tomar leche de ojé sin supervisión estricta de sabios de la comunidad.'
+          '¡NUNCA sustituir la atención médica de una urgencia grave con hierbas caseras!',
+          '¡NUNCA administrar preparados alcohólicos a gestantes ni niños pequeños!'
         ],
-        alarma: 'Si el paciente tiene dificultad respiratoria o sangrado, acudir de inmediato a la posta médica.'
+        alarma: p.advertencia
       };
-      document.getElementById('modalThumb').style.display = 'none';
       document.getElementById('modalTit').innerText = itemActual.titulo;
-      document.getElementById('modalSub').innerText = itemActual.subtitulo;
-      document.getElementById('modalDo').innerHTML = itemActual.queHacer.map(p => `<li>${p}</li>`).join('');
-      document.getElementById('modalDont').innerHTML = itemActual.queNoHacer.map(p => `<li>${p}</li>`).join('');
-      document.getElementById('modalAlarm').innerHTML = `<strong>⚠️ Precaución médica:</strong> ${itemActual.alarma}`;
+      document.getElementById('modalSub').innerText = `⏱️ ${itemActual.tiempoMax}`;
+      document.getElementById('modalThumb').style.display = 'block';
+      document.getElementById('modalImg').src = itemActual.imagen;
+      document.getElementById('modalDo').innerHTML = itemActual.queHacer.map(x => `<li>${x}</li>`).join('');
+      document.getElementById('modalDont').innerHTML = itemActual.queNoHacer.map(x => `<li>${x}</li>`).join('');
+      document.getElementById('modalAlarm').innerHTML = `<strong>⚠️ Advertencia Médica:</strong> ${itemActual.alarma}`;
       document.getElementById('modalOverlay').style.display = 'flex';
     }
 
     function cerrarModal() {
       document.getElementById('modalOverlay').style.display = 'none';
-      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      hablando = false;
+      document.getElementById('btnVozTxt').innerText = 'Escuchar Protocolo en Voz Alta';
     }
 
-    function hablar() {
+    function hablarProtocolo() {
       if (!itemActual || !('speechSynthesis' in window)) return;
+      if (hablando) {
+        window.speechSynthesis.cancel();
+        hablando = false;
+        document.getElementById('btnVozTxt').innerText = 'Escuchar Protocolo en Voz Alta';
+        return;
+      }
+
       window.speechSynthesis.cancel();
       const txt = `${itemActual.titulo}. Qué hacer: ${itemActual.queHacer.join('. ')}. Qué no hacer: ${itemActual.queNoHacer.join('. ')}`;
       const u = new SpeechSynthesisUtterance(txt);
       u.lang = 'es-PE';
       u.rate = 0.9;
+      u.onend = () => {
+        hablando = false;
+        document.getElementById('btnVozTxt').innerText = 'Escuchar Protocolo en Voz Alta';
+      };
+      hablando = true;
+      document.getElementById('btnVozTxt').innerText = 'Detener Voz';
       window.speechSynthesis.speak(u);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      renderIntencion();
-      renderRecetas();
-      calcular();
+      renderBotiquin();
+      calcularFluvial();
     });
   </script>
 </body>
