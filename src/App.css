@@ -1151,15 +1151,114 @@ a {
   margin: 8px auto 0 auto;
 }
 
-.botiquin-cards-5grid {
+/* ==========================================================================
+   SECCIÓN: BOTIQUÍN NATURAL AMAZÓNICO AMPLIADO (CATÁLOGO COMPLETO)
+   ========================================================================== */
+.section-botiquin-natural {
+  background: var(--ocean-white);
+  color: var(--text-dark);
+  padding: 75px 40px 95px 40px;
+}
+
+.botiquin-header-row {
+  max-width: 1280px;
+  margin: 0 auto 28px auto;
+  text-align: center;
+}
+
+.botiquin-header-row p {
+  font-size: 1rem;
+  color: var(--text-dark-muted);
+  max-width: 750px;
+  margin: 8px auto 0 auto;
+}
+
+/* Buscador y Filtro por Categorías */
+.botiquin-controls-wrap {
+  max-width: 1280px;
+  margin: 0 auto 32px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.botiquin-search-bar {
+  width: 100%;
+  max-width: 560px;
+  position: relative;
+}
+
+.botiquin-search-bar input {
+  width: 100%;
+  background: var(--ocean-light-bg);
+  border: 1.5px solid #c2e2ea;
+  padding: 12px 20px 12px 44px;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--ocean-deep);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.botiquin-search-bar input:focus {
+  border-color: var(--ocean-teal);
+  box-shadow: 0 0 15px rgba(8, 97, 113, 0.2);
+  background: #ffffff;
+}
+
+.botiquin-search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  color: var(--text-dark-muted);
+  pointer-events: none;
+}
+
+.botiquin-tabs-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-botiquin-tab {
+  background: #edf6f9;
+  border: 1px solid #d0e7ee;
+  color: var(--ocean-deep);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  transition: all 0.2s ease;
+}
+
+.btn-botiquin-tab:hover {
+  background: #dbeef3;
+  transform: translateY(-2px);
+}
+
+.btn-botiquin-tab.active {
+  background: var(--ocean-deep);
+  color: #ffffff;
+  border-color: var(--ocean-deep);
+  box-shadow: 0 4px 12px rgba(3, 43, 53, 0.25);
+}
+
+/* Grilla de Fichas Botánicas */
+.botiquin-cards-grid {
   max-width: 1280px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
-.plant-card {
+.botanical-card {
   background: var(--ocean-light-bg);
   border: 1px solid #d2eaf0;
   border-radius: 20px;
@@ -1167,59 +1266,286 @@ a {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 6px 18px rgba(3, 43, 53, 0.06);
+  box-shadow: 0 6px 18px rgba(3, 43, 53, 0.05);
   transition: all 0.25s ease;
+  position: relative;
 }
 
-.plant-card:hover {
+.botanical-card:hover {
   transform: translateY(-5px);
   border-color: #0d8396;
-  box-shadow: 0 15px 30px rgba(3, 43, 53, 0.12);
+  box-shadow: 0 16px 35px rgba(3, 43, 53, 0.12);
+  background: #ffffff;
 }
 
-.plant-card .plant-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 14px;
+.card-top-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-cat-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(8, 97, 113, 0.1);
+  color: var(--ocean-teal);
+}
+
+.botanical-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.botanical-icon-orb {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
   background: rgba(20, 184, 166, 0.15);
-  border: 1px solid rgba(20, 184, 166, 0.35);
+  border: 1.5px solid rgba(20, 184, 166, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
+  flex-shrink: 0;
 }
 
-.plant-card h4 {
+.botanical-title-wrap h4 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--ocean-deep);
+  line-height: 1.15;
+}
+
+.botanical-title-wrap small {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--text-dark-muted);
+}
+
+.botanical-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: var(--text-dark-muted);
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+.botanical-detail-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.botanical-detail-row strong {
+  color: var(--ocean-deep);
+  font-weight: 700;
+}
+
+.botanical-alert-box {
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  color: #c53030;
+  line-height: 1.35;
+  margin-top: auto;
+}
+
+.btn-card-listen {
+  width: 100%;
+  background: #ffffff;
+  border: 1.5px solid var(--ocean-teal);
+  color: var(--ocean-teal);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-card-listen:hover {
+  background: var(--ocean-teal);
+  color: #ffffff;
+}
+
+/* Tabla de Especies Adicionales (21 al 30) */
+.botiquin-table-wrapper {
+  max-width: 1280px;
+  margin: 40px auto 0 auto;
+  background: var(--ocean-light-bg);
+  border: 1px solid #d2eaf0;
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 6px 20px rgba(3, 43, 53, 0.05);
+}
+
+.botiquin-table-wrapper h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--ocean-deep);
+  margin-bottom: 8px;
+}
+
+.botiquin-table-wrapper p {
+  font-size: 0.88rem;
+  color: var(--text-dark-muted);
+  margin-bottom: 20px;
+}
+
+.table-responsive-box {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.plantas-loreto-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+.plantas-loreto-table th {
+  background: var(--ocean-deep);
+  color: #ffffff;
+  padding: 12px 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.plantas-loreto-table th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.plantas-loreto-table th:last-child {
+  border-top-right-radius: 12px;
+}
+
+.plantas-loreto-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e1eff3;
+  color: var(--text-dark);
+}
+
+.plantas-loreto-table tr:hover td {
+  background: #ffffff;
+}
+
+/* Cuadro de Seguridad y Recomendaciones Responsables */
+.safety-guidelines-box {
+  max-width: 1280px;
+  margin: 40px auto 0 auto;
+  background: #fdfaf6;
+  border-left: 6px solid #e27d60;
+  border-top: 1px solid #f4ede4;
+  border-right: 1px solid #f4ede4;
+  border-bottom: 1px solid #f4ede4;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(226, 125, 96, 0.08);
+}
+
+.safety-guidelines-box h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #9c4221;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.safety-guidelines-box p {
+  font-size: 0.9rem;
+  color: #634032;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.safety-triad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.safety-triad-item {
+  background: #ffffff;
+  border: 1px solid #eeddd1;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.safety-triad-item h5 {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #9c4221;
+  margin-bottom: 6px;
+}
+
+.safety-triad-item p {
+  font-size: 0.82rem;
+  color: #634032;
+  margin: 0;
+}
+
+.safety-rules-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.86rem;
+  color: #4a281c;
+  background: #fff;
+  border: 1px dashed #e27d60;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.safety-rules-list li strong {
+  color: #b91c1c;
+}
+
+/* Fuentes Bibliográficas */
+.sources-bibliography-box {
+  max-width: 1280px;
+  margin: 30px auto 0 auto;
+  background: #ffffff;
+  border: 1px solid #d2eaf0;
+  border-radius: 18px;
+  padding: 24px 30px;
+}
+
+.sources-bibliography-box h4 {
   font-size: 1.15rem;
   font-weight: 800;
   color: var(--ocean-deep);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.plant-card p {
+.sources-ol {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   font-size: 0.85rem;
   color: var(--text-dark-muted);
-  line-height: 1.4;
-}
-
-.plant-card .plant-prep {
-  background: #ffffff;
-  border: 1px solid #e2f0f4;
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 0.8rem;
-  color: var(--ocean-teal);
-  font-weight: 600;
-}
-
-.plant-card .plant-warning {
-  font-size: 0.75rem;
-  color: #b91c1c;
-  font-weight: 700;
-  background: #fef2f2;
-  padding: 8px 10px;
-  border-radius: 10px;
-  border: 1px solid #fecaca;
-  margin-top: auto;
 }
 
 /* ==========================================================================
@@ -1433,8 +1759,11 @@ a {
   .fluvial-calc-card {
     grid-template-columns: 1fr;
   }
-  .botiquin-cards-5grid {
+  .botiquin-cards-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .safety-triad-grid {
+    grid-template-columns: 1fr;
   }
   .bottom-badges-container {
     grid-template-columns: repeat(2, 1fr);
@@ -1473,7 +1802,7 @@ a {
   .collection-cards-grid {
     grid-template-columns: 1fr;
   }
-  .botiquin-cards-5grid {
+  .botiquin-cards-grid {
     grid-template-columns: 1fr;
   }
   .bottom-badges-container {

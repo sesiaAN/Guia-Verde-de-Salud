@@ -178,52 +178,281 @@ const RUTAS_CUENCAS = [
   }
 ];
 
-const PLANTAS_BOTIQUIN = [
+const CATALOGO_BOTIQUIN_20 = [
+  // 1. Tos, Gripe y Garganta (8 elementos)
   {
-    nombre: 'Sangre de Grado',
-    nombreCientifico: 'Croton lechleri',
-    icono: '🩸',
-    sirvePara: 'Cicatrizante potente en raspaduras, cortes limpios y úlceras. Estimula la regeneración del tejido dérmico.',
-    preparacion: 'Aplicar 2 a 3 gotas de látex puro directamente sobre la herida limpia y frotar hasta formar una película blanca protectora.',
-    advertencia: 'No usar en heridas profundas que requieran sutura o con signos de infección activa.'
+    id: 1,
+    categoria: 'tos',
+    categoriaNombre: 'Tos, Gripe y Garganta',
+    nombre: 'Jengibre (Kion)',
+    nombreCientifico: 'Zingiber officinale',
+    icono: '🫚',
+    ingredientes: 'Jengibre fresco, agua limpia, jugo de limón criollo y miel de abeja.',
+    preparacion: 'Cocinar pequeños trozos de jengibre en agua hirviendo; dejar entibiar y añadir jugo de limón y miel pura.',
+    uso: 'Alivio de molestias de garganta, irritación y tos húmeda.',
+    precaucion: 'Evitar consumo en personas con gastritis erosiva severa o en dosis excesivas en hipertensos.'
   },
   {
+    id: 2,
+    categoria: 'tos',
+    categoriaNombre: 'Tos, Gripe y Garganta',
+    nombre: 'Cebolla con Ajo',
+    nombreCientifico: 'Allium cepa & Allium sativum',
+    icono: '🧅',
+    ingredientes: 'Cebolla morada, 3 dientes de ajo y agua potable.',
+    preparacion: 'Preparación tradicional Ticuna: cortar una cebolla en cuatro partes y cocinarla durante cinco minutos con tres dientes de ajo machacados.',
+    uso: 'Tos rebelde y malestar febril.',
+    precaucion: 'Si la fiebre persiste por más de 24 horas o se acompaña de dolor retroocular (sospecha de dengue), acudir urgente a la posta médica.'
+  },
+  {
+    id: 3,
+    categoria: 'tos',
+    categoriaNombre: 'Tos, Gripe y Garganta',
+    nombre: 'Limón con Miel y Ajo',
+    nombreCientifico: 'Citrus aurantiifolia & Miel',
+    icono: '🍋',
+    ingredientes: 'Jugo de limón criollo, miel pura de monte y ajo machacado.',
+    preparacion: 'Mezclar el jugo fresco de 2 limones con 2 cucharadas de miel y un diente de ajo machacado. Tomar por cucharaditas.',
+    uso: 'Molestias de garganta, inflamación y tos seca.',
+    precaucion: 'NUNCA administrar miel de abeja a niños menores de 1 año por riesgo de botulismo infantil.'
+  },
+  {
+    id: 4,
+    categoria: 'tos',
+    categoriaNombre: 'Tos, Gripe y Garganta',
     nombre: 'Matico Amazónico',
     nombreCientifico: 'Piper aduncum',
     icono: '🍃',
-    sirvePara: 'Alivio de afecciones respiratorias, tos seca, bronquitis e inflamación de garganta.',
-    preparacion: 'Infusión: 4 a 6 hojas en 1 litro de agua hervida caliente. Dejar reposar 10 minutos y tomar tibio con miel de abeja.',
-    advertencia: 'Si la dificultad para respirar empeora o hay hundimiento de costillas, acudir urgente a la posta.'
+    ingredientes: 'Hojas frescas y limpias de matico y agua.',
+    preparacion: 'Preparación tradicional documentada: cocinar las hojas en agua limpia durante 5 minutos y dejar entibiar antes de tomar o hacer gárgaras.',
+    uso: 'Fiebre, dolor corporal y afecciones respiratorias leves.',
+    precaucion: 'Confirmar la especie botánica; en la selva existen diferentes plantas llamadas matico. No sustituye la atención médica en neumonía.'
   },
   {
+    id: 5,
+    categoria: 'tos',
+    categoriaNombre: 'Tos, Gripe y Garganta',
+    nombre: 'Ajo Sacha',
+    nombreCientifico: 'Mansoa alliacea',
+    icono: '🌿',
+    ingredientes: 'Hojas de ajo sacha y cáscara de limón.',
+    preparacion: 'Cocinar las hojas con la cáscara de limón para realizar prácticas tradicionales de vaporización o baños tibios.',
+    uso: 'Tos seca y fiebre mediante vahos y prácticas tradicionales de vapor.',
+    precaucion: 'Evitar inhalar vapor de agua hirviendo muy cerca por riesgo grave de quemaduras en vías respiratorias.'
+  },
+  {
+    id: 6,
+    categoria: 'tos',
+    categoriaNombre: 'Tos, Gripe y Garganta',
+    nombre: 'Mucura',
+    nombreCientifico: 'Petiveria alliacea (Anamú)',
+    icono: '☘️',
+    ingredientes: 'Hojas frescas de mucura y agua fresca de río.',
+    preparacion: 'Preparación tradicional Ticuna: estrujar las hojas en agua fresca para preparar un baño tradicional en la cabeza y cuerpo.',
+    uso: 'Refrescar la cabeza y aliviar la sensación intensa de fiebre.',
+    precaucion: 'NO ingerir preparados caseros concentrados sin evaluación de seguridad. Contraindicado en mujeres embarazadas.'
+  },
+  {
+    id: 7,
+    categoria: 'tos',
+    categoriaNombre: 'Tos, Gripe y Garganta',
+    nombre: 'Sacha Culantro',
+    nombreCientifico: 'Eryngium foetidum',
+    icono: '🌱',
+    ingredientes: 'Hojas, tallos, raíces y agua hervida.',
+    preparacion: 'Cocinar la planta completa en agua hervida durante 5 minutos.',
+    uso: 'Fiebre y dolor de cabeza.',
+    precaucion: 'No automedicarse ante fiebres altas con dolor abdominal severo; puede ser dengue hemorrágico.'
+  },
+  {
+    id: 8,
+    categoria: 'tos',
+    categoriaNombre: 'Tos, Gripe y Garganta',
+    nombre: 'Menta Tradicional Amazónica',
+    nombreCientifico: 'Lantana sp. local',
+    icono: '🌿',
+    ingredientes: 'Hojas identificadas de menta local y agua hervida.',
+    preparacion: 'Infusión de 3 a 4 hojas en agua hervida caliente reposada durante 8 minutos.',
+    uso: 'Molestias de estómago, dolor de cabeza y fiebre leve.',
+    precaucion: 'La investigación botánica identifica Lantana sp. como menta local; no es la menta comercial. No ingerir concentrados ni dar a niños.'
+  },
+
+  // 2. Estómago y Digestión (5 elementos)
+  {
+    id: 9,
+    categoria: 'estomago',
+    categoriaNombre: 'Estómago y Digestión',
+    nombre: 'Hojas de Casho',
+    nombreCientifico: 'Anacardium occidentale',
+    icono: '🌳',
+    ingredientes: 'Hojas tiernas de casho (marañón) y agua.',
+    preparacion: 'Preparación documentada: cocimiento de hojas limpias durante cinco minutos a fuego lento.',
+    uso: 'Molestias de garganta y diarrea acuosa leve.',
+    precaucion: 'NUNCA utilizar como sustituto del suero de rehidratación oral. En niños con diarrea, la rehidratación es obligatoria e inmediata.'
+  },
+  {
+    id: 10,
+    categoria: 'estomago',
+    categoriaNombre: 'Estómago y Digestión',
+    nombre: 'Basuri o Ñucño Pichana',
+    nombreCientifico: 'Scoparia dulcis',
+    icono: '🌾',
+    ingredientes: 'Hojas, ramitas tiernas y agua limpia.',
+    preparacion: 'Preparación tradicional: estrujar suavemente las hojas en agua hervida fría y colar con lienzo limpio.',
+    uso: 'Alivio de tos seca y malestar digestivo.',
+    precaucion: 'Confirmar la identificación botánica con sabios de la comunidad antes de cualquier uso medicinal.'
+  },
+  {
+    id: 11,
+    categoria: 'estomago',
+    categoriaNombre: 'Estómago y Digestión',
+    nombre: 'Guayaba',
+    nombreCientifico: 'Psidium guajava',
+    icono: '🍈',
+    ingredientes: 'Cogollos y hojas tiernas de guayabo con agua.',
+    preparacion: 'Infusión de 4 a 6 hojas en 1 litro de agua hervida; dejar reposar 10 minutos y beber tibio.',
+    uso: 'Molestias digestivas, retortijones y diarrea leve.',
+    precaucion: 'La diarrea con moco o sangre requiere atención médica inmediata en la posta, especialmente en lactantes y niños pequeños.'
+  },
+  {
+    id: 12,
+    categoria: 'estomago',
+    categoriaNombre: 'Estómago y Digestión',
+    nombre: 'Hierba Luisa',
+    nombreCientifico: 'Cymbopogon citratus',
+    icono: '🌾',
+    ingredientes: 'Hojas frescas aromáticas de hierba luisa y agua caliente.',
+    preparacion: 'Infusión aromática de hojas frescas reposadas durante 5 minutos en agua hervida.',
+    uso: 'Molestias digestivas, cólicos leves, gases y digestión pesada.',
+    precaucion: 'Si el dolor abdominal es agudo o localizado en el lado derecho, no tomar líquidos y acudir a la posta para descartar apendicitis.'
+  },
+  {
+    id: 13,
+    categoria: 'estomago',
+    categoriaNombre: 'Estómago y Digestión',
+    nombre: 'Paico',
+    nombreCientifico: 'Dysphania ambrosioides',
+    icono: '🌿',
+    ingredientes: 'Hojas y tallos tiernos (uso extremadamente controlado).',
+    preparacion: 'Preparación registrada en medicina tradicional: infusión muy suave de pocas hojas.',
+    uso: 'Cólicos leves y expulsión tradicional de parásitos intestinales.',
+    precaucion: '¡PRECAUCIÓN CRÍTICA! Puede ser tóxico por su contenido de ascaridol, especialmente en preparados concentrados. NO administrar a niños ni gestantes.'
+  },
+
+  // 3. Plantas, Frutos y Cortezas Amazónicas (7 elementos)
+  {
+    id: 14,
+    categoria: 'cortezas',
+    categoriaNombre: 'Cortezas y Frutos Amazónicos',
+    nombre: 'Sangre de Grado',
+    nombreCientifico: 'Croton lechleri',
+    icono: '🩸',
+    ingredientes: 'Látex rojizo puro del tronco del árbol.',
+    preparacion: 'Recolección del látex mediante incisión diagonal en la corteza; aplicación externa directa frotando hasta hacer película blanca.',
+    uso: 'Cuidado externo de la piel, raspaduras y heridas superficiales limpias (cicatrizante natural).',
+    precaucion: 'NO aplicar en heridas profundas que requieran sutura ni consumir por vía oral sin indicación profesional.'
+  },
+  {
+    id: 15,
+    categoria: 'cortezas',
+    categoriaNombre: 'Cortezas y Frutos Amazónicos',
+    nombre: 'Copaiba',
+    nombreCientifico: 'Copaifera reticulata / paupera',
+    icono: '🪵',
+    ingredientes: 'Oleorresina translúcida del corazón del tronco.',
+    preparacion: 'Extracción tradicional mediante orificio cuidadoso en el tronco y recolección limpia.',
+    uso: 'Cuidado dérmico externo, molestias inflamatorias y picaduras de insectos.',
+    precaucion: 'NO ingerir directamente ni aplicar pura sobre mucosas o heridas abiertas sin orientación sanitaria.'
+  },
+  {
+    id: 16,
+    categoria: 'cortezas',
+    categoriaNombre: 'Cortezas y Frutos Amazónicos',
     nombre: 'Uña de Gato',
     nombreCientifico: 'Uncaria tomentosa',
     icono: '🐾',
-    sirvePara: 'Desinflamante natural potente para dolores articulares, reumatismo y fortalecimiento del sistema inmune.',
-    preparacion: 'Decocción: Hervir 15 a 20 gramos de corteza en 1 litro de agua a fuego lento durante 20 minutos. Tomar 1 taza al día.',
-    advertencia: 'Contraindicado estrictamente en mujeres gestantes, lactantes y personas con úlcera activa.'
+    ingredientes: 'Corteza interna fibrosa de la liana.',
+    preparacion: 'Cocimiento: hervir 15 a 20 gramos de corteza en 1 litro de agua a fuego lento durante 20 minutos. Tomar colado.',
+    uso: 'Molestias articulares, dolores reumáticos y procesos inflamatorios.',
+    precaucion: 'Puede interactuar con fármacos inmunosupresores y antihipertensivos. Contraindicado en gestación y lactancia.'
   },
   {
-    nombre: 'Malva Silvestre',
-    nombreCientifico: 'Malva sylvestris',
-    icono: '🌸',
-    sirvePara: 'Reducción de fiebres leves a moderadas, inflamaciones gástricas y lavado de ojos irritados.',
-    preparacion: 'Emplasto refrescante: machacar hojas limpias con agua fría y colocar sobre abdomen o frente.',
-    advertencia: 'Si la fiebre supera 38.5°C o se acompaña de dolor abdominal agudo, sospechar de dengue y acudir a la posta.'
+    id: 17,
+    categoria: 'cortezas',
+    categoriaNombre: 'Cortezas y Frutos Amazónicos',
+    nombre: 'Chuchuhuasi',
+    nombreCientifico: 'Maytenus macrocarpa',
+    icono: '🌳',
+    ingredientes: 'Corteza gruesa del tronco.',
+    preparacion: 'Cocimientos tradicionales de la corteza en agua a fuego moderado.',
+    uso: 'Molestias musculares, dolor lumbar y fatiga física.',
+    precaucion: 'NO se recomiendan macerados alcohólicos caseros ni su consumo medicinal en personas con hipertensión o úlcera activa.'
   },
   {
-    nombre: 'Ojé (Uso Supervisado)',
-    nombreCientifico: 'Ficus antihelmintica',
-    icono: '🌱',
-    sirvePara: 'Antiparasitario tradicional de amplio espectro contra parásitos intestinales rebeldes.',
-    preparacion: 'Debe tomarse bajo estricta dosificación tradicional de sabios locales con dieta sin sal ni grasa.',
-    advertencia: '¡ALTO RIESGO DE INTOXICACIÓN! No administrar a niños menores de 5 años ni a mujeres embarazadas.'
+    id: 18,
+    categoria: 'cortezas',
+    categoriaNombre: 'Cortezas y Frutos Amazónicos',
+    nombre: 'Achiote',
+    nombreCientifico: 'Bixa orellana',
+    icono: '🔴',
+    ingredientes: 'Hojas secas y semillas con pigmento rojo (bixina).',
+    preparacion: 'Infusión tradicional de hojas secas o cataplasmas tópicos con las semillas molidas.',
+    uso: 'Cuidado de la piel, molestias inflamatorias y bienestar prostático tradicional.',
+    precaucion: 'No está demostrado científicamente que cure infecciones bacterianas graves. Acudir al médico si hay síntomas urinarios.'
+  },
+  {
+    id: 19,
+    categoria: 'cortezas',
+    categoriaNombre: 'Cortezas y Frutos Amazónicos',
+    nombre: 'Bolsa Mullaca',
+    nombreCientifico: 'Physalis angulata',
+    icono: '🏮',
+    ingredientes: 'Hojas y frutos protegidos en vesícula membranosa.',
+    preparacion: 'Infusión de hojas o consumo moderado del fruto fresco cuando está completamente maduro.',
+    uso: 'Molestias inflamatorias, afecciones dérmicas y vías urinarias.',
+    precaucion: 'NO consumir hojas ni frutos verdes sin identificación botánica segura por presencia de alcaloides potencialmente irritantes.'
+  },
+  {
+    id: 20,
+    categoria: 'cortezas',
+    categoriaNombre: 'Cortezas y Frutos Amazónicos',
+    nombre: 'Amasisa',
+    nombreCientifico: 'Erythrina fusca',
+    icono: '🌺',
+    ingredientes: 'Hojas y corteza según la práctica etnobotánica ribereña.',
+    preparacion: 'Emplastos y baños externos documentados en medicina popular amazónica.',
+    uso: 'Distintos malestares corporales, inflamaciones externas y golpes en faenas de monte.',
+    precaucion: 'NO se recomienda preparar para consumo interno sin identificar con precisión la especie y validar su seguridad toxicológica.'
   }
+];
+
+const ESPECIES_LORETO_TABLA = [
+  { num: 21, nombre: 'Malva', parte: 'Hojas', uso: 'Refrescante en fiebres leves y lavados dérmicos.' },
+  { num: 22, nombre: 'Amor seco', parte: 'Hojas y partes aéreas', uso: 'Inflamaciones leves y molestias urinarias tradicionales.' },
+  { num: 23, nombre: 'Abuta', parte: 'Corteza y raíces', uso: 'Cólicos menstruales y dolores de espalda en el bosque.' },
+  { num: 24, nombre: 'Clavo huasca', parte: 'Corteza', uso: 'Macerados tradicionales vigorizantes y dolor muscular.' },
+  { num: 25, nombre: 'Amasisa', parte: 'Corteza y hojas', uso: 'Baños corporales externos y cicatrización de contusiones.' },
+  { num: 26, nombre: 'Ayahuma', parte: 'Fruto', uso: 'Emplastos tradicionales y baños contra dolores reumáticos.' },
+  { num: 27, nombre: 'Huito (Jagua)', parte: 'Fruto', uso: 'Tinte protector contra zancudos y cuidado dérmico y capilar.' },
+  { num: 28, nombre: 'Azúcar huayo', parte: 'Corteza', uso: 'Afecciones bronquiales y debilidad física general.' },
+  { num: 29, nombre: 'Achira', parte: 'Rizoma', uso: 'Emplastos emolientes en quemaduras superficiales y llagas.' },
+  { num: 30, nombre: 'Algodón', parte: 'Hojas y semillas', uso: 'Emplastos tradicionales en picaduras y afecciones de oídos.' }
+];
+
+const FUENTES_BIBLIOGRAFICAS = [
+  'Instituto de Investigaciones de la Amazonía Peruana (IIAP) – Plantas medicinales de uso popular en la Amazonía peruana.',
+  'Estudio etnobotánico de plantas medicinales utilizadas por dos comunidades Ticuna de Loreto.',
+  'Conocimiento tradicional de plantas medicinales del pueblo Shawi (Alto Amazonas, Loreto).',
+  'Estudio etnobotánico de la comunidad El Chino, cuenca Tamshiyacu-Tahuayo (Loreto, Perú).'
 ];
 
 export default function App() {
   const [activeModalItem, setActiveModalItem] = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
+
+  // Filtros y Búsqueda del Botiquín Natural (30 Plantas y Remedios)
+  const [botiquinFiltro, setBotiquinFiltro] = useState('todos');
+  const [botiquinBusqueda, setBotiquinBusqueda] = useState('');
 
   // Estados de la Calculadora Fluvial
   const [calcCuenca, setCalcCuenca] = useState('napo');
@@ -247,6 +476,19 @@ export default function App() {
       distancia: rutaSeleccionada.distanciaKm
     };
   }, [calcVelocidad, calcCorriente, rutaSeleccionada]);
+
+  const plantasFiltradas = useMemo(() => {
+    return CATALOGO_BOTIQUIN_20.filter(p => {
+      const matchCat = botiquinFiltro === 'todos' || p.categoria === botiquinFiltro;
+      const term = botiquinBusqueda.toLowerCase().trim();
+      const matchSearch = !term ||
+        p.nombre.toLowerCase().includes(term) ||
+        p.nombreCientifico.toLowerCase().includes(term) ||
+        p.uso.toLowerCase().includes(term) ||
+        p.ingredientes.toLowerCase().includes(term);
+      return matchCat && matchSearch;
+    });
+  }, [botiquinFiltro, botiquinBusqueda]);
 
   const hablarTexto = (texto) => {
     if (!('speechSynthesis' in window)) {
@@ -779,48 +1021,216 @@ export default function App() {
         </div>
       </section>
 
-      {/* 10. SECCIÓN BOTIQUÍN NATURAL AMAZÓNICO */}
+      {/* 10. SECCIÓN BOTIQUÍN NATURAL AMAZÓNICO (CATÁLOGO COMPLETO DE 30 ESPECIES) */}
       <section id="botiquin-section" className="section-botiquin-natural">
         <div className="botiquin-header-row">
           <h2 className="subtitle-cursive-3d">
             <span className="sparkle-icon">✦</span> Botiquín Natural Amazónico <span className="sparkle-icon">✨</span>
           </h2>
           <p>
-            Fichas prácticas de plantas medicinales locales con modo de preparación seguro y advertencia sobre cuándo es obligatorio acudir al médico.
+            Catálogo etnobotánico verificado de Loreto: fichas prácticas de 20 remedios tradicionales, tabla de 10 especies adicionales, advertencias sanitarias y fuentes bibliográficas oficiales.
           </p>
         </div>
 
-        <div className="botiquin-cards-5grid">
-          {PLANTAS_BOTIQUIN.map((p, idx) => (
-            <div 
-              key={idx} 
-              className="plant-card"
-              onClick={() => setActiveModalItem({
-                titulo: p.nombre,
-                subtitulo: p.nombreCientifico,
-                tiempoMax: 'Uso Tradicional Seguro',
-                queHacer: [
-                  `Para qué sirve: ${p.sirvePara}`,
-                  `Modo de preparación: ${p.preparacion}`
-                ],
-                queNoHacer: [
-                  '¡NUNCA sustituir la atención médica de una urgencia grave con hierbas!',
-                  '¡NUNCA administrar preparados con alcohol a niños o mujeres embarazadas!'
-                ],
-                alarma: p.advertencia
-              })}
+        {/* Buscador y Pestañas de Categoría */}
+        <div className="botiquin-controls-wrap">
+          <div className="botiquin-search-bar">
+            <span className="botiquin-search-icon">🔍</span>
+            <input 
+              type="text" 
+              placeholder="Buscar planta, síntoma (ej. kion, tos, fiebre, estómago, uña de gato)..."
+              value={botiquinBusqueda}
+              onChange={(e) => setBotiquinBusqueda(e.target.value)}
+            />
+          </div>
+
+          <div className="botiquin-tabs-row">
+            <button 
+              className={`btn-botiquin-tab ${botiquinFiltro === 'todos' ? 'active' : ''}`}
+              onClick={() => setBotiquinFiltro('todos')}
             >
-              <div className="plant-icon">{p.icono}</div>
-              <h4>{p.nombre}</h4>
-              <p>{p.sirvePara}</p>
-              <div className="plant-prep">
-                <strong>Preparación:</strong> {p.preparacion}
+              🌿 Todas las Fichas (20)
+            </button>
+            <button 
+              className={`btn-botiquin-tab ${botiquinFiltro === 'tos' ? 'active' : ''}`}
+              onClick={() => setBotiquinFiltro('tos')}
+            >
+              🫁 Tos, Gripe y Garganta (8)
+            </button>
+            <button 
+              className={`btn-botiquin-tab ${botiquinFiltro === 'estomago' ? 'active' : ''}`}
+              onClick={() => setBotiquinFiltro('estomago')}
+            >
+              🥣 Estómago y Digestión (5)
+            </button>
+            <button 
+              className={`btn-botiquin-tab ${botiquinFiltro === 'cortezas' ? 'active' : ''}`}
+              onClick={() => setBotiquinFiltro('cortezas')}
+            >
+              🌳 Cortezas y Frutos (7)
+            </button>
+            <button 
+              className={`btn-botiquin-tab ${botiquinFiltro === 'tabla' ? 'active' : ''}`}
+              onClick={() => {
+                setBotiquinFiltro('tabla');
+                scrollToId('tabla-especies');
+              }}
+            >
+              📋 Tabla Especies 21-30 (10)
+            </button>
+          </div>
+        </div>
+
+        {/* Fichas Botánicas (Primeros 20 elementos) */}
+        {botiquinFiltro !== 'tabla' && (
+          <div className="botiquin-cards-grid">
+            {plantasFiltradas.map((p) => (
+              <div 
+                key={p.id} 
+                className="botanical-card"
+                onClick={() => setActiveModalItem({
+                  titulo: p.nombre,
+                  subtitulo: `${p.nombreCientifico} • ${p.categoriaNombre}`,
+                  tiempoMax: 'Uso Tradicional Seguro',
+                  queHacer: [
+                    `Ingredientes / Parte utilizada: ${p.ingredientes}`,
+                    `Preparación tradicional: ${p.preparacion}`,
+                    `Uso popular reportado: ${p.uso}`
+                  ],
+                  queNoHacer: [
+                    '¡NUNCA sustituir la atención médica de una urgencia grave con hierbas caseras!',
+                    '¡NUNCA administrar preparados alcohólicos a gestantes ni niños pequeños!',
+                    '¡NUNCA ingerir plantas de dudosa identificación sin consultar a sabios locales!'
+                  ],
+                  alarma: p.precaucion
+                })}
+              >
+                <div className="card-top-meta">
+                  <span className="card-cat-badge">{p.categoriaNombre}</span>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-dark-muted)', fontWeight: 700 }}>#{p.id}</span>
+                </div>
+
+                <div className="botanical-card-header">
+                  <div className="botanical-icon-orb">{p.icono}</div>
+                  <div className="botanical-title-wrap">
+                    <h4>{p.nombre}</h4>
+                    <small>{p.nombreCientifico}</small>
+                  </div>
+                </div>
+
+                <div className="botanical-details-list">
+                  <div className="botanical-detail-row">
+                    <strong>Ingredientes / Parte:</strong>
+                    <span>{p.ingredientes}</span>
+                  </div>
+                  <div className="botanical-detail-row">
+                    <strong>Preparación tradicional:</strong>
+                    <span>{p.preparacion}</span>
+                  </div>
+                  <div className="botanical-detail-row">
+                    <strong>Uso popular reportado:</strong>
+                    <span>{p.uso}</span>
+                  </div>
+                </div>
+
+                <div className="botanical-alert-box">
+                  <strong>⚠️ Precaución:</strong> {p.precaucion}
+                </div>
+
+                <button 
+                  className="btn-card-listen"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    hablarTexto(`${p.nombre}. Uso tradicional: ${p.uso}. Preparación: ${p.preparacion}. Precaución importante: ${p.precaucion}`);
+                  }}
+                >
+                  <span>🔊</span>
+                  <span>Escuchar Ficha</span>
+                </button>
               </div>
-              <div className="plant-warning">
-                <strong>Advertencia:</strong> {p.advertencia}
-              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Tabla de Especies Adicionales de Loreto (Elementos 21 al 30) */}
+        <div id="tabla-especies" className="botiquin-table-wrapper">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+            <span style={{ fontSize: '1.4rem' }}>📋</span>
+            <h3>Otros Nombres de Plantas Medicinales de Loreto (Catálogo Complementario)</h3>
+          </div>
+          <p>
+            Especies vegetales registradas en publicaciones sobre flora medicinal amazónica para incorporar a la biblioteca comunitaria. No todas cuentan con dosificación segura o indicación clínica comprobada.
+          </p>
+
+          <div className="table-responsive-box">
+            <table className="plantas-loreto-table">
+              <thead>
+                <tr>
+                  <th style={{ width: '8%' }}>N.º</th>
+                  <th style={{ width: '25%' }}>Nombre Popular</th>
+                  <th style={{ width: '25%' }}>Parte Vegetal</th>
+                  <th style={{ width: '42%' }}>Uso Tradicional Registrado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ESPECIES_LORETO_TABLA.map((item) => (
+                  <tr key={item.num}>
+                    <td><strong>{item.num}</strong></td>
+                    <td style={{ fontWeight: 700, color: 'var(--ocean-deep)' }}>{item.nombre}</td>
+                    <td>{item.parte}</td>
+                    <td>{item.uso}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Cuadro de Seguridad y Recomendaciones Importantes */}
+        <div className="safety-guidelines-box">
+          <h3>
+            <span>🛡️</span>
+            <span>Recomendaciones Importantes para la Guía Verde de Salud</span>
+          </h3>
+
+          <p>
+            En el contexto ribereño y rural de Loreto, es fundamental que la población y los promotores de salud diferencien con total claridad tres aspectos al utilizar medicina natural:
+          </p>
+
+          <div className="safety-triad-grid">
+            <div className="safety-triad-item">
+              <h5>1. Uso Tradicional</h5>
+              <p>Saberes ancestrales transmitidos por generaciones de sabios, curacas y parteras de nuestras cuencas.</p>
             </div>
-          ))}
+            <div className="safety-triad-item">
+              <h5>2. Evidencia Científica</h5>
+              <p>Propiedades farmacológicas y principios activos estudiados y validados por centros de investigación etnobotánica.</p>
+            </div>
+            <div className="safety-triad-item">
+              <h5>3. Precauciones y Alertas</h5>
+              <p>Límites de toxicidad, interacciones y el momento exacto en que es obligatorio acudir al centro de salud.</p>
+            </div>
+          </div>
+
+          <ul className="safety-rules-list">
+            <li><strong>Para diarrea aguda:</strong> Priorizar siempre el suero de rehidratación oral (casero o en sobre). Las plantas astringentes no reemplazan los líquidos y electrolitos perdidos, especialmente en niños.</li>
+            <li><strong>Para fiebre alta:</strong> Evaluar inmediatamente la causa. En Loreto circulan dengue, malaria y leptospirosis. NUNCA administrar ibuprofeno ni aspirina por riesgo de hemorragia fatal.</li>
+            <li><strong>Para heridas y cortes:</strong> Lavar con agua hervida limpia y jabón. Si son profundas, infectadas o causadas por machete sucio, trasladar a la posta para sutura y vacuna antitetánica.</li>
+            <li><strong>Para mordeduras de serpientes o rayas:</strong> ¡ACUDIR URGENTEMENTE A LA POSTA MÉDICA! NUNCA aplicar plantas, barro ni torniquetes sobre la mordedura. El único tratamiento eficaz contra el veneno es el suero antiofídico del MINSA.</li>
+          </ul>
+        </div>
+
+        {/* Fuentes Bibliográficas */}
+        <div className="sources-bibliography-box">
+          <h4>
+            <span>📚</span>
+            <span>Fuentes Bibliográficas e Investigaciones Científicas</span>
+          </h4>
+          <ol className="sources-ol">
+            {FUENTES_BIBLIOGRAFICAS.map((f, i) => (
+              <li key={i}>{f}</li>
+            ))}
+          </ol>
         </div>
       </section>
 

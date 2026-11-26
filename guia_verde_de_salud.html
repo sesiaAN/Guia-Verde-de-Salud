@@ -1117,15 +1117,93 @@
       margin: 8px auto 0 auto;
     }
 
-    .botiquin-cards-5grid {
+    /* Buscador y Filtro por Categorías */
+    .botiquin-controls-wrap {
+      max-width: 1280px;
+      margin: 0 auto 32px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .botiquin-search-bar {
+      width: 100%;
+      max-width: 560px;
+      position: relative;
+    }
+
+    .botiquin-search-bar input {
+      width: 100%;
+      background: var(--ocean-light-bg);
+      border: 1.5px solid #c2e2ea;
+      padding: 12px 20px 12px 44px;
+      border-radius: var(--radius-pill);
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--ocean-deep);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .botiquin-search-bar input:focus {
+      border-color: var(--ocean-teal);
+      box-shadow: 0 0 15px rgba(8, 97, 113, 0.2);
+      background: #ffffff;
+    }
+
+    .botiquin-search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      color: var(--text-dark-muted);
+      pointer-events: none;
+    }
+
+    .botiquin-tabs-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-botiquin-tab {
+      background: #edf6f9;
+      border: 1px solid #d0e7ee;
+      color: var(--ocean-deep);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-botiquin-tab:hover {
+      background: #dbeef3;
+      transform: translateY(-2px);
+    }
+
+    .btn-botiquin-tab.active {
+      background: var(--ocean-deep);
+      color: #ffffff;
+      border-color: var(--ocean-deep);
+      box-shadow: 0 4px 12px rgba(3, 43, 53, 0.25);
+    }
+
+    /* Grilla de Fichas Botánicas */
+    .botiquin-cards-grid {
       max-width: 1280px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
     }
 
-    .plant-card {
+    .botanical-card {
       background: var(--ocean-light-bg);
       border: 1px solid #d2eaf0;
       border-radius: 20px;
@@ -1133,60 +1211,288 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      box-shadow: 0 6px 18px rgba(3, 43, 53, 0.06);
+      box-shadow: 0 6px 18px rgba(3, 43, 53, 0.05);
       transition: all 0.25s ease;
+      position: relative;
       cursor: pointer;
     }
 
-    .plant-card:hover {
+    .botanical-card:hover {
       transform: translateY(-5px);
       border-color: #0d8396;
-      box-shadow: 0 15px 30px rgba(3, 43, 53, 0.12);
+      box-shadow: 0 16px 35px rgba(3, 43, 53, 0.12);
+      background: #ffffff;
     }
 
-    .plant-card .plant-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 14px;
+    .card-top-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-cat-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(8, 97, 113, 0.1);
+      color: var(--ocean-teal);
+    }
+
+    .botanical-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .botanical-icon-orb {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
       background: rgba(20, 184, 166, 0.15);
-      border: 1px solid rgba(20, 184, 166, 0.35);
+      border: 1.5px solid rgba(20, 184, 166, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.6rem;
+      font-size: 1.7rem;
+      flex-shrink: 0;
     }
 
-    .plant-card h4 {
+    .botanical-title-wrap h4 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--ocean-deep);
+      line-height: 1.15;
+    }
+
+    .botanical-title-wrap small {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--text-dark-muted);
+    }
+
+    .botanical-details-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.84rem;
+      color: var(--text-dark-muted);
+      line-height: 1.4;
+      margin-top: 4px;
+    }
+
+    .botanical-detail-row {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .botanical-detail-row strong {
+      color: var(--ocean-deep);
+      font-weight: 700;
+    }
+
+    .botanical-alert-box {
+      background: #fff5f5;
+      border: 1px solid #fed7d7;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      color: #c53030;
+      line-height: 1.35;
+      margin-top: auto;
+    }
+
+    .btn-card-listen {
+      width: 100%;
+      background: #ffffff;
+      border: 1.5px solid var(--ocean-teal);
+      color: var(--ocean-teal);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 8px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-card-listen:hover {
+      background: var(--ocean-teal);
+      color: #ffffff;
+    }
+
+    /* Tabla de Especies Adicionales (21 al 30) */
+    .botiquin-table-wrapper {
+      max-width: 1280px;
+      margin: 40px auto 0 auto;
+      background: var(--ocean-light-bg);
+      border: 1px solid #d2eaf0;
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 6px 20px rgba(3, 43, 53, 0.05);
+    }
+
+    .botiquin-table-wrapper h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--ocean-deep);
+      margin-bottom: 8px;
+    }
+
+    .botiquin-table-wrapper p {
+      font-size: 0.88rem;
+      color: var(--text-dark-muted);
+      margin-bottom: 20px;
+    }
+
+    .table-responsive-box {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .plantas-loreto-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .plantas-loreto-table th {
+      background: var(--ocean-deep);
+      color: #ffffff;
+      padding: 12px 16px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .plantas-loreto-table th:first-child {
+      border-top-left-radius: 12px;
+    }
+
+    .plantas-loreto-table th:last-child {
+      border-top-right-radius: 12px;
+    }
+
+    .plantas-loreto-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #e1eff3;
+      color: var(--text-dark);
+    }
+
+    .plantas-loreto-table tr:hover td {
+      background: #ffffff;
+    }
+
+    /* Cuadro de Seguridad y Recomendaciones Responsables */
+    .safety-guidelines-box {
+      max-width: 1280px;
+      margin: 40px auto 0 auto;
+      background: #fdfaf6;
+      border-left: 6px solid #e27d60;
+      border-top: 1px solid #f4ede4;
+      border-right: 1px solid #f4ede4;
+      border-bottom: 1px solid #f4ede4;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 8px 24px rgba(226, 125, 96, 0.08);
+    }
+
+    .safety-guidelines-box h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #9c4221;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .safety-guidelines-box p {
+      font-size: 0.9rem;
+      color: #634032;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .safety-triad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .safety-triad-item {
+      background: #ffffff;
+      border: 1px solid #eeddd1;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .safety-triad-item h5 {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #9c4221;
+      margin-bottom: 6px;
+    }
+
+    .safety-triad-item p {
+      font-size: 0.82rem;
+      color: #634032;
+      margin: 0;
+    }
+
+    .safety-rules-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.86rem;
+      color: #4a281c;
+      background: #fff;
+      border: 1px dashed #e27d60;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 12px;
+    }
+
+    .safety-rules-list li strong {
+      color: #b91c1c;
+    }
+
+    /* Fuentes Bibliográficas */
+    .sources-bibliography-box {
+      max-width: 1280px;
+      margin: 30px auto 0 auto;
+      background: #ffffff;
+      border: 1px solid #d2eaf0;
+      border-radius: 18px;
+      padding: 24px 30px;
+    }
+
+    .sources-bibliography-box h4 {
       font-size: 1.15rem;
       font-weight: 800;
       color: var(--ocean-deep);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .plant-card p {
+    .sources-ol {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
       font-size: 0.85rem;
       color: var(--text-dark-muted);
-      line-height: 1.4;
-    }
-
-    .plant-card .plant-prep {
-      background: #ffffff;
-      border: 1px solid #e2f0f4;
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 0.8rem;
-      color: var(--ocean-teal);
-      font-weight: 600;
-    }
-
-    .plant-card .plant-warning {
-      font-size: 0.75rem;
-      color: #b91c1c;
-      font-weight: 700;
-      background: #fef2f2;
-      padding: 8px 10px;
-      border-radius: 10px;
-      border: 1px solid #fecaca;
-      margin-top: auto;
     }
 
     /* MODAL */
@@ -1378,7 +1684,8 @@
       .bundles-3grid { grid-template-columns: 1fr; }
       .collection-cards-grid { grid-template-columns: repeat(3, 1fr); }
       .fluvial-calc-card { grid-template-columns: 1fr; }
-      .botiquin-cards-5grid { grid-template-columns: repeat(2, 1fr); }
+      .botiquin-cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .safety-triad-grid { grid-template-columns: 1fr; }
       .bottom-badges-container { grid-template-columns: repeat(2, 1fr); }
       .footer-main-grid { grid-template-columns: 1fr 1fr; }
     }
@@ -1401,7 +1708,7 @@
       }
       .stats-impact-container { grid-template-columns: 1fr; }
       .collection-cards-grid { grid-template-columns: 1fr; }
-      .botiquin-cards-5grid { grid-template-columns: 1fr; }
+      .botiquin-cards-grid { grid-template-columns: 1fr; }
       .bottom-badges-container { grid-template-columns: 1fr; }
       .footer-main-grid { grid-template-columns: 1fr; }
     }
@@ -1871,17 +2178,111 @@
     </div>
   </section>
 
-  <!-- 10. BOTIQUÍN NATURAL -->
-  <section id="botiquin-section" class="section-botiquin-natural">
+  <!-- 10. BOTIQUÍN NATURAL AMAZÓNICO (CATÁLOGO COMPLETO DE 30 ESPECIES) -->
+  <section id="botiquin-section" className="section-botiquin-natural">
     <div class="botiquin-header-row">
       <h2 class="subtitle-cursive-3d">
         <span class="sparkle-icon">✦</span> Botiquín Natural Amazónico <span class="sparkle-icon">✨</span>
       </h2>
-      <p>Fichas prácticas de plantas medicinales locales con modo de preparación seguro y advertencia sobre cuándo es obligatorio acudir al médico.</p>
+      <p>Catálogo etnobotánico verificado de Loreto: fichas prácticas de 20 remedios tradicionales, tabla de 10 especies adicionales, advertencias sanitarias y fuentes bibliográficas oficiales.</p>
     </div>
 
-    <div class="botiquin-cards-5grid" id="gridBotiquin">
+    <!-- Buscador y Pestañas de Categoría -->
+    <div class="botiquin-controls-wrap">
+      <div class="botiquin-search-bar">
+        <span class="botiquin-search-icon">🔍</span>
+        <input 
+          id="inputBusquedaBotiquin"
+          type="text" 
+          placeholder="Buscar planta, síntoma (ej. kion, tos, fiebre, estómago, uña de gato)..."
+          oninput="filtrarPorTexto(this.value)"
+        />
+      </div>
+
+      <div class="botiquin-tabs-row">
+        <button id="tab-todos" class="btn-botiquin-tab active" onclick="cambiarTab('todos')">🌿 Todas las Fichas (20)</button>
+        <button id="tab-tos" class="btn-botiquin-tab" onclick="cambiarTab('tos')">🫁 Tos, Gripe y Garganta (8)</button>
+        <button id="tab-estomago" class="btn-botiquin-tab" onclick="cambiarTab('estomago')">🥣 Estómago y Digestión (5)</button>
+        <button id="tab-cortezas" class="btn-botiquin-tab" onclick="cambiarTab('cortezas')">🌳 Cortezas y Frutos (7)</button>
+        <button id="tab-tabla" class="btn-botiquin-tab" onclick="cambiarTab('tabla')">📋 Tabla Especies 21-30 (10)</button>
+      </div>
+    </div>
+
+    <!-- Grilla de Fichas Botánicas (20 elementos) -->
+    <div class="botiquin-cards-grid" id="gridBotiquin">
       <!-- Inyectado por JS -->
+    </div>
+
+    <!-- Tabla de Especies Adicionales de Loreto (Elementos 21 al 30) -->
+    <div id="tabla-especies" class="botiquin-table-wrapper">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+        <span style="font-size: 1.4rem;">📋</span>
+        <h3>Otros Nombres de Plantas Medicinales de Loreto (Catálogo Complementario)</h3>
+      </div>
+      <p>
+        Especies vegetales registradas en publicaciones sobre flora medicinal amazónica para incorporar a la biblioteca comunitaria. No todas cuentan con dosificación segura o indicación clínica comprobada.
+      </p>
+
+      <div class="table-responsive-box">
+        <table class="plantas-loreto-table">
+          <thead>
+            <tr>
+              <th style="width: 8%;">N.º</th>
+              <th style="width: 25%;">Nombre Popular</th>
+              <th style="width: 25%;">Parte Vegetal</th>
+              <th style="width: 42%;">Uso Tradicional Registrado</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyEspecies">
+            <!-- Inyectado por JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Cuadro de Seguridad y Recomendaciones Importantes -->
+    <div class="safety-guidelines-box">
+      <h3>
+        <span>🛡️</span>
+        <span>Recomendaciones Importantes para la Guía Verde de Salud</span>
+      </h3>
+
+      <p>
+        En el contexto ribereño y rural de Loreto, es fundamental que la población y los promotores de salud diferencien con total claridad tres aspectos al utilizar medicina natural:
+      </p>
+
+      <div class="safety-triad-grid">
+        <div class="safety-triad-item">
+          <h5>1. Uso Tradicional</h5>
+          <p>Saberes ancestrales transmitidos por generaciones de sabios, curacas y parteras de nuestras cuencas.</p>
+        </div>
+        <div class="safety-triad-item">
+          <h5>2. Evidencia Científica</h5>
+          <p>Propiedades farmacológicas y principios activos estudiados y validados por centros de investigación etnobotánica.</p>
+        </div>
+        <div class="safety-triad-item">
+          <h5>3. Precauciones y Alertas</h5>
+          <p>Límites de toxicidad, interacciones y el momento exacto en que es obligatorio acudir al centro de salud.</p>
+        </div>
+      </div>
+
+      <ul class="safety-rules-list">
+        <li><strong>Para diarrea aguda:</strong> Priorizar siempre el suero de rehidratación oral (casero o en sobre). Las plantas astringentes no reemplazan los líquidos y electrolitos perdidos, especialmente en niños.</li>
+        <li><strong>Para fiebre alta:</strong> Evaluar inmediatamente la causa. En Loreto circulan dengue, malaria y leptospirosis. NUNCA administrar ibuprofeno ni aspirina por riesgo de hemorragia fatal.</li>
+        <li><strong>Para heridas y cortes:</strong> Lavar con agua hervida limpia y jabón. Si son profundas, infectadas o causadas por machete sucio, trasladar a la posta para sutura y vacuna antitetánica.</li>
+        <li><strong>Para mordeduras de serpientes o rayas:</strong> ¡ACUDIR URGENTEMENTE A LA POSTA MÉDICA! NUNCA aplicar plantas, barro ni torniquetes sobre la mordedura. El único tratamiento eficaz contra el veneno es el suero antiofídico del MINSA.</li>
+      </ul>
+    </div>
+
+    <!-- Fuentes Bibliográficas -->
+    <div class="sources-bibliography-box">
+      <h4>
+        <span>📚</span>
+        <span>Fuentes Bibliográficas e Investigaciones Científicas</span>
+      </h4>
+      <ol class="sources-ol" id="olFuentes">
+        <!-- Inyectado por JS -->
+      </ol>
     </div>
   </section>
 
@@ -2118,58 +2519,453 @@
       itaya: { nombre: 'Cuenca Río Itaya', posta: 'P.S. San Juan Bautista (I-3)', dist: 18, suero: '4 ampollas polivalentes', oxigeno: '3 balones (6m³)', dengue: 'Disponibles', radio: '4550 kHz HF' }
     };
 
-    const PLANTAS = [
+    const CATALOGO_BOTIQUIN_20 = [
+      // 1. Tos, Gripe y Garganta (8 elementos)
       {
-        nombre: 'Sangre de Grado',
-        icono: '🩸',
-        sirve: 'Cicatrizante potente en heridas limpias, raspaduras y protector gástrico.',
-        prep: 'Aplicar 2 a 3 gotas de látex puro frotando hasta hacer película blanca.',
-        advertencia: 'No usar en heridas profundas que requieran sutura médica.'
+        id: 1,
+        categoria: 'tos',
+        categoriaNombre: 'Tos, Gripe y Garganta',
+        nombre: 'Jengibre (Kion)',
+        nombreCientifico: 'Zingiber officinale',
+        icono: '🫚',
+        ingredientes: 'Jengibre fresco, agua limpia, jugo de limón criollo y miel de abeja.',
+        preparacion: 'Cocinar pequeños trozos de jengibre en agua hirviendo; dejar entibiar y añadir jugo de limón y miel pura.',
+        uso: 'Alivio de molestias de garganta, irritación y tos húmeda.',
+        precaucion: 'Evitar consumo en personas con gastritis erosiva severa o en dosis excesivas en hipertensos.'
       },
       {
+        id: 2,
+        categoria: 'tos',
+        categoriaNombre: 'Tos, Gripe y Garganta',
+        nombre: 'Cebolla con Ajo',
+        nombreCientifico: 'Allium cepa & Allium sativum',
+        icono: '🧅',
+        ingredientes: 'Cebolla morada, 3 dientes de ajo y agua potable.',
+        preparacion: 'Preparación tradicional Ticuna: cortar una cebolla en cuatro partes y cocinarla durante cinco minutos con tres dientes de ajo machacados.',
+        uso: 'Tos rebelde y malestar febril.',
+        precaucion: 'Si la fiebre persiste por más de 24 horas o se acompaña de dolor retroocular (sospecha de dengue), acudir urgente a la posta médica.'
+      },
+      {
+        id: 3,
+        categoria: 'tos',
+        categoriaNombre: 'Tos, Gripe y Garganta',
+        nombre: 'Limón con Miel y Ajo',
+        nombreCientifico: 'Citrus aurantiifolia & Miel',
+        icono: '🍋',
+        ingredientes: 'Jugo de limón criollo, miel pura de monte y ajo machacado.',
+        preparacion: 'Mezclar el jugo fresco de 2 limones con 2 cucharadas de miel y un diente de ajo machacado. Tomar por cucharaditas.',
+        uso: 'Molestias de garganta, inflamación y tos seca.',
+        precaucion: 'NUNCA administrar miel de abeja a niños menores de 1 año por riesgo de botulismo infantil.'
+      },
+      {
+        id: 4,
+        categoria: 'tos',
+        categoriaNombre: 'Tos, Gripe y Garganta',
         nombre: 'Matico Amazónico',
+        nombreCientifico: 'Piper aduncum',
         icono: '🍃',
-        sirve: 'Afecciones respiratorias, bronquitis, tos seca y lavado antiséptico.',
-        prep: 'Infusión: 4 a 6 hojas en 1 litro de agua hervida con miel.',
-        advertencia: 'Si hay dolor torácico o asfixia, acudir de urgencia a la posta.'
+        ingredientes: 'Hojas frescas y limpias de matico y agua.',
+        preparacion: 'Preparación tradicional documentada: cocinar las hojas en agua limpia durante 5 minutos y dejar entibiar antes de tomar o hacer gárgaras.',
+        uso: 'Fiebre, dolor corporal y afecciones respiratorias leves.',
+        precaucion: 'Confirmar la especie botánica; en la selva existen diferentes plantas llamadas matico. No sustituye la atención médica en neumonía.'
       },
       {
-        nombre: 'Uña de Gato',
-        icono: '🐾',
-        sirve: 'Antiinflamatorio de articulaciones, reumatismo y refuerzo inmune.',
-        prep: 'Decocción: Hervir 15g de corteza por 20 minutos a fuego lento.',
-        advertencia: 'Contraindicado en mujeres embarazadas y lactantes.'
+        id: 5,
+        categoria: 'tos',
+        categoriaNombre: 'Tos, Gripe y Garganta',
+        nombre: 'Ajo Sacha',
+        nombreCientifico: 'Mansoa alliacea',
+        icono: '🌿',
+        ingredientes: 'Hojas de ajo sacha y cáscara de limón.',
+        preparacion: 'Cocinar las hojas con la cáscara de limón para realizar prácticas tradicionales de vaporización o baños tibios.',
+        uso: 'Tos seca y fiebre mediante vahos y prácticas tradicionales de vapor.',
+        precaucion: 'Evitar inhalar vapor de agua hirviendo muy cerca por riesgo grave de quemaduras en vías respiratorias.'
       },
       {
-        nombre: 'Malva Silvestre',
-        icono: '🌸',
-        sirve: 'Refrescante en fiebres leves, inflamación gástrica y contusiones.',
-        prep: 'Emplasto de hojas machacadas con agua fría sobre frente o abdomen.',
-        advertencia: 'Si la fiebre supera 38.5°C acudir de inmediato al médico.'
+        id: 6,
+        categoria: 'tos',
+        categoriaNombre: 'Tos, Gripe y Garganta',
+        nombre: 'Mucura',
+        nombreCientifico: 'Petiveria alliacea (Anamú)',
+        icono: '☘️',
+        ingredientes: 'Hojas frescas de mucura y agua fresca de río.',
+        preparacion: 'Preparación tradicional Ticuna: estrujar las hojas en agua fresca para preparar un baño tradicional en la cabeza y cuerpo.',
+        uso: 'Refrescar la cabeza y aliviar la sensación intensa de fiebre.',
+        precaucion: 'NO ingerir preparados caseros concentrados sin evaluación de seguridad. Contraindicado en mujeres embarazadas.'
       },
       {
-        nombre: 'Ojé (Supervisado)',
+        id: 7,
+        categoria: 'tos',
+        categoriaNombre: 'Tos, Gripe y Garganta',
+        nombre: 'Sacha Culantro',
+        nombreCientifico: 'Eryngium foetidum',
         icono: '🌱',
-        sirve: 'Antiparasitario tradicional de amplio espectro en comunidades.',
-        prep: 'Tomar solo bajo dosificación rigurosa de sabios locales.',
-        advertencia: '¡ALTO RIESGO DE INTOXICACIÓN! No dar a niños menores.'
+        ingredientes: 'Hojas, tallos, raíces y agua hervida.',
+        preparacion: 'Cocinar la planta completa en agua hervida durante 5 minutos.',
+        uso: 'Fiebre y dolor de cabeza.',
+        precaucion: 'No automedicarse ante fiebres altas con dolor abdominal severo; puede ser dengue hemorrágico.'
+      },
+      {
+        id: 8,
+        categoria: 'tos',
+        categoriaNombre: 'Tos, Gripe y Garganta',
+        nombre: 'Menta Tradicional Amazónica',
+        nombreCientifico: 'Lantana sp. local',
+        icono: '🌿',
+        ingredientes: 'Hojas identificadas de menta local y agua hervida.',
+        preparacion: 'Infusión de 3 a 4 hojas en agua hervida caliente reposada durante 8 minutos.',
+        uso: 'Molestias de estómago, dolor de cabeza y fiebre leve.',
+        precaucion: 'La investigación botánica identifica Lantana sp. como menta local; no es la menta comercial. No ingerir concentrados ni dar a niños.'
+      },
+
+      // 2. Estómago y Digestión (5 elementos)
+      {
+        id: 9,
+        categoria: 'estomago',
+        categoriaNombre: 'Estómago y Digestión',
+        nombre: 'Hojas de Casho',
+        nombreCientifico: 'Anacardium occidentale',
+        icono: '🌳',
+        ingredientes: 'Hojas tiernas de casho (marañón) y agua.',
+        preparacion: 'Preparación documentada: cocimiento de hojas limpias durante cinco minutos a fuego lento.',
+        uso: 'Molestias de garganta y diarrea acuosa leve.',
+        precaucion: 'NUNCA utilizar como sustituto del suero de rehidratación oral. En niños con diarrea, la rehidratación es obligatoria e inmediata.'
+      },
+      {
+        id: 10,
+        categoria: 'estomago',
+        categoriaNombre: 'Estómago y Digestión',
+        nombre: 'Basuri o Ñucño Pichana',
+        nombreCientifico: 'Scoparia dulcis',
+        icono: '🌾',
+        ingredientes: 'Hojas, ramitas tiernas y agua limpia.',
+        preparacion: 'Preparación tradicional: estrujar suavemente las hojas en agua hervida fría y colar con lienzo limpio.',
+        uso: 'Alivio de tos seca y malestar digestivo.',
+        precaucion: 'Confirmar la identificación botánica con sabios de la comunidad antes de cualquier uso medicinal.'
+      },
+      {
+        id: 11,
+        categoria: 'estomago',
+        categoriaNombre: 'Estómago y Digestión',
+        nombre: 'Guayaba',
+        nombreCientifico: 'Psidium guajava',
+        icono: '🍈',
+        ingredientes: 'Cogollos y hojas tiernas de guayabo con agua.',
+        preparacion: 'Infusión de 4 a 6 hojas en 1 litro de agua hervida; dejar reposar 10 minutos y beber tibio.',
+        uso: 'Molestias digestivas, retortijones y diarrea leve.',
+        precaucion: 'La diarrea con moco o sangre requiere atención médica inmediata en la posta, especialmente en lactantes y niños pequeños.'
+      },
+      {
+        id: 12,
+        categoria: 'estomago',
+        categoriaNombre: 'Estómago y Digestión',
+        nombre: 'Hierba Luisa',
+        nombreCientifico: 'Cymbopogon citratus',
+        icono: '🌾',
+        ingredientes: 'Hojas frescas aromáticas de hierba luisa y agua caliente.',
+        preparacion: 'Infusión aromática de hojas frescas reposadas durante 5 minutos en agua hervida.',
+        uso: 'Molestias digestivas, cólicos leves, gases y digestión pesada.',
+        precaucion: 'Si el dolor abdominal es agudo o localizado en el lado derecho, no tomar líquidos y acudir a la posta para descartar apendicitis.'
+      },
+      {
+        id: 13,
+        categoria: 'estomago',
+        categoriaNombre: 'Estómago y Digestión',
+        nombre: 'Paico',
+        nombreCientifico: 'Dysphania ambrosioides',
+        icono: '🌿',
+        ingredientes: 'Hojas y tallos tiernos (uso extremadamente controlado).',
+        preparacion: 'Preparación registrada en medicina tradicional: infusión muy suave de pocas hojas.',
+        uso: 'Cólicos leves y expulsión tradicional de parásitos intestinales.',
+        precaucion: '¡PRECAUCIÓN CRÍTICA! Puede ser tóxico por su contenido de ascaridol, especialmente en preparados concentrados. NO administrar a niños ni gestantes.'
+      },
+
+      // 3. Plantas, Frutos y Cortezas Amazónicas (7 elementos)
+      {
+        id: 14,
+        categoria: 'cortezas',
+        categoriaNombre: 'Cortezas y Frutos Amazónicos',
+        nombre: 'Sangre de Grado',
+        nombreCientifico: 'Croton lechleri',
+        icono: '🩸',
+        ingredientes: 'Látex rojizo puro del tronco del árbol.',
+        preparacion: 'Recolección del látex mediante incisión diagonal en la corteza; aplicación externa directa frotando hasta hacer película blanca.',
+        uso: 'Cuidado externo de la piel, raspaduras y heridas superficiales limpias (cicatrizante natural).',
+        precaucion: 'NO aplicar en heridas profundas que requieran sutura ni consumir por vía oral sin indicación profesional.'
+      },
+      {
+        id: 15,
+        categoria: 'cortezas',
+        categoriaNombre: 'Cortezas y Frutos Amazónicos',
+        nombre: 'Copaiba',
+        nombreCientifico: 'Copaifera reticulata / paupera',
+        icono: '🪵',
+        ingredientes: 'Oleorresina translúcida del corazón del tronco.',
+        preparacion: 'Extracción tradicional mediante orificio cuidadoso en el tronco y recolección limpia.',
+        uso: 'Cuidado dérmico externo, molestias inflamatorias y picaduras de insectos.',
+        precaucion: 'NO ingerir directamente ni aplicar pura sobre mucosas o heridas abiertas sin orientación sanitaria.'
+      },
+      {
+        id: 16,
+        categoria: 'cortezas',
+        categoriaNombre: 'Cortezas y Frutos Amazónicos',
+        nombre: 'Uña de Gato',
+        nombreCientifico: 'Uncaria tomentosa',
+        icono: '🐾',
+        ingredientes: 'Corteza interna fibrosa de la liana.',
+        preparacion: 'Cocimiento: hervir 15 a 20 gramos de corteza en 1 litro de agua a fuego lento durante 20 minutos. Tomar colado.',
+        uso: 'Molestias articulares, dolores reumáticos y procesos inflamatorios.',
+        precaucion: 'Puede interactuar con fármacos inmunosupresores y antihipertensivos. Contraindicado en gestación y lactancia.'
+      },
+      {
+        id: 17,
+        categoria: 'cortezas',
+        categoriaNombre: 'Cortezas y Frutos Amazónicos',
+        nombre: 'Chuchuhuasi',
+        nombreCientifico: 'Maytenus macrocarpa',
+        icono: '🌳',
+        ingredientes: 'Corteza gruesa del tronco.',
+        preparacion: 'Cocimientos tradicionales de la corteza en agua a fuego moderado.',
+        uso: 'Molestias musculares, dolor lumbar y fatiga física.',
+        precaucion: 'NO se recomiendan macerados alcohólicos caseros ni su consumo medicinal en personas con hipertensión o úlcera activa.'
+      },
+      {
+        id: 18,
+        categoria: 'cortezas',
+        categoriaNombre: 'Cortezas y Frutos Amazónicos',
+        nombre: 'Achiote',
+        nombreCientifico: 'Bixa orellana',
+        icono: '🔴',
+        ingredientes: 'Hojas secas y semillas con pigmento rojo (bixina).',
+        preparacion: 'Infusión tradicional de hojas secas o cataplasmas tópicos con las semillas molidas.',
+        uso: 'Cuidado de la piel, molestias inflamatorias y bienestar prostático tradicional.',
+        precaucion: 'No está demostrado científicamente que cure infecciones bacterianas graves. Acudir al médico si hay síntomas urinarios.'
+      },
+      {
+        id: 19,
+        categoria: 'cortezas',
+        categoriaNombre: 'Cortezas y Frutos Amazónicos',
+        nombre: 'Bolsa Mullaca',
+        nombreCientifico: 'Physalis angulata',
+        icono: '🏮',
+        ingredientes: 'Hojas y frutos protegidos en vesícula membranosa.',
+        preparacion: 'Infusión de hojas o consumo moderado del fruto fresco cuando está completamente maduro.',
+        uso: 'Molestias inflamatorias, afecciones dérmicas y vías urinarias.',
+        precaucion: 'NO consumir hojas ni frutos verdes sin identificación botánica segura por presencia de alcaloides potencialmente irritantes.'
+      },
+      {
+        id: 20,
+        categoria: 'cortezas',
+        categoriaNombre: 'Cortezas y Frutos Amazónicos',
+        nombre: 'Amasisa',
+        nombreCientifico: 'Erythrina fusca',
+        icono: '🌺',
+        ingredientes: 'Hojas y corteza según la práctica etnobotánica ribereña.',
+        preparacion: 'Emplastos y baños externos documentados en medicina popular amazónica.',
+        uso: 'Distintos malestares corporales, inflamaciones externas y golpes en faenas de monte.',
+        precaucion: 'NO se recomienda preparar para consumo interno sin identificar con precisión la especie y validar su seguridad toxicológica.'
       }
     ];
 
+    const ESPECIES_LORETO_TABLA = [
+      { num: 21, nombre: 'Malva', parte: 'Hojas', uso: 'Refrescante en fiebres leves y lavados dérmicos.' },
+      { num: 22, nombre: 'Amor seco', parte: 'Hojas y partes aéreas', uso: 'Inflamaciones leves y molestias urinarias tradicionales.' },
+      { num: 23, nombre: 'Abuta', parte: 'Corteza y raíces', uso: 'Cólicos menstruales y dolores de espalda en el bosque.' },
+      { num: 24, nombre: 'Clavo huasca', parte: 'Corteza', uso: 'Macerados tradicionales vigorizantes y dolor muscular.' },
+      { num: 25, nombre: 'Amasisa', parte: 'Corteza y hojas', uso: 'Baños corporales externos y cicatrización de contusiones.' },
+      { num: 26, nombre: 'Ayahuma', parte: 'Fruto', uso: 'Emplastos tradicionales y baños contra dolores reumáticos.' },
+      { num: 27, nombre: 'Huito (Jagua)', parte: 'Fruto', uso: 'Tinte protector contra zancudos y cuidado dérmico y capilar.' },
+      { num: 28, nombre: 'Azúcar huayo', parte: 'Corteza', uso: 'Afecciones bronquiales y debilidad física general.' },
+      { num: 29, nombre: 'Achira', parte: 'Rizoma', uso: 'Emplastos emolientes en quemaduras superficiales y llagas.' },
+      { num: 30, nombre: 'Algodón', parte: 'Hojas y semillas', uso: 'Emplastos tradicionales en picaduras y afecciones de oídos.' }
+    ];
+
+    const FUENTES_BIBLIOGRAFICAS = [
+      'Instituto de Investigaciones de la Amazonía Peruana (IIAP) – Plantas medicinales de uso popular en la Amazonía peruana.',
+      'Estudio etnobotánico de plantas medicinales utilizadas por dos comunidades Ticuna de Loreto.',
+      'Conocimiento tradicional de plantas medicinales del pueblo Shawi (Alto Amazonas, Loreto).',
+      'Estudio etnobotánico de la comunidad El Chino, cuenca Tamshiyacu-Tahuayo (Loreto, Perú).'
+    ];
+
+    let botiquinFiltro = 'todos';
+    let botiquinBusqueda = '';
     let itemActual = null;
     let hablando = false;
 
     function renderBotiquin() {
       const g = document.getElementById('gridBotiquin');
-      g.innerHTML = PLANTAS.map(p => `
-        <div class="plant-card" onclick="abrirModalPlanta('${p.nombre}')">
-          <div class="plant-icon">${p.icono}</div>
-          <h4>${p.nombre}</h4>
-          <p>${p.sirve}</p>
-          <div class="plant-prep"><strong>Preparación:</strong> ${p.prep}</div>
-          <div class="plant-warning"><strong>Advertencia:</strong> ${p.advertencia}</div>
+      if (!g) return;
+
+      const term = botiquinBusqueda.toLowerCase().trim();
+      const filtradas = CATALOGO_BOTIQUIN_20.filter(p => {
+        const matchCat = botiquinFiltro === 'todos' || p.categoria === botiquinFiltro;
+        const matchSearch = !term ||
+          p.nombre.toLowerCase().includes(term) ||
+          p.nombreCientifico.toLowerCase().includes(term) ||
+          p.uso.toLowerCase().includes(term) ||
+          p.ingredientes.toLowerCase().includes(term);
+        return matchCat && matchSearch;
+      });
+
+      if (filtradas.length === 0) {
+        g.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: #ffffff; border-radius: 16px; border: 1px dashed #b0d4de;">
+            <p style="font-size: 1.1rem; color: var(--text-dark-muted); margin-bottom: 8px;">No se encontraron plantas medicinales con el término "${botiquinBusqueda}".</p>
+            <button class="btn-botiquin-tab active" onclick="cambiarTab('todos'); document.getElementById('inputBusquedaBotiquin').value=''; filtrarPorTexto('');">Ver todo el catálogo</button>
+          </div>
+        `;
+        return;
+      }
+
+      g.innerHTML = filtradas.map(p => `
+        <div class="botanical-card" onclick="abrirModalBotanico(${p.id})">
+          <div class="card-top-meta">
+            <span class="card-cat-badge">${p.categoriaNombre}</span>
+            <span style="font-size: 0.75rem; color: var(--text-dark-muted); font-weight: 700;">#${p.id}</span>
+          </div>
+
+          <div class="botanical-card-header">
+            <div class="botanical-icon-orb">${p.icono}</div>
+            <div class="botanical-title-wrap">
+              <h4>${p.nombre}</h4>
+              <small>${p.nombreCientifico}</small>
+            </div>
+          </div>
+
+          <div class="botanical-details-list">
+            <div class="botanical-detail-row">
+              <strong>Ingredientes / Parte:</strong>
+              <span>${p.ingredientes}</span>
+            </div>
+            <div class="botanical-detail-row">
+              <strong>Preparación tradicional:</strong>
+              <span>${p.preparacion}</span>
+            </div>
+            <div class="botanical-detail-row">
+              <strong>Uso popular reportado:</strong>
+              <span>${p.uso}</span>
+            </div>
+          </div>
+
+          <div class="botanical-alert-box">
+            <strong>⚠️ Precaución:</strong> ${p.precaucion}
+          </div>
+
+          <button 
+            class="btn-card-listen"
+            onclick="event.stopPropagation(); hablarTextoCard('${p.nombre}. Uso tradicional: ${p.uso.replace(/'/g, "\\'")}. Preparación: ${p.preparacion.replace(/'/g, "\\'")}. Precaución importante: ${p.precaucion.replace(/'/g, "\\'")}')"
+          >
+            <span>🔊</span>
+            <span>Escuchar Ficha</span>
+          </button>
         </div>
       `).join('');
+    }
+
+    function renderTablaEspecies() {
+      const tbody = document.getElementById('tbodyEspecies');
+      if (!tbody) return;
+      tbody.innerHTML = ESPECIES_LORETO_TABLA.map(sp => `
+        <tr>
+          <td><strong style="color: var(--ocean-teal);">#${sp.num}</strong></td>
+          <td><strong>${sp.nombre}</strong></td>
+          <td>${sp.parte}</td>
+          <td>${sp.uso}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderFuentes() {
+      const ol = document.getElementById('olFuentes');
+      if (!ol) return;
+      ol.innerHTML = FUENTES_BIBLIOGRAFICAS.map(f => `<li>${f}</li>`).join('');
+    }
+
+    function cambiarTab(cat) {
+      botiquinFiltro = cat;
+      const tabs = ['todos', 'tos', 'estomago', 'cortezas', 'tabla'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        if (btn) {
+          if (t === cat) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      });
+
+      const grid = document.getElementById('gridBotiquin');
+      const tabla = document.getElementById('tabla-especies');
+
+      if (cat === 'tabla') {
+        if (grid) grid.style.display = 'none';
+        if (tabla) {
+          tabla.style.display = 'block';
+          tabla.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        if (grid) grid.style.display = 'grid';
+        if (tabla) tabla.style.display = 'block';
+        renderBotiquin();
+      }
+    }
+
+    function filtrarPorTexto(txt) {
+      botiquinBusqueda = txt;
+      if (botiquinFiltro === 'tabla') {
+        botiquinFiltro = 'todos';
+        const tabs = ['todos', 'tos', 'estomago', 'cortezas', 'tabla'];
+        tabs.forEach(t => {
+          const btn = document.getElementById(`tab-${t}`);
+          if (btn) {
+            if (t === 'todos') btn.classList.add('active');
+            else btn.classList.remove('active');
+          }
+        });
+        const grid = document.getElementById('gridBotiquin');
+        if (grid) grid.style.display = 'grid';
+      }
+      renderBotiquin();
+    }
+
+    function abrirModalBotanico(id) {
+      const p = CATALOGO_BOTIQUIN_20.find(x => x.id === id);
+      if (!p) return;
+      itemActual = {
+        titulo: p.nombre,
+        subtitulo: `${p.nombreCientifico} • ${p.categoriaNombre}`,
+        tiempoMax: 'Uso Tradicional Seguro',
+        imagen: 'images/red-fluvial.jpg',
+        queHacer: [
+          `Ingredientes / Parte utilizada: ${p.ingredientes}`,
+          `Preparación tradicional: ${p.preparacion}`,
+          `Uso popular reportado: ${p.uso}`
+        ],
+        queNoHacer: [
+          '¡NUNCA sustituir la atención médica de una urgencia grave con hierbas caseras!',
+          '¡NUNCA administrar preparados alcohólicos a gestantes ni niños pequeños!',
+          '¡NUNCA ingerir plantas de dudosa identificación sin consultar a sabios locales!'
+        ],
+        alarma: p.precaucion
+      };
+      document.getElementById('modalTit').innerText = itemActual.titulo;
+      document.getElementById('modalSub').innerText = itemActual.subtitulo;
+      document.getElementById('modalThumb').style.display = 'block';
+      document.getElementById('modalImg').src = itemActual.imagen;
+      document.getElementById('modalDo').innerHTML = itemActual.queHacer.map(x => `<li>${x}</li>`).join('');
+      document.getElementById('modalDont').innerHTML = itemActual.queNoHacer.map(x => `<li>${x}</li>`).join('');
+      document.getElementById('modalAlarm').innerHTML = `<strong>⚠️ Precaución y Advertencia Médica:</strong> ${itemActual.alarma}`;
+      document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function hablarTextoCard(texto) {
+      if (!('speechSynthesis' in window)) {
+        alert('Tu navegador no soporta lectura por voz.');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(texto);
+      u.lang = 'es-PE';
+      u.rate = 0.9;
+      window.speechSynthesis.speak(u);
     }
 
     function calcularFluvial() {
@@ -2272,6 +3068,8 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       renderBotiquin();
+      renderTablaEspecies();
+      renderFuentes();
       calcularFluvial();
     });
   </script>
