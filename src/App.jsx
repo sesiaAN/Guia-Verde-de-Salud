@@ -328,10 +328,61 @@ export default function App() {
             <span>SALUD RÍO LORETO • ACCESIBILIDAD RURAL OFFLINE</span>
           </div>
 
-          <h2 className="hero-ocean-title">
-            Salud en los Ríos de Loreto.
-            <span className="coral-highlight">Protege la Vida en Cada Comunidad.</span>
-          </h2>
+          {/* TÍTULO ESTILO COLLAGE / RECORTES DE STICKERS (IMAGEN 2) */}
+          <div className="collage-title-wrapper" aria-label="Salud en los Ríos de Loreto">
+            <div className="collage-decor-stars">
+              <span className="silver-sticker" title="Sticker estrella plateada">⭐</span>
+              <span className="silver-sticker star-delay" title="Sticker corazón plateado">🤍</span>
+            </div>
+
+            <div className="collage-words-row">
+              <div className="collage-word">
+                <span className="collage-tile tile-navy-stitch rot-m3">S</span>
+                <span className="collage-tile tile-denim rot-p2">A</span>
+                <span className="collage-tile tile-white-paper rot-m2">L</span>
+                <span className="collage-tile tile-blue-thick rot-p3">U</span>
+                <span className="collage-tile tile-navy-stitch rot-m1">D</span>
+              </div>
+              <div className="collage-word">
+                <span className="collage-tile tile-denim rot-p2">E</span>
+                <span className="collage-tile tile-navy-stitch rot-m3">N</span>
+              </div>
+            </div>
+
+            <div className="collage-words-row">
+              <div className="collage-word">
+                <span className="collage-tile tile-white-paper rot-p1">L</span>
+                <span className="collage-tile tile-blue-thick rot-m2">O</span>
+                <span className="collage-tile tile-navy-stitch rot-p3">S</span>
+              </div>
+              <div className="collage-word">
+                <span className="collage-tile tile-denim rot-m3">R</span>
+                <span className="collage-tile tile-white-paper rot-p2">Í</span>
+                <span className="collage-tile tile-blue-thick rot-m1">O</span>
+                <span className="collage-tile tile-navy-stitch rot-p2">S</span>
+              </div>
+              <div className="collage-word">
+                <span className="collage-tile tile-denim rot-m2">D</span>
+                <span className="collage-tile tile-white-paper rot-p3">E</span>
+              </div>
+            </div>
+
+            <div className="collage-words-row">
+              <div className="collage-word">
+                <span className="collage-tile tile-navy-stitch rot-m3">L</span>
+                <span className="collage-tile tile-blue-thick rot-p1">O</span>
+                <span className="collage-tile tile-denim rot-m2">R</span>
+                <span className="collage-tile tile-white-paper rot-p3">E</span>
+                <span className="collage-tile tile-navy-stitch rot-m1">T</span>
+                <span className="collage-tile tile-blue-thick rot-p2">O</span>
+              </div>
+            </div>
+          </div>
+
+          {/* SUBTÍTULO ESTILO CALIGRAFÍA 3D AZUL INTENSO (IMAGEN 1) */}
+          <h3 className="subtitle-cursive-3d subtitle-cursive-3d-lg">
+            <span className="sparkle-icon">✦</span> Protege la Vida en Cada Comunidad <span className="sparkle-icon">✨</span>
+          </h3>
 
           <p className="hero-ocean-desc">
             Orientación médica inmediata ante mordeduras, fiebres y heridas, combinada con la sabiduría botánica de nuestras plantas amazónicas y cálculo exacto de navegación hacia la posta más cercana.
@@ -441,7 +492,9 @@ export default function App() {
         <div className="bundles-header-row">
           <div className="bundles-title-wrap">
             <span className="coral-badge-tag">URGENCIAS FRECUENTES</span>
-            <h2>Primeros Auxilios Inmediatos</h2>
+            <h2 className="subtitle-cursive-3d">
+              <span className="sparkle-icon">✦</span> Primeros Auxilios Inmediatos <span className="sparkle-icon">✨</span>
+            </h2>
           </div>
           <p>
             Protocolos paso a paso sobre qué hacer y qué NUNCA hacer mientras se organiza el traslado a la posta médica.
@@ -543,7 +596,9 @@ export default function App() {
       <section id="collection-section" className="section-shop-collection">
         <div className="collection-header-row">
           <div>
-            <h2>Guías Rápidas por Síntoma</h2>
+            <h2 className="subtitle-cursive-3d">
+              <span className="sparkle-icon">✦</span> Guías Rápidas por Síntoma <span className="sparkle-icon">✨</span>
+            </h2>
             <p>Toca cualquier tarjeta para abrir el protocolo médico con voz guiada sin conexión.</p>
           </div>
         </div>
@@ -626,7 +681,9 @@ export default function App() {
       {/* 9. SECCIÓN PANORÁMICA DE LA CALCULADORA FLUVIAL ("MORE THAN A PURCHASE" MODEL) */}
       <section id="calc-section" className="section-panoramic-calc">
         <div className="panoramic-header-box">
-          <h2>Más que una Guía: Una Ruta Segura en el Río Loreto.</h2>
+          <h2 className="subtitle-cursive-3d subtitle-cursive-3d-lg">
+            <span className="sparkle-icon">✦</span> Una Ruta Segura en el Río Loreto <span className="sparkle-icon">✨</span>
+          </h2>
           <p>
             Calcula con precisión las horas y minutos de navegación según tu río, embarcación y corriente para llegar a tiempo a la posta con suero y oxígeno.
           </p>
@@ -725,7 +782,9 @@ export default function App() {
       {/* 10. SECCIÓN BOTIQUÍN NATURAL AMAZÓNICO */}
       <section id="botiquin-section" className="section-botiquin-natural">
         <div className="botiquin-header-row">
-          <h2>Botiquín Natural Amazónico</h2>
+          <h2 className="subtitle-cursive-3d">
+            <span className="sparkle-icon">✦</span> Botiquín Natural Amazónico <span className="sparkle-icon">✨</span>
+          </h2>
           <p>
             Fichas prácticas de plantas medicinales locales con modo de preparación seguro y advertencia sobre cuándo es obligatorio acudir al médico.
           </p>

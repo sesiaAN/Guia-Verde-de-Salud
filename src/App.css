@@ -247,17 +247,168 @@ a {
   width: fit-content;
 }
 
-.hero-ocean-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  line-height: 1.12;
-  color: #ffffff;
-  letter-spacing: -1px;
+/* ==========================================================================
+   TÍTULO ESTILO COLLAGE / RECORTES DE STICKERS (IMAGEN 2)
+   "DE TODOS LOS QUE TE QUEREMOS" STYLE
+   ========================================================================== */
+.collage-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  margin-bottom: 8px;
 }
 
-.hero-ocean-title .coral-highlight {
-  color: var(--coral-primary);
-  display: block;
+.collage-decor-stars {
+  position: absolute;
+  top: -24px;
+  right: 20px;
+  display: flex;
+  gap: 14px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.silver-sticker {
+  display: inline-block;
+  font-size: 1.8rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+  animation: floatBalloon 3s ease-in-out infinite alternate;
+}
+
+.silver-sticker.star-delay {
+  animation-delay: 1.2s;
+}
+
+@keyframes floatBalloon {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-8px) rotate(6deg); }
+}
+
+.collage-words-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+}
+
+.collage-word {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* Fichas individuales de cada letra (Collage recortado con tijera) */
+.collage-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 56px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 2.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1;
+  user-select: none;
+  cursor: default;
+  box-shadow: 2px 5px 14px rgba(0, 0, 0, 0.5), inset 0 0 6px rgba(255, 255, 255, 0.15);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.collage-tile:hover {
+  transform: scale(1.18) rotate(0deg) !important;
+  z-index: 10;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+}
+
+/* Variación 1: Azul marino con costura blanca punteada */
+.tile-navy-stitch {
+  background: #0b1e3d;
+  color: #ffffff;
+  border: 2px dashed rgba(255, 255, 255, 0.85);
+  font-family: 'Graduate', 'Alfa Slab One', serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Variación 2: Azul mezclilla / denim con borde blanco de recorte */
+.tile-denim {
+  background: #274f80;
+  color: #ffffff;
+  border: 2.5px solid #ffffff;
+  font-family: 'Alfa Slab One', sans-serif;
+  text-shadow: 1px 2px 0px #0b1a2e;
+}
+
+/* Variación 3: Papel claro / blanco roto con letra en azul oscuro */
+.tile-white-paper {
+  background: #f1f5fa;
+  color: #0b1e3d;
+  border: 2px solid rgba(11, 30, 61, 0.3);
+  font-family: 'Graduate', 'Georgia', serif;
+  text-shadow: none;
+}
+
+/* Variación 4: Azul cobalto intenso con borde grueso blanco */
+.tile-blue-thick {
+  background: #155cb0;
+  color: #ffffff;
+  border: 2.5px solid #ffffff;
+  font-family: 'Alfa Slab One', sans-serif;
+  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Ángulos de rotación artesanal tipo scrapbook */
+.rot-m4 { transform: rotate(-4deg); }
+.rot-m3 { transform: rotate(-3deg); }
+.rot-m2 { transform: rotate(-2deg); }
+.rot-m1 { transform: rotate(-1deg); }
+.rot-p1 { transform: rotate(1.5deg); }
+.rot-p2 { transform: rotate(2.5deg); }
+.rot-p3 { transform: rotate(3.5deg); }
+.rot-p4 { transform: rotate(4.5deg); }
+
+/* ==========================================================================
+   SUBTÍTULOS ESTILO CALIGRAFÍA 3D AZUL INTENSO (IMAGEN 1)
+   "INTRODUCTION" ROYAL BLUE 3D CURSIVE STYLE
+   ========================================================================== */
+.subtitle-cursive-3d {
+  font-family: 'Dancing Script', 'Pacifico', cursive, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  background: linear-gradient(180deg, #70d6ff 0%, #0077ff 35%, #0033cc 75%, #001a66 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(1.5px 1.5px 0px rgba(255, 255, 255, 0.95))
+          drop-shadow(2px 3px 0px rgba(0, 30, 110, 0.5))
+          drop-shadow(0 6px 16px rgba(0, 102, 255, 0.65));
+  position: relative;
+  margin: 6px 0;
+  transition: transform 0.25s ease;
+}
+
+.subtitle-cursive-3d:hover {
+  transform: scale(1.03);
+}
+
+.subtitle-cursive-3d.subtitle-cursive-3d-lg {
+  font-size: 3.1rem;
+}
+
+.subtitle-cursive-3d.subtitle-cursive-3d-md {
+  font-size: 2.1rem;
+}
+
+.sparkle-icon {
+  display: inline-block;
+  font-size: 1.3rem;
+  -webkit-text-fill-color: #ffffff;
+  filter: drop-shadow(0 0 8px #38bdf8);
+  margin: 0 4px;
 }
 
 .hero-ocean-desc {
@@ -1299,6 +1450,19 @@ a {
   }
   .nav-ocean-links {
     display: none;
+  }
+  .collage-tile {
+    min-width: 32px;
+    height: 42px;
+    font-size: 1.45rem;
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+  .subtitle-cursive-3d {
+    font-size: 1.9rem;
+  }
+  .subtitle-cursive-3d.subtitle-cursive-3d-lg {
+    font-size: 2.2rem;
   }
   .hero-ocean-title {
     font-size: 2.3rem;
